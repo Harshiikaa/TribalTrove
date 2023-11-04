@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LoginPageView extends StatefulWidget {
-  const LoginPageView({super.key});
+class ParentPage extends StatefulWidget {
+  const ParentPage({super.key});
 
   @override
-  State<LoginPageView> createState() => _LoginPageViewState();
+  State<ParentPage> createState() => _ParentPageState();
 }
 
-class _LoginPageViewState extends State<LoginPageView> {
+class _ParentPageState extends State<ParentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,36 +82,6 @@ class _LoginPageViewState extends State<LoginPageView> {
                       ),
                     ),
                   ],
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 300,
-            bottom: 400,
-            left: 20,
-            child: TextFormField(
-              decoration: InputDecoration(
-                // Change labelText to hintText
-                hintStyle: TextStyle(
-                  // Set style for hintText
-                  color: Colors.black,
-                  fontSize: 14, // Reduce the font size
-                  fontWeight: FontWeight.bold,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xFF8B96A5),
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(20),
                 ),
               ),
             ),
