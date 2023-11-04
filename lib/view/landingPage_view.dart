@@ -29,7 +29,7 @@ class _LandingPageViewState extends State<LandingPageView> {
             left: 0,
             right: 0,
             child: Container(
-              alignment: Alignment.topCenter,
+              // alignment: Alignment.topCenter,
               color: Colors.white,
               // decoration: BoxDecoration(
               //   // image: DecorationImage(
