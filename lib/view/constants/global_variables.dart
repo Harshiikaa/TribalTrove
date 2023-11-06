@@ -13,6 +13,10 @@ class GlobalVariables {
   static const Color blueTextColor = Color(0xff066FFF);
   static const Color fullStarColor = Color(0xffFF9017);
   static const Color emptyStarColor = Color(0xffD4CDC5);
+    static const Color greenColor = Color(0xff00B517);
+        static const Color redColor = Color(0xffFF8585);
+
+
 
   static var selectedNavBarColor = Colors.cyan[800]!;
   static const unselectedNavBarColor = Colors.black87;
