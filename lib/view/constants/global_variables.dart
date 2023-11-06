@@ -15,6 +15,7 @@ class GlobalVariables {
   static const Color emptyStarColor = Color(0xffD4CDC5);
     static const Color greenColor = Color(0xff00B517);
         static const Color redColor = Color(0xffFF8585);
+        static const Color logoColor = Color(0xff123058);
 
 
 

@@ -1,3 +1,4 @@
+import 'package:app/view/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
 class LandingPageView extends StatefulWidget {
@@ -56,9 +57,8 @@ class _LandingPageViewState extends State<LandingPageView> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black
+                  color: GlobalVariables.logoColor,
                 ),
-                
               ),
             ),
           ),

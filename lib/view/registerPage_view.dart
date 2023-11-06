@@ -1,3 +1,4 @@
+import 'package:app/view/commons/parentPage.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPageView extends StatefulWidget {
