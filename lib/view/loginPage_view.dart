@@ -39,7 +39,7 @@ class _LoginPageViewState extends State<LoginPageView> {
               ),
               child: Column(children: [
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -91,6 +91,9 @@ class _LoginPageViewState extends State<LoginPageView> {
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: TextFormField(
                     decoration: InputDecoration(
+                      contentPadding:
+                          EdgeInsets.all(10), // Adjust internal padding
+
                       focusedBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: GlobalVariables.outlineColor),
@@ -102,10 +105,10 @@ class _LoginPageViewState extends State<LoginPageView> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       fillColor: GlobalVariables.greyBackgroundColor,
-                      hintText: 'Enter your username',
+                      hintText: 'Enter your email',
                       hintStyle: TextStyle(color: GlobalVariables.greyColor),
                       prefixIcon: Icon(
-                        Icons.person_outlined,
+                        Icons.mail_outlined,
                         color: GlobalVariables.greyColor,
                       ),
                     ),
@@ -115,6 +118,9 @@ class _LoginPageViewState extends State<LoginPageView> {
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: TextFormField(
                       decoration: InputDecoration(
+                    contentPadding:
+                        EdgeInsets.all(10), // Adjust internal padding
+
                     focusedBorder: OutlineInputBorder(
                       borderSide:
                           BorderSide(color: GlobalVariables.outlineColor),
@@ -260,20 +266,18 @@ class _LoginPageViewState extends State<LoginPageView> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          // Handle Facebook sign-in here
-                        },
+                        onTap: () {},
                         child: Ink(
                           decoration: const ShapeDecoration(
-                            color: Color(0xFF4267B2), // Facebook blue color
+                            color: Color(0xFF4267B2),
                             shape: CircleBorder(),
                           ),
                           child: Container(
                             width: 60, // Adjust the size as needed
                             height: 60, // Adjust the size as needed
-                            alignment: Alignment.bottomLeft,
+                            // alignment: Alignment.bottomLeft,
                             child: Image.asset(
-                              'assets/images/facebook_logo.png', // Replace with your Facebook logo image
+                              'assets/images/facebook_logo.png',
                               width: 40,
                               height: 40,
                               color: Colors.white,
@@ -282,9 +286,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {
-                          // Handle Google sign-in here
-                        },
+                        onTap: () {},
                         child: Ink(
                           decoration: const ShapeDecoration(
                             color: Colors.white,
@@ -293,7 +295,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                           child: Container(
                             width: 60, // Adjust the size as needed
                             height: 60, // Adjust the size as needed
-                            alignment: Alignment.bottomRight,
+                            // alignment: Alignment.bottomRight,
                             child: Image.asset(
                               'assets/images/google_logo.png', // Replace with your Google logo image
                               width: 40,

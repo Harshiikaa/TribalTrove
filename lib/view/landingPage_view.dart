@@ -30,19 +30,12 @@ class _LandingPageViewState extends State<LandingPageView> {
             left: 0,
             right: 0,
             child: Container(
-              // alignment: Alignment.topCenter,
               color: Colors.white,
-              // decoration: BoxDecoration(
-              //   // image: DecorationImage(
-              //     // image: AssetImage("assets/images/landingPage.png"),
-              //     // fit: BoxFit.cover,
-              //   ),
+              child: Image.asset("assets/images/logo.png"),
+              // height: double.infinity,
+              // width: double.infinity,
             ),
-            // height: double.infinity,
-            // width: double.infinity ,
           ),
-          // ),
-
           Positioned(
             top: 700,
             bottom: 100,

@@ -10,7 +10,7 @@ class AppRoute {
   static const String landingPageRoute = "/landingPage";
   static const String loginPageRoute = "/loginPage";
   static const String registerPageRoute = "/registerPage";
-  static const String forgotPasswordPageRoute = "/registerPage";
+  static const String forgotPasswordPageRoute = "/forgotPassPage";
 
   static getApplication() {
     return {
