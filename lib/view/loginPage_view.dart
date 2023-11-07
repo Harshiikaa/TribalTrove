@@ -254,6 +254,78 @@ class _LoginPageViewState extends State<LoginPageView> {
                     ],
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(17.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          // Handle Facebook sign-in here
+                        },
+                        child: Ink(
+                          decoration: const ShapeDecoration(
+                            color: Color(0xFF4267B2), // Facebook blue color
+                            shape: CircleBorder(),
+                          ),
+                          child: Container(
+                            width: 60, // Adjust the size as needed
+                            height: 60, // Adjust the size as needed
+                            alignment: Alignment.bottomLeft,
+                            child: Image.asset(
+                              'assets/images/facebook_logo.png', // Replace with your Facebook logo image
+                              width: 40,
+                              height: 40,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          // Handle Google sign-in here
+                        },
+                        child: Ink(
+                          decoration: const ShapeDecoration(
+                            color: Colors.white,
+                            shape: CircleBorder(),
+                          ),
+                          child: Container(
+                            width: 60, // Adjust the size as needed
+                            height: 60, // Adjust the size as needed
+                            alignment: Alignment.bottomRight,
+                            child: Image.asset(
+                              'assets/images/google_logo.png', // Replace with your Google logo image
+                              width: 40,
+                              height: 40,
+                            ),
+                          ),
+                        ),
+                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     // Handle Google sign-in here
+                      //   },
+                      //   child: Ink(
+                      //     decoration: const ShapeDecoration(
+                      //       color: Colors.white,
+                      //       shape: CircleBorder(),
+                      //     ),
+                      //     child: Container(
+                      //       width: 60, // Adjust the size as needed
+                      //       height: 60, // Adjust the size as needed
+                      //       alignment: Alignment.center,
+                      //       child: Image.asset(
+                      //         'assets/apple_logo.png', // Replace with your Google logo image
+                      //         width: 40,
+                      //         height: 40,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // )
+                    ],
+                  ),
+                ),
               ]),
             ),
           ),
