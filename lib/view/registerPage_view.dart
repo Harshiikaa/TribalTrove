@@ -1,5 +1,6 @@
 import 'package:app/view/commons/parentPage.dart';
 import 'package:app/view/constants/global_variables.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPageView extends StatefulWidget {
@@ -10,18 +11,16 @@ class RegisterPageView extends StatefulWidget {
 }
 
 class _RegisterPageViewState extends State<RegisterPageView> {
-  String? selectedOption = "Role";
+  final List<String> roleItems = [
+    'User',
+    'Merchant',
+  ];
+
+  String? selectedValue;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    String? selectedOption = "Role";
-    List<String> dropdownItems = [
-      "User",
-      "Merchant"
-    ]; // Define your dropdown items
-    dropdownItems.insert(
-        0, selectedOption); // Insert the initial value at the beginning
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -176,62 +175,82 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  child: DropdownButtonFormField<String>(
+                  child: DropdownButtonFormField2<String>(
+                    isExpanded: true,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(10),
+                      contentPadding:
+                          EdgeInsets.all(10), // Adjust internal padding
                       focusedBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: GlobalVariables.outlineColor),
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: GlobalVariables.outlineColor),
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      fillColor: GlobalVariables.greyBackgroundColor,
+                      // hintText: 'Enter your phone number',
+                      hintStyle: TextStyle(color: GlobalVariables.greyColor),
+                      prefixIcon: Icon(
+                        Icons.people_alt_outlined,
+                        color: GlobalVariables.greyColor,
                       ),
                     ),
-                    value: selectedOption,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        selectedOption = newValue;
-                      });
-                    }, // Define your selected value (User or Merchant)
-                    items: dropdownItems.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: TextStyle(
-                            color: (value == selectedOption)
-                                ? GlobalVariables.selectBackgroundColor
-                                : Colors.white,
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/forgotPasswordPageRoute');
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: "Forgot Password?",
-                          style: TextStyle(
-                            color: GlobalVariables.blueTextColor,
-                            fontSize: 18,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ],
+                    hint: const Text(
+                      'Role',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    items: roleItems
+                        .map((item) => DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    color: GlobalVariables.greyColor),
+                              ),
+                            ))
+                        .toList(),
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Role';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      //Do something when selected item is changed.
+                    },
+                    onSaved: (value) {
+                      selectedValue = value.toString();
+                    },
+                    buttonStyleData: const ButtonStyleData(
+                      padding: EdgeInsets.only(right: 8),
+                    ),
+                    iconStyleData: const IconStyleData(
+                      icon: Icon(
+                        Icons.arrow_drop_down,
+                        color: GlobalVariables.greyColor,
+                      ),
+                      iconSize: 24,
+                    ),
+                    dropdownStyleData: DropdownStyleData(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    menuItemStyleData: const MenuItemStyleData(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
                     ),
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                    }
+                  },
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.transparent),
@@ -251,7 +270,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                     child: Container(
                       alignment: Alignment.center,
                       child: Text(
-                        "Sign In",
+                        "Sign Up",
                         style: TextStyle(
                           color: Colors.white, // Text color
                           fontSize: 18,
@@ -268,7 +287,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                       text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                            text: "Don't have an account yet?",
+                            text: "Go back to",
                             style: TextStyle(
                               color: GlobalVariables.tertiaryColor,
                               fontSize: 16,
@@ -285,7 +304,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                         text: TextSpan(
                           children: <TextSpan>[
                             TextSpan(
-                              text: "Sign up",
+                              text: "Sign in",
                               style: TextStyle(
                                 color: GlobalVariables.blueTextColor,
                                 fontSize: 16,
@@ -298,37 +317,21 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                     ),
                   ],
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/');
-                  },
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: RichText(
                     text: TextSpan(
                       children: <TextSpan>[
                         TextSpan(
-                          text: "Continue as a guest",
+                          text: "Sign in with",
                           style: TextStyle(
-                            color: GlobalVariables.blueTextColor,
+                            color: GlobalVariables.primaryColor,
                             fontSize: 16,
-                            decoration: TextDecoration.underline,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ),
-                RichText(
-                  text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: "Sign in with",
-                        style: TextStyle(
-                          color: GlobalVariables.primaryColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
                   ),
                 ),
                 Padding(
@@ -340,18 +343,17 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                         onTap: () {},
                         child: Ink(
                           decoration: const ShapeDecoration(
-                            color: Color(0xFF4267B2),
+                            color: Colors.white,
                             shape: CircleBorder(),
                           ),
                           child: Container(
                             width: 60, // Adjust the size as needed
                             height: 60, // Adjust the size as needed
-                            // alignment: Alignment.bottomLeft,
+                            // alignment: Alignment.bottomRight,
                             child: Image.asset(
-                              'assets/images/facebook_logo.png',
+                              'assets/images/facebook_logo.png', // Replace with your Google logo image
                               width: 40,
                               height: 40,
-                              color: Colors.white,
                             ),
                           ),
                         ),

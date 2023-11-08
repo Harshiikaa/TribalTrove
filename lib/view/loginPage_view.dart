@@ -269,18 +269,17 @@ class _LoginPageViewState extends State<LoginPageView> {
                         onTap: () {},
                         child: Ink(
                           decoration: const ShapeDecoration(
-                            color: Color(0xFF4267B2),
+                            color: Colors.white,
                             shape: CircleBorder(),
                           ),
                           child: Container(
                             width: 60, // Adjust the size as needed
                             height: 60, // Adjust the size as needed
-                            // alignment: Alignment.bottomLeft,
+                            // alignment: Alignment.bottomRight,
                             child: Image.asset(
-                              'assets/images/facebook_logo.png',
+                              'assets/images/facebook_logo.png', // Replace with your Google logo image
                               width: 40,
                               height: 40,
-                              color: Colors.white,
                             ),
                           ),
                         ),
