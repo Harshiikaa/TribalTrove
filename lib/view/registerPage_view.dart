@@ -220,6 +220,9 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                       return null;
                     },
                     onChanged: (value) {
+                      if (value == "Merchant") {
+                        Navigator.pushNamed(context, '/registerPageMerchant');
+                      }
                       //Do something when selected item is changed.
                     },
                     onSaved: (value) {

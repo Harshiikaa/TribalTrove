@@ -142,7 +142,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/forgotPasswordPageRoute');
+                    Navigator.pushNamed(context, '/forgotPassPage');
                   },
                   child: RichText(
                     text: TextSpan(
