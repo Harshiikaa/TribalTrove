@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
 class GlobalVariables {
+  static const appBarGradient = LinearGradient(
+    colors: [
+      Color.fromARGB(255, 29, 201, 192),
+      Color.fromARGB(255, 125, 221, 216),
+    ],
+    stops: [0.5, 1.0],
+  );
+
   static const Color primaryColor = Color(0xFF1C1C1C);
   static const Color secondaryColor = Color(0xFF505050);
   static const Color tertiaryColor = Color(0xff2B4360);
@@ -21,4 +29,33 @@ class GlobalVariables {
 
   static var selectedNavBarColor = Colors.cyan[800]!;
   static const unselectedNavBarColor = Colors.black87;
+
+  // STATIC IMAGES
+  static const List<String> carouselImages = [
+    'https://res.cloudinary.com/practicaldev/image/fetch/s--MZvaMEOV--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qll2w5atklv13ljmqope.png',
+    'https://res.cloudinary.com/practicaldev/image/fetch/s--MZvaMEOV--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qll2w5atklv13ljmqope.png',
+  ];
+
+  static const List<Map<String, String>> categoryImages = [
+    {
+      'title': 'Home Decor',
+      'image': 'assets/images/mobiles.jpeg',
+    },
+    {
+      'title': 'Clothes',
+      'image': 'assets/images/essentials.jpeg',
+    },
+    {
+      'title': 'Accessories',
+      'image': 'assets/images/appliances.jpeg',
+    },
+    {
+      'title': '',
+      'image': 'assets/images/books.jpeg',
+    },
+    {
+      'title': 'Fashion',
+      'image': 'assets/images/fashion.jpeg',
+    },
+  ];
 }

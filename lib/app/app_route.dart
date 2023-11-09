@@ -1,6 +1,6 @@
+import 'package:app/view/dashboard_view.dart';
 import 'package:app/view/forgotPass_view.dart';
 import 'package:app/view/seller/registerPage(Merchant).dart';
-import 'package:app/view/user/homePage_view.dart';
 import 'package:app/view/landingPage_view.dart';
 import 'package:app/view/loginPage_view.dart';
 import 'package:app/view/registerPage_view.dart';
@@ -17,7 +17,7 @@ class AppRoute {
 
   static getApplication() {
     return {
-      home: (context) => const HomePageView(),
+      home: (context) => const DashboardPageUser(),
       landingPageRoute: (context) => const LandingPageView(),
       loginPageRoute: (context) => const LoginPageView(),
       registerPageRoute: (context) => const RegisterPageView(),
