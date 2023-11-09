@@ -248,36 +248,33 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                     ),
                   ),
                 ),
+                
                 ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
-                    }
-                  },
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.transparent),
-                  ),
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
                   child: Ink(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
+                        gradient: const LinearGradient(colors: [
                           GlobalVariables.blueButtonLinear1,
                           GlobalVariables.blueButtonLinear2,
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          color: Colors.white, // Text color
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                        ]),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                      child: Container(
+                        width: 160,
+                        height: 40,
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'Sign up',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -301,7 +298,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/registerPage');
+                        Navigator.pushNamed(context, '/loginPage');
                       },
                       child: RichText(
                         text: TextSpan(

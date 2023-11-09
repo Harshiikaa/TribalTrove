@@ -111,7 +111,7 @@ class _RegisterPageMerchantState extends State<RegisterPageMerchant> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       fillColor: GlobalVariables.greyBackgroundColor,
-                      hintText: 'Enter your fullname',
+                      hintText: 'FullName',
                       hintStyle: TextStyle(color: GlobalVariables.greyColor),
                       prefixIcon: Icon(
                         Icons.person_outlined,
@@ -138,7 +138,7 @@ class _RegisterPageMerchantState extends State<RegisterPageMerchant> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     fillColor: GlobalVariables.greyBackgroundColor,
-                    hintText: 'Enter your email',
+                    hintText: 'Email',
                     hintStyle: TextStyle(color: GlobalVariables.greyColor),
                     prefixIcon: Icon(
                       Icons.mail_outline,
@@ -163,7 +163,7 @@ class _RegisterPageMerchantState extends State<RegisterPageMerchant> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     fillColor: GlobalVariables.greyBackgroundColor,
-                    hintText: 'Enter your phone number',
+                    hintText: 'Phone Number',
                     hintStyle: TextStyle(color: GlobalVariables.greyColor),
                     prefixIcon: Icon(
                       Icons.phone_android_outlined,
@@ -265,7 +265,7 @@ class _RegisterPageMerchantState extends State<RegisterPageMerchant> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     fillColor: GlobalVariables.greyBackgroundColor,
-                    hintText: 'Enter your company name',
+                    hintText: 'Company Name',
                     hintStyle: TextStyle(color: GlobalVariables.greyColor),
                     prefixIcon: Icon(
                       Icons.business,
@@ -290,7 +290,7 @@ class _RegisterPageMerchantState extends State<RegisterPageMerchant> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     fillColor: GlobalVariables.greyBackgroundColor,
-                    hintText: 'Enter you company phone number',
+                    hintText: 'Company Phone Number',
                     hintStyle: TextStyle(color: GlobalVariables.greyColor),
                     prefixIcon: Icon(
                       Icons.business,
@@ -299,35 +299,31 @@ class _RegisterPageMerchantState extends State<RegisterPageMerchant> {
                   )),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
-                    }
-                  },
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.transparent),
-                  ),
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
                   child: Ink(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
+                        gradient: const LinearGradient(colors: [
                           GlobalVariables.blueButtonLinear1,
                           GlobalVariables.blueButtonLinear2,
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          color: Colors.white, // Text color
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                        ]),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                      child: Container(
+                        width: 160,
+                        height: 40,
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'Sign up',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
