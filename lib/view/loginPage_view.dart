@@ -1,4 +1,4 @@
-import 'package:app/view/constants/global_variables.dart';
+import 'package:TribalTrove/view/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
 import 'constants/global_variables.dart';
@@ -118,7 +118,8 @@ class _LoginPageViewState extends State<LoginPageView> {
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: TextFormField(
                       decoration: InputDecoration(
-                    contentPadding:EdgeInsets.all(10), // Adjust internal padding
+                    contentPadding:
+                        EdgeInsets.all(10), // Adjust internal padding
                     focusedBorder: OutlineInputBorder(
                       borderSide:
                           BorderSide(color: GlobalVariables.outlineColor),

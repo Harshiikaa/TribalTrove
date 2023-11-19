@@ -1,5 +1,5 @@
-import 'package:app/view/commons/parentPage.dart';
-import 'package:app/view/constants/global_variables.dart';
+import 'package:TribalTrove/view/commons/parentPage.dart';
+import 'package:TribalTrove/view/constants/global_variables.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
