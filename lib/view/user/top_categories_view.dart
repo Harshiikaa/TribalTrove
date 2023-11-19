@@ -1,5 +1,5 @@
-import 'package:app/view/constants/global_variables.dart';
-import 'package:app/view/user/category_deal_view.dart';
+import 'package:TribalTrove/view/constants/global_variables.dart';
+import 'package:TribalTrove/view/user/category_deal_view.dart';
 import 'package:flutter/material.dart';
 
 class TopCategories extends StatefulWidget {

@@ -1,8 +1,9 @@
-import 'package:app/view/constants/global_variables.dart';
-import 'package:app/view/user/carousel_view.dart';
-import 'package:app/view/user/recommended_view.dart';
-import 'package:app/view/user/searchbox_view.dart';
-import 'package:app/view/user/top_categories_view.dart';
+import 'package:TribalTrove/model/product_model.dart';
+import 'package:TribalTrove/view/constants/global_variables.dart';
+import 'package:TribalTrove/view/user/carousel_view.dart';
+import 'package:TribalTrove/view/user/productItems_view.dart';
+import 'package:TribalTrove/view/user/searchbox_view.dart';
+import 'package:TribalTrove/view/user/top_categories_view.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPageUser extends StatefulWidget {
@@ -13,6 +14,32 @@ class DashboardPageUser extends StatefulWidget {
 }
 
 class _DashboardPageUserState extends State<DashboardPageUser> {
+  final List<Product> products = [
+    Product(
+        id: 1,
+        brand: 'Apple',
+        title: 'iPhone 9',
+        price: 549,
+        images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
+    Product(
+        id: 2,
+        brand: 'Apple',
+        title: 'iPhone 10',
+        price: 459,
+        images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
+    Product(
+        id: 1,
+        brand: 'Apple',
+        title: 'iPhone 9',
+        price: 549,
+        images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
+    Product(
+        id: 2,
+        brand: 'Apple',
+        title: 'iPhone 10',
+        price: 459,
+        images: 'https://i.dummyjson.com/data/products/2/1.jpg')
+  ];
   final TextEditingController _searchController = TextEditingController();
   void navigateToSearchScreen(String query) {
     // Navigator.pushNamed(context,, arguments: query);
@@ -55,76 +82,6 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
 
               IconButton(
                   icon: const Icon(Icons.person_outline), onPressed: () {}),
-
-              // Filled icon button
-              // IconButton.filled(
-              //     onPressed: () {}, icon: const Icon(Icons.filter_drama)),
-
-              // // Filled tonal icon button
-              // IconButton.filledTonal(
-              //     onPressed: () {}, icon: const Icon(Icons.filter_drama)),
-
-              // // Outlined icon button
-              // IconButton.outlined(
-              //     onPressed: () {}, icon: const Icon(Icons.filter_drama)),
-
-              // Expanded(
-              //   child: Container(
-              //     height: 42,
-              //     margin: const EdgeInsets.only(left: 15),
-              //     child: Material(
-              //       borderRadius: BorderRadius.circular(7),
-              //       elevation: 1,
-              //       child: TextFormField(
-              //         // onFieldSubmitted: navigateToSearchScreen,
-              //         decoration: InputDecoration(
-              //           prefixIcon: InkWell(
-              //             onTap: () {},
-              //             child: const Padding(
-              //               padding: EdgeInsets.only(
-              //                 left: 6,
-              //               ),
-              //               child: Icon(
-              //                 Icons.search,
-              //                 color: Colors.black,
-              //                 size: 23,
-              //               ),
-              //             ),
-              //           ),
-              //           filled: true,
-              //           fillColor: Colors.white,
-              //           contentPadding: const EdgeInsets.only(top: 10),
-              //           border: const OutlineInputBorder(
-              //             borderRadius: BorderRadius.all(
-              //               Radius.circular(7),
-              //             ),
-              //             borderSide: BorderSide.none,
-              //           ),
-              //           enabledBorder: const OutlineInputBorder(
-              //             borderRadius: BorderRadius.all(
-              //               Radius.circular(7),
-              //             ),
-              //             borderSide: BorderSide(
-              //               color: Colors.black38,
-              //               width: 1,
-              //             ),
-              //           ),
-              //           hintText: 'Search',
-              //           hintStyle: const TextStyle(
-              //             fontWeight: FontWeight.w500,
-              //             fontSize: 17,
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // Container(
-              //   color: Colors.transparent,
-              //   height: 42,
-              //   margin: const EdgeInsets.symmetric(horizontal: 10),
-              //   child: const Icon(Icons.mic, color: Colors.black, size: 25),
-              // ),
             ],
           ),
         ),
@@ -190,6 +147,32 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
                 SizedBox(height: 10),
 
                 // RecommendedItems(),
+                Text(
+                  'Recommended Items',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: GridView(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              childAspectRatio: 1 / 1.73,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              crossAxisCount: 2),
+                      children: [
+                        ...List.generate(
+                          products.length,
+                          (index) => ProductItem(product: products[index]),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                // bottomNavigationBar: const CustomBottomNavigationBar(
+                //   currentIndex: 0,
+                // ),
               ],
             ),
           ),
