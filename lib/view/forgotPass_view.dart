@@ -100,30 +100,30 @@ class _ForgotPasswordPageViewState extends State<ForgotPasswordPageView> {
                 ),
                 ElevatedButton(
                   onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(0),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.transparent),
+                  ),
                   child: Ink(
                     decoration: BoxDecoration(
-                        gradient: const LinearGradient(colors: [
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
                           GlobalVariables.blueButtonLinear1,
                           GlobalVariables.blueButtonLinear2,
-                        ]),
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
-                      child: Container(
-                        width: 160,
-                        height: 40,
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'Send',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Send",
+                        style: TextStyle(
+                          color: Colors.white, // Text color
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
