@@ -1,3 +1,4 @@
+import 'package:TribalTrove/view/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
 class SearchBoxView extends StatefulWidget {
@@ -8,70 +9,62 @@ class SearchBoxView extends StatefulWidget {
 }
 
 class _SearchBoxViewState extends State<SearchBoxView> {
+  final TextEditingController _searchController = TextEditingController();
+  void navigateToSearchScreen(String query) {
+    // Navigator.pushNamed(context,, arguments: query);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: [
-          Expanded(
-            child: Container(
-              height: 42,
-              margin: const EdgeInsets.only(left: 15),
-              child: Material(
-                borderRadius: BorderRadius.circular(7),
-                elevation: 1,
-                child: TextFormField(
-                  // onFieldSubmitted: navigateToSearchScreen,
+      body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                // Add padding around the search bar
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                // Use a Material design search bar
+                child: TextField(
+                  controller: _searchController,
                   decoration: InputDecoration(
-                    prefixIcon: InkWell(
-                      onTap: () {},
-                      child: const Padding(
-                        padding: EdgeInsets.only(
-                          left: 6,
-                        ),
-                        child: Icon(
-                          Icons.search,
-                          color: Colors.black,
-                          size: 23,
-                        ),
-                      ),
+                    contentPadding: EdgeInsets.all(10),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: GlobalVariables.outlineColor),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: const EdgeInsets.only(top: 10),
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(7),
-                      ),
-                      borderSide: BorderSide.none,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: GlobalVariables.outlineColor),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    enabledBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(7),
-                      ),
-                      borderSide: BorderSide(
-                        color: Colors.black38,
-                        width: 1,
-                      ),
-                    ),
+                    filled:
+                        true, // Set to true to enable filling the background color
+                    // fillColor: GlobalVariables.greyColor,
                     hintText: 'Search',
-                    hintStyle: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
+                    hintStyle: TextStyle(
+                        fontSize: 20, color: GlobalVariables.greyColor),
+                    fillColor: GlobalVariables.greyBackgroundColor,
+                    // Add a clear button to the search bar
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.clear),
+                      color: GlobalVariables.greyColor,
+                      onPressed: () => _searchController.clear(),
                     ),
+                    // Add a search icon or button to the search bar
+                    prefixIcon: IconButton(
+                      icon: Icon(Icons.search),
+                      color: GlobalVariables.greyColor,
+                      onPressed: () {
+                        // Perform the search here
+                      },
+                    ),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide:
+                            BorderSide(color: GlobalVariables.outlineColor)),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            color: Colors.transparent,
-            height: 42,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            child: const Icon(Icons.mic, color: Colors.black, size: 25),
-          ),
-        ],
-      ),
     );
   }
 }

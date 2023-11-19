@@ -1,3 +1,4 @@
+import 'package:TribalTrove/model/product_model.dart';
 import 'package:flutter/material.dart';
 
 class GlobalVariables {
@@ -37,9 +38,36 @@ class GlobalVariables {
     // 'https://nafanepal.org/wp-content/uploads/2015/03/Prajnaparamita.jpg',
   ];
 
+  static List<Product> allProducts = [
+    Product(
+        id: 1,
+        seller: 'Apple',
+        title: 'iPhone 9',
+        price: 549,
+        images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
+    Product(
+        id: 2,
+        seller: 'Apple',
+        title: 'iPhone 10',
+        price: 459,
+        images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
+    Product(
+        id: 1,
+        seller: 'Apple',
+        title: 'iPhone 9',
+        price: 549,
+        images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
+    Product(
+        id: 2,
+        seller: 'Apple',
+        title: 'iPhone 10',
+        price: 459,
+        images: 'https://i.dummyjson.com/data/products/2/1.jpg')
+  ];
+
   static const List<Map<String, String>> categoryImages = [
     {
-      'title': 'Home Decor',
+      'title': 'Decors',
       'image': 'assets/images/homeDecors.jpg',
     },
     {

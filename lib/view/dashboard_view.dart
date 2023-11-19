@@ -1,9 +1,12 @@
 import 'package:TribalTrove/model/product_model.dart';
 import 'package:TribalTrove/view/constants/global_variables.dart';
 import 'package:TribalTrove/view/user/carousel_view.dart';
-import 'package:TribalTrove/view/user/productItems_view.dart';
+import 'package:TribalTrove/view/user/productItem_view.dart';
+import 'package:TribalTrove/view/user/productList_view.dart';
 import 'package:TribalTrove/view/user/searchbox_view.dart';
 import 'package:TribalTrove/view/user/top_categories_view.dart';
+import 'package:TribalTrove/widgets/product_card.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPageUser extends StatefulWidget {
@@ -14,33 +17,28 @@ class DashboardPageUser extends StatefulWidget {
 }
 
 class _DashboardPageUserState extends State<DashboardPageUser> {
-  final List<Product> products = [
-    Product(
-        id: 1,
-        brand: 'Apple',
-        title: 'iPhone 9',
-        price: 549,
-        images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
-    Product(
-        id: 2,
-        brand: 'Apple',
-        title: 'iPhone 10',
-        price: 459,
-        images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
-    Product(
-        id: 1,
-        brand: 'Apple',
-        title: 'iPhone 9',
-        price: 549,
-        images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
-    Product(
-        id: 2,
-        brand: 'Apple',
-        title: 'iPhone 10',
-        price: 459,
-        images: 'https://i.dummyjson.com/data/products/2/1.jpg')
-  ];
-  final TextEditingController _searchController = TextEditingController();
+  void navigateToCategoryPage(BuildContext context, String category) {
+    // Navigator.pushNamed(context, CategoryDealsScreen.routeName,
+    //     arguments: category);
+  }
+
+  _buildAllProducts() => GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: (100 / 140),
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+        ),
+        scrollDirection: Axis.vertical,
+        itemCount: GlobalVariables.allProducts.length,
+        itemBuilder: (context, index) {
+          final allProducts = GlobalVariables.allProducts[index];
+          return ProductCard(product: allProducts);
+        },
+      );
+
+  static final TextEditingController _searchController =
+      TextEditingController();
   void navigateToSearchScreen(String query) {
     // Navigator.pushNamed(context,, arguments: query);
   }
@@ -111,7 +109,7 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
                   // fillColor: GlobalVariables.greyColor,
                   hintText: 'Search',
                   hintStyle:
-                      TextStyle(fontSize: 20, color: GlobalVariables.greyColor),
+                      TextStyle(fontSize: 18, color: GlobalVariables.greyColor),
                   fillColor: GlobalVariables.greyBackgroundColor,
                   // Add a clear button to the search bar
                   suffixIcon: IconButton(
@@ -135,47 +133,68 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
               ),
             ),
           ),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                // SearchBoxView(),
-                // AddressBox(),
-                SizedBox(height: 10),
-                TopCategories(),
-                SizedBox(height: 10),
-                CaraouselImages(),
-                SizedBox(height: 10),
-
-                // RecommendedItems(),
-                Text(
-                  'Recommended Items',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: GridView(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              childAspectRatio: 1 / 1.73,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                              crossAxisCount: 2),
-                      children: [
-                        ...List.generate(
-                          products.length,
-                          (index) => ProductItem(product: products[index]),
-                        )
-                      ],
-                    ),
+          SizedBox(height: 10),
+          SizedBox(
+            height: 60,
+            child: ListView.builder(
+              itemCount: GlobalVariables.categoryImages.length,
+              scrollDirection: Axis.horizontal,
+              itemExtent: 75,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () => navigateToCategoryPage(
+                    context,
+                    GlobalVariables.categoryImages[index]['title']!,
                   ),
-                ),
-                // bottomNavigationBar: const CustomBottomNavigationBar(
-                //   currentIndex: 0,
-                // ),
-              ],
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.asset(
+                            GlobalVariables.categoryImages[index]['image']!,
+                            fit: BoxFit.cover,
+                            height: 40,
+                            width: 40,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        GlobalVariables.categoryImages[index]['title']!,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
+          SizedBox(height: 10),
+          CarouselSlider(
+            items: GlobalVariables.carouselImages.map(
+              (i) {
+                return Builder(
+                  builder: (BuildContext context) => Image.asset(
+                    i,
+                    fit: BoxFit.cover,
+                    height: 300,
+                  ),
+                );
+              },
+            ).toList(),
+            options: CarouselOptions(
+              viewportFraction: 1,
+              height: 200,
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+         
         ],
       ),
     );

@@ -3,7 +3,7 @@ class Product {
   num? total;
   num? discountPercentage;
   num? discountedPrice;
-  String? brand;
+  String seller;
   String? category;
   String? description;
   num? rating;
@@ -18,7 +18,7 @@ class Product {
       this.total,
       this.discountPercentage,
       this.discountedPrice,
-      this.brand,
+      required this.seller,
       this.category,
       this.description,
       this.rating,
@@ -34,7 +34,7 @@ class Product {
       discountedPrice: json['discountedPrice'],
       id: json['id'],
       title: json['title'],
-      brand: json['brand'],
+      seller: json['seller'],
       price: json['price'],
       category: json['category'],
       description: json['description'],
@@ -48,7 +48,7 @@ class Product {
         'discountedPrice': discountedPrice,
         'id': id,
         'title': title,
-        'brand': brand,
+        'seller': seller,
         'price': price,
         'category': category,
         'description': description,

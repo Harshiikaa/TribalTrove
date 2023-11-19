@@ -1,9 +1,9 @@
-import 'package:app/view/dashboard_view.dart';
-import 'package:app/view/forgotPass_view.dart';
-import 'package:app/view/seller/registerPage(Merchant).dart';
-import 'package:app/view/landingPage_view.dart';
-import 'package:app/view/loginPage_view.dart';
-import 'package:app/view/registerPage_view.dart';
+import 'package:TribalTrove/view/dashboard_view.dart';
+import 'package:TribalTrove/view/forgotPass_view.dart';
+import 'package:TribalTrove/view/seller/registerPage(Merchant).dart';
+import 'package:TribalTrove/view/landingPage_view.dart';
+import 'package:TribalTrove/view/loginPage_view.dart';
+import 'package:TribalTrove/view/registerPage_view.dart';
 
 class AppRoute {
   AppRoute._();

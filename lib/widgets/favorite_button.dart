@@ -1,3 +1,4 @@
+
 import 'package:TribalTrove/model/product_model.dart';
 import 'package:flutter/material.dart';
 
@@ -21,30 +22,34 @@ class _FavoriteButtonState extends State<FavoriteButton> {
 
   @override
   Widget build(BuildContext context) {
-    var boxShadow = BoxShadow(
-      color: const Color(0xFF9B9B9B),
-      blurRadius: widget.parentWidth * 0.001,
-      spreadRadius: widget.parentWidth * 0.001,
-      offset: Offset(0, widget.parentWidth * 0.005),
-    );
+    // ProductFavoriteController provider =
+    //     Provider.of<ProductFavoriteController>(context, listen: false);
 
     return Container(
       width: widget.parentWidth * 0.24,
       height: widget.parentHeight * 0.14,
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: const Color(0xFFFFFFFF),
-        boxShadow: [
-          boxShadow,
-        ],
-      ),
+          shape: BoxShape.circle,
+          color: const Color(0xFFFFFFFF),
+          boxShadow: [
+            BoxShadow(
+                color: const Color(0xFF9B9B9B),
+                blurRadius: widget.parentWidth * 0.001,
+                spreadRadius: widget.parentWidth * 0.001,
+                offset: Offset(0, widget.parentWidth * 0.005))
+          ]),
       child: IconButton(
         color: (isFavorite) ? const Color(0xFFDB3022) : const Color(0xFF9B9B9B),
-        icon: (isFavorite) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
+        icon: (isFavorite)
+            ? const Icon(Icons.favorite)
+            : const Icon(Icons.favorite_border),
         onPressed: () {
-          setState(() {
-            isFavorite = !isFavorite;
-          });
+          // (!isFavorite)
+              // ? provider.addToWishlist(widget.product)
+              // : provider.removeFromWishlist(widget.product);
+          // setState(() {
+          //   isFavorite = !isFavorite;
+          // });
         },
       ),
     );
