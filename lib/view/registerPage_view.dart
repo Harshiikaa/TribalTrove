@@ -200,7 +200,8 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                     ),
                     hint: const Text(
                       'Role',
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(
+                          fontSize: 15, color: GlobalVariables.greyColor),
                     ),
                     items: roleItems
                         .map((item) => DropdownMenuItem<String>(
@@ -208,7 +209,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                               child: Text(
                                 item,
                                 style: const TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 15,
                                     color: GlobalVariables.greyColor),
                               ),
                             ))
@@ -248,7 +249,6 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                     ),
                   ),
                 ),
-                
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
