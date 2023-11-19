@@ -46,7 +46,7 @@ class _LandingPageViewState extends State<LandingPageView> {
                 Navigator.pushNamed(context, '/loginPage');
               },
               child: Text(
-                'Start',
+                'Continue',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
