@@ -20,43 +20,43 @@ class _ProductCardState extends State<ProductCard> {
         borderRadius: BorderRadius.circular(8.0),
         color: Colors.grey.withOpacity(0.1),
       ),
-      child: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Icon(
-              Icons.favorite_border_outlined,
-              color: GlobalVariables.redColor,
-            )
-          ],
-        ),
-        SizedBox(
-          height: 130,
-          width: 130,
-          child: Image.asset(
-            widget.product.images,
-            fit: BoxFit.cover,
-          ),
-        ),
-        Text(
-          widget.product.title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(
-          widget.product.seller,
-          style: const TextStyle(
-            fontSize: 14,
-            color: Colors.red,
-          ),
-        ),
-        Text(
-          ('\$' '${widget.product.price}'),
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-      ]),
+      // child: Column(children: [
+      //   Row(
+      //     mainAxisAlignment: MainAxisAlignment.end,
+      //     children: [
+      //       Icon(
+      //         Icons.favorite_border_outlined,
+      //         color: GlobalVariables.redColor,
+      //       )
+      //     ],
+      //   ),
+      //   SizedBox(
+      //     height: 130,
+      //     width: 130,
+      //     child: Image.asset(
+      //       widget.product.images,
+      //       fit: BoxFit.cover,
+      //     ),
+      //   ),
+      //   Text(
+      //     widget.product.title,
+      //     style: const TextStyle(
+      //       fontSize: 16,
+      //       fontWeight: FontWeight.bold,
+      //     ),
+      //   ),
+      //   Text(
+      //     widget.product.seller,
+      //     style: const TextStyle(
+      //       fontSize: 14,
+      //       color: Colors.red,
+      //     ),
+      //   ),
+      //   Text(
+      //     ('\$' '${widget.product.price}'),
+      //     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      //   ),
+      // ]),
     );
   }
 }

@@ -10,6 +10,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPageUser extends StatefulWidget {
+  // final Product product;
+
   const DashboardPageUser({super.key});
 
   @override
@@ -22,20 +24,20 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
     //     arguments: category);
   }
 
-  _buildAllProducts() => GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: (100 / 140),
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-        ),
-        scrollDirection: Axis.vertical,
-        itemCount: GlobalVariables.allProducts.length,
-        itemBuilder: (context, index) {
-          final allProducts = GlobalVariables.allProducts[index];
-          return ProductCard(product: allProducts);
-        },
-      );
+  // _buildAllProducts() => GridView.builder(
+  //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  //         crossAxisCount: 2,
+  //         childAspectRatio: (100 / 140),
+  //         crossAxisSpacing: 12,
+  //         mainAxisSpacing: 12,
+  //       ),
+  //       scrollDirection: Axis.vertical,
+  //       itemCount: GlobalVariables.allProducts.length,
+  //       itemBuilder: (context, index) {
+  //         final allProducts = GlobalVariables.allProducts[index];
+  //         return ProductCard(product: allProducts);
+  //       },
+  //     );
 
   static final TextEditingController _searchController =
       TextEditingController();
@@ -84,118 +86,307 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              // Add padding around the search bar
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              // Use a Material design search bar
-              child: TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(10),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: GlobalVariables.outlineColor),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: GlobalVariables.outlineColor),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  filled:
-                      true, // Set to true to enable filling the background color
-                  // fillColor: GlobalVariables.greyColor,
-                  hintText: 'Search',
-                  hintStyle:
-                      TextStyle(fontSize: 18, color: GlobalVariables.greyColor),
-                  fillColor: GlobalVariables.greyBackgroundColor,
-                  // Add a clear button to the search bar
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.clear),
-                    color: GlobalVariables.greyColor,
-                    onPressed: () => _searchController.clear(),
-                  ),
-                  // Add a search icon or button to the search bar
-                  prefixIcon: IconButton(
-                    icon: Icon(Icons.search),
-                    color: GlobalVariables.greyColor,
-                    onPressed: () {
-                      // Perform the search here
-                    },
-                  ),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                // Add padding around the search bar
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                // Use a Material design search bar
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10),
+                    focusedBorder: OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: GlobalVariables.outlineColor)),
+                          BorderSide(color: GlobalVariables.outlineColor),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: GlobalVariables.outlineColor),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    filled:
+                        true, // Set to true to enable filling the background color
+                    // fillColor: GlobalVariables.greyColor,
+                    hintText: 'Search',
+                    hintStyle: TextStyle(
+                        fontSize: 18, color: GlobalVariables.greyColor),
+                    fillColor: GlobalVariables.greyBackgroundColor,
+                    // Add a clear button to the search bar
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.clear),
+                      color: GlobalVariables.greyColor,
+                      onPressed: () => _searchController.clear(),
+                    ),
+                    // Add a search icon or button to the search bar
+                    prefixIcon: IconButton(
+                      icon: Icon(Icons.search),
+                      color: GlobalVariables.greyColor,
+                      onPressed: () {
+                        // Perform the search here
+                      },
+                    ),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide:
+                            BorderSide(color: GlobalVariables.outlineColor)),
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 10),
-          SizedBox(
-            height: 60,
-            child: ListView.builder(
-              itemCount: GlobalVariables.categoryImages.length,
-              scrollDirection: Axis.horizontal,
-              itemExtent: 75,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () => navigateToCategoryPage(
-                    context,
-                    GlobalVariables.categoryImages[index]['title']!,
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.asset(
-                            GlobalVariables.categoryImages[index]['image']!,
-                            fit: BoxFit.cover,
-                            height: 40,
-                            width: 40,
+            SizedBox(height: 10),
+            SizedBox(
+              height: 60,
+              child: ListView.builder(
+                itemCount: GlobalVariables.categoryImages.length,
+                scrollDirection: Axis.horizontal,
+                itemExtent: 75,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () => navigateToCategoryPage(
+                      context,
+                      GlobalVariables.categoryImages[index]['title']!,
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.asset(
+                              GlobalVariables.categoryImages[index]['image']!,
+                              fit: BoxFit.cover,
+                              height: 40,
+                              width: 40,
+                            ),
                           ),
                         ),
-                      ),
-                      Text(
-                        GlobalVariables.categoryImages[index]['title']!,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
+                        Text(
+                          GlobalVariables.categoryImages[index]['title']!,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 10),
+            CarouselSlider(
+              items: GlobalVariables.carouselImages.map(
+                (i) {
+                  return Builder(
+                    builder: (BuildContext context) => Image.asset(
+                      i,
+                      fit: BoxFit.cover,
+                      height: 300,
+                    ),
+                  );
+                },
+              ).toList(),
+              options: CarouselOptions(
+                viewportFraction: 1,
+                height: 200,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Recommended Items",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Column(children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    // crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 130,
+                            width: 130,
+                            child: Image.asset(
+                              'assets/images/homeDecors.jpg',
+                              // widget.product.images,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text(
+                            'Wooden Statue',
+                            // widget.product.title,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'Himalaya Crafts',
+                            // widget.product.seller,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.red,
+                            ),
+                          ),
+                          Text(
+                            "Rs 5000",
+                            // ('\$' '${widget.product.price}'),
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
+                      // Icon(
+                      //   Icons.favorite_border_outlined,
+                      //   color: GlobalVariables.redColor,
+                      // ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 130,
+                            width: 130,
+                            child: Image.asset(
+                              'assets/images/clothes.jpg',
+                              // widget.product.images,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text(
+                            'Hippie T-shirt',
+                            // widget.product.title,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'Shakya Pashmina Store',
+                            // widget.product.seller,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.red,
+                            ),
+                          ),
+                          Text(
+                            "Rs 1200",
+                            // ('\$' '${widget.product.price}'),
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      // Icon(
+                      //   Icons.favorite_border_outlined,
+                      //   color: GlobalVariables.redColor,
+                      // )
                     ],
                   ),
-                );
-              },
-            ),
-          ),
-          SizedBox(height: 10),
-          CarouselSlider(
-            items: GlobalVariables.carouselImages.map(
-              (i) {
-                return Builder(
-                  builder: (BuildContext context) => Image.asset(
-                    i,
-                    fit: BoxFit.cover,
-                    height: 300,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    // crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 130,
+                            width: 130,
+                            child: Image.asset(
+                              'assets/images/ceramics.jpg',
+                              // widget.product.images,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text(
+                            'Ceramic Dining Set',
+                            // widget.product.title,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'Bajey ko Ceramics',
+                            // widget.product.seller,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.red,
+                            ),
+                          ),
+                          Text(
+                            "Rs 3000",
+                            // ('\$' '${widget.product.price}'),
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      // Icon(
+                      //   Icons.favorite_border_outlined,
+                      //   color: GlobalVariables.redColor,
+                      // ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 130,
+                            width: 130,
+                            child: Image.asset(
+                              'assets/images/arts.jpg',
+                              // widget.product.images,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text(
+                            'Goddess Chamunda ',
+                            // widget.product.title,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'Everest Thangka Shop',
+                            // widget.product.seller,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.red,
+                            ),
+                          ),
+                          Text(
+                            "Rs 10,000",
+                            // ('\$' '${widget.product.price}'),
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      // Icon(
+                      //   Icons.favorite_border_outlined,
+                      //   color: GlobalVariables.redColor,
+                      // )
+                    ],
                   ),
-                );
-              },
-            ).toList(),
-            options: CarouselOptions(
-              viewportFraction: 1,
-              height: 200,
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-         
-        ],
+                ),
+              ),
+            ]),
+          ],
+        ),
       ),
     );
   }
