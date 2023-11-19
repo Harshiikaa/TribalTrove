@@ -16,10 +16,10 @@ class _CaraouselImagesState extends State<CaraouselImages> {
       items: GlobalVariables.carouselImages.map(
         (i) {
           return Builder(
-            builder: (BuildContext context) => Image.network(
+            builder: (BuildContext context) => Image.asset(
               i,
               fit: BoxFit.cover,
-              height: 200,
+              // height: 300,
             ),
           );
         },

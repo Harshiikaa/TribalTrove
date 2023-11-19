@@ -1,4 +1,5 @@
 import 'package:app/view/constants/global_variables.dart';
+import 'package:app/view/user/category_deal_view.dart';
 import 'package:flutter/material.dart';
 
 class TopCategories extends StatefulWidget {
@@ -10,8 +11,8 @@ class TopCategories extends StatefulWidget {
 
 class _TopCategoriesState extends State<TopCategories> {
   void navigateToCategoryPage(BuildContext context, String category) {
-    // Navigator.pushNamed(context, CategoryDealsScreen.routeName,
-        // arguments: category);
+    Navigator.pushNamed(context, CategoryDealsScreen.routeName,
+        arguments: category);
   }
 
   @override

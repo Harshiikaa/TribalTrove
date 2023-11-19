@@ -32,30 +32,35 @@ class GlobalVariables {
 
   // STATIC IMAGES
   static const List<String> carouselImages = [
-    'https://res.cloudinary.com/practicaldev/image/fetch/s--MZvaMEOV--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qll2w5atklv13ljmqope.png',
-    'https://res.cloudinary.com/practicaldev/image/fetch/s--MZvaMEOV--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qll2w5atklv13ljmqope.png',
+    'assets/images/carousel.png',
+    // 'https://m.media-amazon.com/images/I/71pp-m6QwfL._AC_UF894,1000_QL80_.jpg',
+    // 'https://nafanepal.org/wp-content/uploads/2015/03/Prajnaparamita.jpg',
   ];
 
   static const List<Map<String, String>> categoryImages = [
     {
       'title': 'Home Decor',
-      'image': 'assets/images/mobiles.jpeg',
+      'image': 'assets/images/homeDecors.jpg',
     },
     {
       'title': 'Clothes',
-      'image': 'assets/images/essentials.jpeg',
+      'image': 'assets/images/clothes.jpg',
     },
     {
       'title': 'Accessories',
-      'image': 'assets/images/appliances.jpeg',
+      'image': 'assets/images/accessories.jpg',
     },
     {
-      'title': '',
-      'image': 'assets/images/books.jpeg',
+      'title': 'Ceramics',
+      'image': 'assets/images/ceramics.jpg',
     },
     {
-      'title': 'Fashion',
-      'image': 'assets/images/fashion.jpeg',
+      'title': 'Arts',
+      'image': 'assets/images/arts.jpg',
+    },
+    {
+      'title': 'Embroidery',
+      'image': 'assets/images/embroidery.jpg',
     },
   ];
 }
