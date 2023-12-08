@@ -38,32 +38,32 @@ class GlobalVariables {
     // 'https://nafanepal.org/wp-content/uploads/2015/03/Prajnaparamita.jpg',
   ];
 
-  static List<Product> allProducts = [
-    Product(
-        id: 1,
-        seller: 'Apple',
-        title: 'iPhone 9',
-        price: 549,
-        images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
-    Product(
-        id: 2,
-        seller: 'Apple',
-        title: 'iPhone 10',
-        price: 459,
-        images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
-    Product(
-        id: 1,
-        seller: 'Apple',
-        title: 'iPhone 9',
-        price: 549,
-        images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
-    Product(
-        id: 2,
-        seller: 'Apple',
-        title: 'iPhone 10',
-        price: 459,
-        images: 'https://i.dummyjson.com/data/products/2/1.jpg')
-  ];
+  // static List<Product> allProducts = [
+  //   Product(
+  //       id: 1,
+  //       seller: 'Apple',
+  //       title: 'iPhone 9',
+  //       price: 549,
+  //       images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
+  //   Product(
+  //       id: 2,
+  //       seller: 'Apple',
+  //       title: 'iPhone 10',
+  //       price: 459,
+  //       images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
+  //   Product(
+  //       id: 1,
+  //       seller: 'Apple',
+  //       title: 'iPhone 9',
+  //       price: 549,
+  //       images: 'https://i.dummyjson.com/data/products/2/1.jpg'),
+  //   Product(
+  //       id: 2,
+  //       seller: 'Apple',
+  //       title: 'iPhone 10',
+  //       price: 459,
+  //       images: 'https://i.dummyjson.com/data/products/2/1.jpg')
+  // ];
 
   static const List<Map<String, String>> categoryImages = [
     {
@@ -86,9 +86,37 @@ class GlobalVariables {
       'title': 'Arts',
       'image': 'assets/images/arts.jpg',
     },
-    {
-      'title': 'Embroidery',
-      'image': 'assets/images/embroidery.jpg',
-    },
+    // {
+    //   'title': 'Embroidery',
+    //   'image': 'assets/images/embroidery.jpg',
+    // },
+    // {
+    //   'title': 'Fine Arts',
+    //   'image': 'assets/images/embroidery.jpg',
+    // },
+    // {
+    //   'title': 'Candles',
+    //   'image': 'assets/images/embroidery.jpg',
+    // },
+    // {
+    //   'title': 'Earrings',
+    //   'image': 'assets/images/embroidery.jpg',
+    // },
+    // {
+    //   'title': 'Souveniers',
+    //   'image': 'assets/images/embroidery.jpg',
+    // },
+    // {
+    //   'title': 'Metal Art',
+    //   'image': 'assets/images/embroidery.jpg',
+    // },
+    // {
+    //   'title': 'Embroidery',
+    //   'image': 'assets/images/embroidery.jpg',
+    // },
+    // {
+    //   'title': 'Embroidery',
+    //   'image': 'assets/images/embroidery.jpg',
+    // },
   ];
 }

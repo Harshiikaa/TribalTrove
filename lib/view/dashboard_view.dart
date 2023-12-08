@@ -19,25 +19,80 @@ class DashboardPageUser extends StatefulWidget {
 }
 
 class _DashboardPageUserState extends State<DashboardPageUser> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      ' ',
+      style: optionStyle,
+    ),
+    Text(
+      ' ',
+      style: optionStyle,
+    ),
+    Text(
+      ' ',
+      style: optionStyle,
+    ),
+    Text(
+      ' ',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+// Helper function to build a responsive product column
+  Widget _buildProductColumn(
+    String imagePath,
+    String title,
+    String seller,
+    String price,
+  ) {
+    return Column(
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.width > 600 ? 220 : 150,
+          width: MediaQuery.of(context).size.width > 600 ? 220 : 150,
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: MediaQuery.of(context).size.width > 600 ? 24 : 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          seller,
+          style: TextStyle(
+            fontSize: MediaQuery.of(context).size.width > 600 ? 20 : 16,
+            color: Colors.red,
+          ),
+        ),
+        Text(
+          price,
+          style: TextStyle(
+            fontSize: MediaQuery.of(context).size.width > 600 ? 26 : 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
+
   void navigateToCategoryPage(BuildContext context, String category) {
     // Navigator.pushNamed(context, CategoryDealsScreen.routeName,
     //     arguments: category);
   }
-
-  // _buildAllProducts() => GridView.builder(
-  //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-  //         crossAxisCount: 2,
-  //         childAspectRatio: (100 / 140),
-  //         crossAxisSpacing: 12,
-  //         mainAxisSpacing: 12,
-  //       ),
-  //       scrollDirection: Axis.vertical,
-  //       itemCount: GlobalVariables.allProducts.length,
-  //       itemBuilder: (context, index) {
-  //         final allProducts = GlobalVariables.allProducts[index];
-  //         return ProductCard(product: allProducts);
-  //       },
-  //     );
 
   static final TextEditingController _searchController =
       TextEditingController();
@@ -48,40 +103,48 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
+        preferredSize:
+            const Size.fromHeight(80), // Increased height for the AppBar
         child: AppBar(
           automaticallyImplyLeading: false,
           flexibleSpace: Container(
             decoration: const BoxDecoration(),
           ),
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/images/logo.png"),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
-                height: 80,
-                width: 160,
+                height: 150, // Increased height for the logo
+                width: 220, // Increased width for the logo
               ),
-              // IconButton(
-              //   // isSelected: ,
-              //   icon: const Icon(Icons.settings_outlined),
-              //   selectedIcon: const Icon(Icons.settings),
-              //   onPressed: null,
-              // ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(120, 0, 0, 0),
-                child: IconButton(
-                    icon: const Icon(Icons.shopping_cart_outlined),
-                    onPressed: () {}),
+              Spacer(), // Expands the space between the logo and icons
+              Align(
+                alignment: Alignment.centerRight,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.shopping_cart_outlined),
+                      onPressed: () {
+                        // Handle shopping cart action
+                      },
+                      iconSize: 30, // Increased icon size for the shopping cart
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.person_outline),
+                      onPressed: () {
+                        // Handle person icon action
+                      },
+                      iconSize: 30, // Increased icon size for the person icon
+                    ),
+                  ],
+                ),
               ),
-
-              IconButton(
-                  icon: const Icon(Icons.person_outline), onPressed: () {}),
             ],
           ),
         ),
@@ -90,77 +153,98 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(16.0),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextField(
                   controller: _searchController,
+                  style: TextStyle(fontSize: 18.0), // Increased font size
                   decoration: InputDecoration(
-                    filled:
-                        true, // Set to true to enable filling the background color
+                    filled: true,
                     hintText: 'Search',
+                    contentPadding: const EdgeInsets.all(12.0),
                     suffixIcon: IconButton(
-                      icon: Icon(Icons.clear),
+                      icon: Icon(Icons.clear, size: 24.0),
                       color: GlobalVariables.greyColor,
                       onPressed: () => _searchController.clear(),
                     ),
-                    // Add a search icon or button to the search bar
                     prefixIcon: IconButton(
-                      icon: Icon(Icons.search),
+                      icon: Icon(Icons.search, size: 24.0),
                       color: GlobalVariables.greyColor,
                       onPressed: () {
                         // Perform the search here
                       },
                     ),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide:
-                            BorderSide(color: GlobalVariables.outlineColor)),
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide:
+                          BorderSide(color: GlobalVariables.outlineColor),
+                    ),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(
+              height: MediaQuery.of(context).size.height *
+                  0.01, // Increased for responsiveness
+            ),
             SizedBox(
               height: 60,
-              child: ListView.builder(
-                itemCount: GlobalVariables.categoryImages.length,
-                scrollDirection: Axis.horizontal,
-                itemExtent: 75,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => navigateToCategoryPage(
-                      context,
-                      GlobalVariables.categoryImages[index]['title']!,
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: Image.asset(
-                              GlobalVariables.categoryImages[index]['image']!,
-                              fit: BoxFit.cover,
-                              height: 40,
-                              width: 40,
+              child: Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceEvenly, // Added for spacing
+                children: List.generate(
+                  GlobalVariables.categoryImages.length,
+                  (index) {
+                    double itemSize = MediaQuery.of(context).size.width *
+                        0.08; // Adjusted for responsiveness
+
+                    return GestureDetector(
+                      onTap: () => navigateToCategoryPage(
+                        context,
+                        GlobalVariables.categoryImages[index]['title']!,
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: itemSize * 0.2),
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.circular(itemSize * 0.5),
+                              child: Image.asset(
+                                GlobalVariables.categoryImages[index]['image']!,
+                                fit: BoxFit.cover,
+                                height: itemSize,
+                                width: itemSize,
+                              ),
                             ),
                           ),
-                        ),
-                        Text(
-                          GlobalVariables.categoryImages[index]['title']!,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
+                          SizedBox(
+                            height: 8, // Increased gap between category items
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
+                          Text(
+                            GlobalVariables.categoryImages[index]['title']!,
+                            style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.width *
+                                  0.03, // Adjusted for responsiveness
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-            SizedBox(height: 10),
+            Center(
+              child: _widgetOptions.elementAt(_selectedIndex),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height *
+                  0.02, // Increased for responsiveness
+            ),
             CarouselSlider(
               items: GlobalVariables.carouselImages.map(
                 (i) {
@@ -168,14 +252,16 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
                     builder: (BuildContext context) => Image.asset(
                       i,
                       fit: BoxFit.cover,
-                      height: 300,
+                      height:
+                          MediaQuery.of(context).size.width > 600 ? 400 : 200,
                     ),
                   );
                 },
               ).toList(),
               options: CarouselOptions(
-                viewportFraction: 1,
-                height: 200,
+                height: MediaQuery.of(context).size.width > 600 ? 400 : 200,
+                viewportFraction:
+                    MediaQuery.of(context).size.width > 600 ? 0.8 : 1.0,
               ),
             ),
             SizedBox(
@@ -183,95 +269,32 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
             ),
             Text(
               "Recommended Items",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: MediaQuery.of(context).size.width > 600 ? 24 : 20,
+              ),
             ),
             Column(children: [
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(20.0),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    // crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 130,
-                            width: 130,
-                            child: Image.asset(
-                              'assets/images/homeDecors.jpg',
-                              // widget.product.images,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Text(
-                            'Wooden Statue',
-                            // widget.product.title,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Himalaya Crafts',
-                            // widget.product.seller,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.red,
-                            ),
-                          ),
-                          Text(
-                            "Rs 5000",
-                            // ('\$' '${widget.product.price}'),
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                      _buildProductColumn(
+                        'assets/images/homeDecors.jpg',
+                        'Wooden Statue',
+                        'Himalaya Crafts',
+                        'Rs 5000',
                       ),
-                      // Icon(
-                      //   Icons.favorite_border_outlined,
-                      //   color: GlobalVariables.redColor,
-                      // ),
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 130,
-                            width: 130,
-                            child: Image.asset(
-                              'assets/images/clothes.jpg',
-                              // widget.product.images,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Text(
-                            'Hippie T-shirt',
-                            // widget.product.title,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Shakya Pashmina Store',
-                            // widget.product.seller,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.red,
-                            ),
-                          ),
-                          Text(
-                            "Rs 1200",
-                            // ('\$' '${widget.product.price}'),
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                      _buildProductColumn(
+                        'assets/images/clothes.jpg',
+                        'Hippie T-shirt',
+                        'Shakya Pashmina Store',
+                        'Rs 1200',
                       ),
-                      // Icon(
-                      //   Icons.favorite_border_outlined,
-                      //   color: GlobalVariables.redColor,
-                      // )
+                      // Add more product columns as needed
                     ],
                   ),
                 ),
@@ -319,10 +342,6 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
                           ),
                         ],
                       ),
-                      // Icon(
-                      //   Icons.favorite_border_outlined,
-                      //   color: GlobalVariables.redColor,
-                      // ),
                       Column(
                         children: [
                           SizedBox(
@@ -358,10 +377,6 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
                           ),
                         ],
                       ),
-                      // Icon(
-                      //   Icons.favorite_border_outlined,
-                      //   color: GlobalVariables.redColor,
-                      // )
                     ],
                   ),
                 ),
@@ -459,6 +474,39 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
             ]),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+            backgroundColor: Color(0xffEFF2F4),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category),
+            label: 'Categories',
+            backgroundColor: Color(0xffEFF2F4),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+            backgroundColor: Color(0xffEFF2F4),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'My Orders',
+            backgroundColor: Color(0xffEFF2F4),
+          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.settings),
+          //   label: 'Setting',
+          //   backgroundColor: Color(0xffEFF2F4),
+          // ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue[800],
+        unselectedItemColor: Color(0xff91B1E7),
+        onTap: _onItemTapped,
       ),
     );
   }

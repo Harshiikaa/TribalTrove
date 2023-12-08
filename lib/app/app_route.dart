@@ -18,7 +18,7 @@ class AppRoute {
   static const String forgotPasswordPageRoute = "/forgotPassPage";
   static const String splashScreenRoute = "/splashScreen";
   static const String timeAndDateScreenRoute = "/timeAndDateScreen";
-  static const String dashboardAdminScreenRoute = "/dashboardAdminScreen";
+  // static const String dashboardAdminScreenRoute = "/dashboardAdminScreen";
 
   static getApplication() {
     return {
@@ -30,7 +30,7 @@ class AppRoute {
       forgotPasswordPageRoute: (context) => const ForgotPasswordPageView(),
       splashScreenRoute: (context) => const SplashScreen(),
       timeAndDateScreenRoute: (context) => const TimeAndDateScreen(),
-      dashboardAdminScreenRoute: (context) => const Dashboard_adminScreen(),
+      // dashboardAdminScreenRoute: (context) => const Dashboard_adminScreen(),
     };
   }
 }
