@@ -4,6 +4,8 @@ import 'package:TribalTrove/view/seller/registerPage(Merchant).dart';
 import 'package:TribalTrove/view/landingPage_view.dart';
 import 'package:TribalTrove/view/loginPage_view.dart';
 import 'package:TribalTrove/view/registerPage_view.dart';
+import 'package:TribalTrove/view/user/splashScreen_view.dart';
+import 'package:TribalTrove/view/user/timeAndDate_view.dart';
 
 class AppRoute {
   AppRoute._();
@@ -12,8 +14,9 @@ class AppRoute {
   static const String loginPageRoute = "/loginPage";
   static const String registerPageRoute = "/registerPage";
   static const String registerMerchantRoute = "/registerPageMerchant";
-
   static const String forgotPasswordPageRoute = "/forgotPassPage";
+  static const String splashScreenRoute = "/splashScreen";
+  static const String timeAndDateScreenRoute = "/timeAndDateScreen";
 
   static getApplication() {
     return {
@@ -23,6 +26,8 @@ class AppRoute {
       registerPageRoute: (context) => const RegisterPageView(),
       registerMerchantRoute: (context) => const RegisterPageMerchant(),
       forgotPasswordPageRoute: (context) => const ForgotPasswordPageView(),
+      splashScreenRoute: (context) => const SplashScreen(),
+      timeAndDateScreenRoute: (context) => const TimeAndDateScreen(),
     };
   }
 }
