@@ -91,22 +91,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.all(10), // Adjust internal padding
-
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: GlobalVariables.outlineColor),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: GlobalVariables.outlineColor),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      fillColor: GlobalVariables.greyBackgroundColor,
                       hintText: 'Enter your email',
-                      hintStyle: TextStyle(color: GlobalVariables.greyColor),
                       prefixIcon: Icon(
                         Icons.mail_outlined,
                         color: GlobalVariables.greyColor,
@@ -117,27 +102,14 @@ class _LoginPageViewState extends State<LoginPageView> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: TextFormField(
-                      decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.all(10), // Adjust internal padding
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: GlobalVariables.outlineColor),
-                      borderRadius: BorderRadius.circular(10),
+                    decoration: InputDecoration(
+                      hintText: 'Enter your password',
+                      prefixIcon: Icon(
+                        Icons.lock_outline,
+                        color: GlobalVariables.greyColor,
+                      ),
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: GlobalVariables.outlineColor),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    fillColor: GlobalVariables.greyBackgroundColor,
-                    hintText: 'Enter your password',
-                    hintStyle: TextStyle(color: GlobalVariables.greyColor),
-                    prefixIcon: Icon(
-                      Icons.lock_outline,
-                      color: GlobalVariables.greyColor,
-                    ),
-                  )),
+                  ),
                 ),
                 TextButton(
                   onPressed: () {

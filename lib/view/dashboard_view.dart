@@ -92,31 +92,13 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                // Add padding around the search bar
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                // Use a Material design search bar
                 child: TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: GlobalVariables.outlineColor),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: GlobalVariables.outlineColor),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
                     filled:
                         true, // Set to true to enable filling the background color
-                    // fillColor: GlobalVariables.greyColor,
                     hintText: 'Search',
-                    hintStyle: TextStyle(
-                        fontSize: 18, color: GlobalVariables.greyColor),
-                    fillColor: GlobalVariables.greyBackgroundColor,
-                    // Add a clear button to the search bar
                     suffixIcon: IconButton(
                       icon: Icon(Icons.clear),
                       color: GlobalVariables.greyColor,

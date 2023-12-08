@@ -99,22 +99,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.all(10), // Adjust internal padding
-
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: GlobalVariables.outlineColor),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: GlobalVariables.outlineColor),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      fillColor: GlobalVariables.greyBackgroundColor,
                       hintText: 'Enter your fullname',
-                      hintStyle: TextStyle(color: GlobalVariables.greyColor),
                       prefixIcon: Icon(
                         Icons.person_outlined,
                         color: GlobalVariables.greyColor,
@@ -126,22 +111,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: TextFormField(
                       decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.all(10), // Adjust internal padding
-
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: GlobalVariables.outlineColor),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: GlobalVariables.outlineColor),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    fillColor: GlobalVariables.greyBackgroundColor,
                     hintText: 'Enter your email',
-                    hintStyle: TextStyle(color: GlobalVariables.greyColor),
                     prefixIcon: Icon(
                       Icons.mail_outline,
                       color: GlobalVariables.greyColor,
@@ -152,21 +122,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: TextFormField(
                       decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.all(10), // Adjust internal padding
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: GlobalVariables.outlineColor),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: GlobalVariables.outlineColor),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    fillColor: GlobalVariables.greyBackgroundColor,
                     hintText: 'Enter your phone number',
-                    hintStyle: TextStyle(color: GlobalVariables.greyColor),
                     prefixIcon: Icon(
                       Icons.phone_android_outlined,
                       color: GlobalVariables.greyColor,
@@ -178,21 +134,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                   child: DropdownButtonFormField2<String>(
                     isExpanded: true,
                     decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.all(10), // Adjust internal padding
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: GlobalVariables.outlineColor),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: GlobalVariables.outlineColor),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      fillColor: GlobalVariables.greyBackgroundColor,
-                      // hintText: 'Enter your phone number',
-                      hintStyle: TextStyle(color: GlobalVariables.greyColor),
+                      hintText: 'Enter your phone number',
                       prefixIcon: Icon(
                         Icons.people_alt_outlined,
                         color: GlobalVariables.greyColor,

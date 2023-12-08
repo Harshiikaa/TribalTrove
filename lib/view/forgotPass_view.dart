@@ -75,22 +75,7 @@ class _ForgotPasswordPageViewState extends State<ForgotPasswordPageView> {
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.all(10), // Adjust internal padding
-
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: GlobalVariables.outlineColor),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: GlobalVariables.outlineColor),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      fillColor: GlobalVariables.greyBackgroundColor,
                       hintText: 'Enter your email',
-                      hintStyle: TextStyle(color: GlobalVariables.greyColor),
                       prefixIcon: Icon(
                         Icons.mail_outlined,
                         color: GlobalVariables.greyColor,

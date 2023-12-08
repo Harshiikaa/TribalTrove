@@ -13,7 +13,7 @@ class GlobalVariables {
   static const Color primaryColor = Color(0xFF1C1C1C);
   static const Color secondaryColor = Color(0xFF505050);
   static const Color tertiaryColor = Color(0xff2B4360);
-
+  // static const Color pagecolor = Color(0xFFE5E5E5);
   static const backgroundColor = Colors.white;
   static const Color greyColor = Color(0xFF8B96A5);
   static const Color outlineColor = Color(0xffDEE2E7);
