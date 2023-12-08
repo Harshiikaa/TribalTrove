@@ -100,10 +100,6 @@ class _ForgotPasswordPageViewState extends State<ForgotPasswordPageView> {
                 ),
                 ElevatedButton(
                   onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(0),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
                   child: Ink(
                     decoration: BoxDecoration(
                         gradient: const LinearGradient(colors: [

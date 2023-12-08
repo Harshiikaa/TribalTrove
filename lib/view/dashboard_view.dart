@@ -384,6 +384,96 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    // crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 130,
+                            width: 130,
+                            child: Image.asset(
+                              'assets/images/ceramics.jpg',
+                              // widget.product.images,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text(
+                            'Ceramic Dining Set',
+                            // widget.product.title,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'Bajey ko Ceramics',
+                            // widget.product.seller,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.red,
+                            ),
+                          ),
+                          Text(
+                            "Rs 3000",
+                            // ('\$' '${widget.product.price}'),
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      // Icon(
+                      //   Icons.favorite_border_outlined,
+                      //   color: GlobalVariables.redColor,
+                      // ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 130,
+                            width: 130,
+                            child: Image.asset(
+                              'assets/images/arts.jpg',
+                              // widget.product.images,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text(
+                            'Goddess Chamunda ',
+                            // widget.product.title,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'Everest Thangka Shop',
+                            // widget.product.seller,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.red,
+                            ),
+                          ),
+                          Text(
+                            "Rs 10,000",
+                            // ('\$' '${widget.product.price}'),
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      // Icon(
+                      //   Icons.favorite_border_outlined,
+                      //   color: GlobalVariables.redColor,
+                      // )
+                    ],
+                  ),
+                ),
+              ),
             ]),
           ],
         ),

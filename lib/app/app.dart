@@ -11,6 +11,7 @@ class App extends StatelessWidget {
         title: 'Tribal Trove',
         theme: getApplicationTheme(),
         debugShowCheckedModeBanner: false,
+        // initialRoute: AppRoute.dashboardAdminScreenRoute,
         initialRoute: AppRoute.loginPageRoute,
         routes: AppRoute.getApplication());
   }

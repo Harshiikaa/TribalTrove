@@ -1,3 +1,4 @@
+import 'package:TribalTrove/view/admin/dashboard_admin.dart';
 import 'package:TribalTrove/view/dashboard_view.dart';
 import 'package:TribalTrove/view/forgotPass_view.dart';
 import 'package:TribalTrove/view/seller/registerPage(Merchant).dart';
@@ -17,6 +18,7 @@ class AppRoute {
   static const String forgotPasswordPageRoute = "/forgotPassPage";
   static const String splashScreenRoute = "/splashScreen";
   static const String timeAndDateScreenRoute = "/timeAndDateScreen";
+  static const String dashboardAdminScreenRoute = "/dashboardAdminScreen";
 
   static getApplication() {
     return {
@@ -28,6 +30,7 @@ class AppRoute {
       forgotPasswordPageRoute: (context) => const ForgotPasswordPageView(),
       splashScreenRoute: (context) => const SplashScreen(),
       timeAndDateScreenRoute: (context) => const TimeAndDateScreen(),
+      dashboardAdminScreenRoute: (context) => const Dashboard_adminScreen(),
     };
   }
 }
