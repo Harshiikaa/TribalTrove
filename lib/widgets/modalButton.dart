@@ -1,5 +1,5 @@
 
-import 'package:TribalTrove/view/commons/utils/size.dart';
+import 'package:TribalTrove/core/utils/size.dart';
 import 'package:TribalTrove/widgets/product_color.dart';
 import 'package:TribalTrove/widgets/product_size.dart';
 import 'package:flutter/material.dart';

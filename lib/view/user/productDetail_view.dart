@@ -1,5 +1,5 @@
-import 'package:TribalTrove/model/product_model.dart';
-import 'package:TribalTrove/view/commons/utils/size.dart';
+import 'package:TribalTrove/feature/product/data/model/product_model.dart';
+import 'package:TribalTrove/core/utils/size.dart';
 import 'package:TribalTrove/widgets/customButton.dart';
 import 'package:TribalTrove/widgets/favorite_button.dart';
 import 'package:TribalTrove/widgets/outlinedButtonCustom.dart';

@@ -1,4 +1,4 @@
-import 'package:TribalTrove/view/commons/utils/size.dart';
+import 'package:TribalTrove/core/utils/size.dart';
 import 'package:TribalTrove/widgets/modalButton.dart';
 import 'package:flutter/material.dart';
 

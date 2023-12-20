@@ -1,7 +1,7 @@
-import 'package:TribalTrove/view/constants/global_variables.dart';
+import 'package:TribalTrove/config/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
-import 'constants/global_variables.dart';
+import '../../../../config/constants/global_variables.dart';
 
 class LoginPageView extends StatefulWidget {
   const LoginPageView({super.key});

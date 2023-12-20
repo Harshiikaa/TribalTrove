@@ -1,9 +1,9 @@
-import 'package:TribalTrove/model/product_model.dart';
-import 'package:TribalTrove/view/constants/global_variables.dart';
+import 'package:TribalTrove/feature/product/data/model/product_model.dart';
+import 'package:TribalTrove/config/constants/global_variables.dart';
 import 'package:TribalTrove/view/user/carousel_view.dart';
 import 'package:TribalTrove/view/user/productItem_view.dart';
 import 'package:TribalTrove/view/user/productList_view.dart';
-import 'package:TribalTrove/view/user/searchbox_view.dart';
+import 'package:TribalTrove/feature/searchProduct/presentation/view/searchbox_view.dart';
 import 'package:TribalTrove/view/user/top_categories_view.dart';
 import 'package:TribalTrove/widgets/product_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';

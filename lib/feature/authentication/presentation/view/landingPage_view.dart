@@ -1,4 +1,4 @@
-import 'package:TribalTrove/view/constants/global_variables.dart';
+import 'package:TribalTrove/config/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
 class LandingPageView extends StatefulWidget {

@@ -1,5 +1,5 @@
 
-import 'package:TribalTrove/model/product_model.dart';
+import 'package:TribalTrove/feature/product/data/model/product_model.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteButton extends StatefulWidget {

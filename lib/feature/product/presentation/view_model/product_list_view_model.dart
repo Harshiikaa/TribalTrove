@@ -1,7 +1,7 @@
-import 'package:TribalTrove/model/product_model.dart';
+import 'package:TribalTrove/feature/product/data/model/product_model.dart';
 import 'package:flutter/material.dart';
 
-class ProductListController with ChangeNotifier {
+class ProductListViewModel with ChangeNotifier {
   // NotifierState _state = NotifierState.initial;
   // NotifierState get state => _state;
   // void _setState(NotifierState state) {
