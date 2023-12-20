@@ -1,5 +1,5 @@
-import 'package:TribalTrove/app/app_route.dart';
-import 'package:TribalTrove/theme/theme_dart.dart';
+import 'package:TribalTrove/config/routes/app_route.dart';
+import 'package:TribalTrove/config/themes/theme_dart.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {

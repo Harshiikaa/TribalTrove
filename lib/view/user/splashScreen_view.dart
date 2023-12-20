@@ -1,4 +1,4 @@
-import 'package:TribalTrove/app/app_route.dart';
+import 'package:TribalTrove/config/routes/app_route.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
