@@ -1,5 +1,5 @@
 import 'package:TribalTrove/feature/dashboard/presentation/view/admin/dashboard_admin.dart';
-import 'package:TribalTrove/feature/dashboard/presentation/view/dashboard_view.dart';
+import 'package:TribalTrove/feature/dashboard/presentation/view/dashboard_view_user.dart';
 import 'package:TribalTrove/feature/authentication/presentation/view/forgotPass_view.dart';
 import 'package:TribalTrove/feature/authentication/presentation/view/registerPage(Merchant).dart';
 import 'package:TribalTrove/feature/authentication/presentation/view/landingPage_view.dart';
@@ -22,7 +22,7 @@ class AppRoute {
 
   static getApplication() {
     return {
-      home: (context) => const DashboardPageUser(),
+      home: (context) => const DashboardViewUser(),
       landingPageRoute: (context) => const LandingPageView(),
       loginPageRoute: (context) => const LoginPageView(),
       registerPageRoute: (context) => const RegisterPageView(),

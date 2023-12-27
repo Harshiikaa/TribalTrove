@@ -1,4 +1,7 @@
+import 'package:TribalTrove/feature/categories/presentation/view/categories_view.dart';
+import 'package:TribalTrove/feature/dashboard/presentation/view_model/dashboard_view_model.dart';
 import 'package:TribalTrove/feature/dashboard/presentation/widgets/bottom_navigation_widget.dart';
+import 'package:TribalTrove/feature/favorites/presentation/view/favorites_view.dart';
 import 'package:TribalTrove/feature/product/data/model/product_model.dart';
 import 'package:TribalTrove/config/constants/global_variables.dart';
 import 'package:TribalTrove/feature/dashboard/presentation/view/user/carousel_view.dart';
@@ -9,19 +12,26 @@ import 'package:TribalTrove/feature/dashboard/presentation/view/user/top_categor
 import 'package:TribalTrove/feature/dashboard/presentation/widgets/product_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DashboardPageUser extends StatefulWidget {
+class DashboardViewUser extends ConsumerStatefulWidget {
   // final Product product;
 
-  const DashboardPageUser({super.key});
+  const DashboardViewUser({super.key});
 
   @override
-  State<DashboardPageUser> createState() => _DashboardPageUserState();
+  ConsumerState<DashboardViewUser> createState() => _DashboardPageUserState();
 }
 
-class _DashboardPageUserState extends State<DashboardPageUser> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
+  // int _selectedIndex = 0;
+  List<Widget> listScreens = [
+    const DashboardViewUser(),
+    CategoriesView(),
+    FavoritesView(),
+  ];
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
       ' ',
@@ -40,8 +50,6 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
       style: optionStyle,
     ),
   ];
-
-  
 
 // Helper function to build a responsive product column
   Widget _buildProductColumn(
@@ -97,6 +105,7 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
   }
   @override
   Widget build(BuildContext context) {
+    final dashboardState = ref.watch(dashboardViewModelProvider);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
@@ -235,7 +244,8 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
               ),
             ),
             Center(
-              child: _widgetOptions.elementAt(_selectedIndex),
+              // child: _widgetOptions.elementAt(_selectedIndex),
+                child: _widgetOptions.elementAt(dashboardState.index),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height *
@@ -471,8 +481,46 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
           ],
         ),
       ),
-      bottomNavigationBar:const BottomNavigationWidget(),
-      
+      // bottomNavigationBar:const BottomNavigationWidget(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+            backgroundColor: Color(0xffEFF2F4),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category),
+            label: 'Categories',
+            backgroundColor: Color(0xffEFF2F4),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+            backgroundColor: Color(0xffEFF2F4),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.wallet_giftcard),
+            label: 'My Orders',
+            backgroundColor: Color(0xffEFF2F4),
+          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.settings),
+          //   label: 'Setting',
+          //   backgroundColor: Color(0xffEFF2F4),
+          // ),
+        ],
+        // currentIndex: _selectedIndex,
+        currentIndex: dashboardState.index,
+        selectedItemColor: Colors.blue[800],
+        unselectedItemColor: Color(0xff91B1E7),
+        onTap: (index) {
+          setState(() {
+            // selectedIndex = index;
+            ref.read(dashboardViewModelProvider.notifier).changeIndex(index);
+          });
+        },
+      ),
     );
   }
 }

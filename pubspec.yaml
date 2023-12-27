@@ -20,6 +20,14 @@ dependencies:
   dropdown_button2: ^2.3.9
   carousel_slider: ^4.2.1
   calendar_date_picker2: ^0.5.3
+  hive_flutter: ^1.1.0
+  build_runner: ^2.4.7
+  uuid: ^4.2.2
+  equatable: ^2.0.5
+  shared_preferences: ^2.2.2
+  dartz: ^0.10.1
+  flutter_riverpod: ^2.4.9
+  path_provider: ^2.1.1
 
 dev_dependencies:
   flutter_test:
@@ -27,6 +35,7 @@ dev_dependencies:
 
  
   flutter_lints: ^2.0.0
+  hive_generator: ^2.0.1
 
 
 # The following section is specific to Flutter packages.
