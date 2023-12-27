@@ -1,11 +1,12 @@
+import 'package:TribalTrove/feature/dashboard/presentation/widgets/bottom_navigation_widget.dart';
 import 'package:TribalTrove/feature/product/data/model/product_model.dart';
 import 'package:TribalTrove/config/constants/global_variables.dart';
-import 'package:TribalTrove/view/user/carousel_view.dart';
-import 'package:TribalTrove/view/user/productItem_view.dart';
-import 'package:TribalTrove/view/user/productList_view.dart';
+import 'package:TribalTrove/feature/dashboard/presentation/view/user/carousel_view.dart';
+import 'package:TribalTrove/feature/dashboard/presentation/view/user/productItem_view.dart';
+import 'package:TribalTrove/feature/dashboard/presentation/view/user/productList_view.dart';
 import 'package:TribalTrove/feature/searchProduct/presentation/view/searchbox_view.dart';
-import 'package:TribalTrove/view/user/top_categories_view.dart';
-import 'package:TribalTrove/widgets/product_card.dart';
+import 'package:TribalTrove/feature/dashboard/presentation/view/user/top_categories_view.dart';
+import 'package:TribalTrove/feature/dashboard/presentation/widgets/product_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +21,7 @@ class DashboardPageUser extends StatefulWidget {
 
 class _DashboardPageUserState extends State<DashboardPageUser> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const TextStyle optionStyle =  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
       ' ',
@@ -41,11 +41,7 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
     ),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  
 
 // Helper function to build a responsive product column
   Widget _buildProductColumn(
@@ -475,39 +471,8 @@ class _DashboardPageUserState extends State<DashboardPageUser> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Color(0xffEFF2F4),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.category),
-            label: 'Categories',
-            backgroundColor: Color(0xffEFF2F4),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-            backgroundColor: Color(0xffEFF2F4),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'My Orders',
-            backgroundColor: Color(0xffEFF2F4),
-          ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.settings),
-          //   label: 'Setting',
-          //   backgroundColor: Color(0xffEFF2F4),
-          // ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue[800],
-        unselectedItemColor: Color(0xff91B1E7),
-        onTap: _onItemTapped,
-      ),
+      bottomNavigationBar:const BottomNavigationWidget(),
+      
     );
   }
 }

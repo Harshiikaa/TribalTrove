@@ -1,5 +1,5 @@
 import 'package:TribalTrove/core/utils/size.dart';
-import 'package:TribalTrove/widgets/modalButton.dart';
+import 'package:TribalTrove/feature/dashboard/presentation/widgets/modalButton.dart';
 import 'package:flutter/material.dart';
 
 class OutlinedButtonCustom extends StatefulWidget {
