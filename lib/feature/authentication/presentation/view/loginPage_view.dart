@@ -1,16 +1,22 @@
 import 'package:TribalTrove/config/constants/global_variables.dart';
+import 'package:TribalTrove/config/routes/app_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../config/constants/global_variables.dart';
 
-class LoginPageView extends StatefulWidget {
+class LoginPageView extends ConsumerStatefulWidget {
   const LoginPageView({super.key});
 
   @override
-  State<LoginPageView> createState() => _LoginPageViewState();
+  ConsumerState<LoginPageView> createState() => _LoginPageViewState();
 }
 
-class _LoginPageViewState extends State<LoginPageView> {
+class _LoginPageViewState extends ConsumerState<LoginPageView> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool isObscure = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,6 +96,8 @@ class _LoginPageViewState extends State<LoginPageView> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: TextFormField(
+                    key: const ValueKey('email'),
+                    controller: _emailController,
                     decoration: InputDecoration(
                       hintText: 'Enter your email',
                       prefixIcon: Icon(
@@ -102,6 +110,8 @@ class _LoginPageViewState extends State<LoginPageView> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: TextFormField(
+                    key: const ValueKey('password'),
+                    controller: _passwordController,
                     decoration: InputDecoration(
                       hintText: 'Enter your password',
                       prefixIcon: Icon(
@@ -131,7 +141,9 @@ class _LoginPageViewState extends State<LoginPageView> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    Navigator.pushNamed(context, AppRoute.home);
+                  },
                   child: Ink(
                     decoration: BoxDecoration(
                         gradient: const LinearGradient(colors: [

@@ -1,26 +1,57 @@
+import 'package:TribalTrove/feature/authentication/domain/entity/auth_entity.dart';
+import 'package:TribalTrove/feature/authentication/presentation/view_model/auth_viewmodel.dart';
 import 'package:TribalTrove/view/commons/parentPage.dart';
 import 'package:TribalTrove/config/constants/global_variables.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegisterPageView extends StatefulWidget {
+class RegisterPageView extends ConsumerStatefulWidget {
   const RegisterPageView({super.key});
 
   @override
-  State<RegisterPageView> createState() => _RegisterPageViewState();
+  ConsumerState<RegisterPageView> createState() => _RegisterPageViewState();
 }
 
-class _RegisterPageViewState extends State<RegisterPageView> {
+class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
+  final _key = GlobalKey<FormState>();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool isObscure = true;
   final List<String> roleItems = [
     'User',
     'Merchant',
   ];
-
   String? selectedValue;
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   // Connectivity Status
+    //   if (ref.watch(connectivityStatusProvider) ==
+    //       ConnectivityStatus.isDisconnected) {
+    //     showSnackBar(
+    //         message: 'No Internet Connection',
+    //         context: context,
+    //         color: Colors.red);
+    //   } else if (ref.watch(connectivityStatusProvider) ==
+    //       ConnectivityStatus.isConnecting) {
+    //     showSnackBar(
+    //         message: 'Connecting...', context: context, color: Colors.yellow);
+    //   } else if (ref.watch(connectivityStatusProvider) ==
+    //       ConnectivityStatus.isConnected) {
+    //     showSnackBar(
+    //         message: 'Connected', context: context, color: Colors.green);
+    //   }
+    //   if (ref.watch(authViewModelProvider).showMessage!) {
+    //     showSnackBar(message: 'User Registerd Successfully', context: context);
+    //     ref.read(authViewModelProvider.notifier).resetMessage(false);
+    //   }
+    // });
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -95,104 +126,160 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Enter your fullname',
-                      prefixIcon: Icon(
-                        Icons.person_outlined,
-                        color: GlobalVariables.greyColor,
+                Form(
+                  key: _key,
+                  child: Column(children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      child: TextFormField(
+                        key: const ValueKey('firstName'),
+                        controller: _firstNameController,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your firstName',
+                          prefixIcon: Icon(
+                            Icons.person_outlined,
+                            color: GlobalVariables.greyColor,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  child: TextFormField(
-                      decoration: InputDecoration(
-                    hintText: 'Enter your email',
-                    prefixIcon: Icon(
-                      Icons.mail_outline,
-                      color: GlobalVariables.greyColor,
-                    ),
-                  )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  child: TextFormField(
-                      decoration: InputDecoration(
-                    hintText: 'Enter your phone number',
-                    prefixIcon: Icon(
-                      Icons.phone_android_outlined,
-                      color: GlobalVariables.greyColor,
-                    ),
-                  )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  child: DropdownButtonFormField2<String>(
-                    isExpanded: true,
-                    decoration: InputDecoration(
-                      hintText: 'Enter your phone number',
-                      prefixIcon: Icon(
-                        Icons.people_alt_outlined,
-                        color: GlobalVariables.greyColor,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      child: TextFormField(
+                        key: const ValueKey('lastName'),
+                        controller: _lastNameController,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your lastName',
+                          prefixIcon: Icon(
+                            Icons.person_outlined,
+                            color: GlobalVariables.greyColor,
+                          ),
+                        ),
                       ),
                     ),
-                    hint: const Text(
-                      'Role',
-                      style: TextStyle(
-                          fontSize: 15, color: GlobalVariables.greyColor),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      child: TextFormField(
+                          key: const ValueKey('email'),
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            hintText: 'Enter your email',
+                            prefixIcon: Icon(
+                              Icons.mail_outline,
+                              color: GlobalVariables.greyColor,
+                            ),
+                          )),
                     ),
-                    items: roleItems
-                        .map((item) => DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: const TextStyle(
-                                    fontSize: 15,
-                                    color: GlobalVariables.greyColor),
-                              ),
-                            ))
-                        .toList(),
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Role';
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      if (value == "Merchant") {
-                        Navigator.pushNamed(context, '/registerPageMerchant');
-                      }
-                      //Do something when selected item is changed.
-                    },
-                    onSaved: (value) {
-                      selectedValue = value.toString();
-                    },
-                    buttonStyleData: const ButtonStyleData(
-                      padding: EdgeInsets.only(right: 8),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      child: TextFormField(
+                          key: const ValueKey('phoneNumber'),
+                          controller: _phoneController,
+                          decoration: InputDecoration(
+                            hintText: 'Enter your phone number',
+                            prefixIcon: Icon(
+                              Icons.mail_outline,
+                              color: GlobalVariables.greyColor,
+                            ),
+                          )),
                     ),
-                    iconStyleData: const IconStyleData(
-                      icon: Icon(
-                        Icons.arrow_drop_down,
-                        color: GlobalVariables.greyColor,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      child: DropdownButtonFormField2<String>(
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your phone number',
+                          prefixIcon: Icon(
+                            Icons.people_alt_outlined,
+                            color: GlobalVariables.greyColor,
+                          ),
+                        ),
+                        hint: const Text(
+                          'Role',
+                          style: TextStyle(
+                              fontSize: 15, color: GlobalVariables.greyColor),
+                        ),
+                        items: roleItems
+                            .map((item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Text(
+                                    item,
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        color: GlobalVariables.greyColor),
+                                  ),
+                                ))
+                            .toList(),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Role';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          if (value == "Merchant") {
+                            Navigator.pushNamed(
+                                context, '/registerPageMerchant');
+                          }
+                        },
+                        onSaved: (value) {
+                          selectedValue = value.toString();
+                        },
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.only(right: 8),
+                        ),
+                        iconStyleData: const IconStyleData(
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            color: GlobalVariables.greyColor,
+                          ),
+                          iconSize: 24,
+                        ),
+                        dropdownStyleData: DropdownStyleData(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                        ),
                       ),
-                      iconSize: 24,
                     ),
-                    dropdownStyleData: DropdownStyleData(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      child: TextFormField(
+                          key: const ValueKey('password'),
+                          obscureText: isObscure,
+                          controller: _passwordController,
+                          decoration: InputDecoration(
+                            hintText: 'create your password',
+                            prefixIcon: Icon(
+                              Icons.password_outlined,
+                              color: GlobalVariables.greyColor,
+                            ),
+                          )),
                     ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                    ),
-                  ),
+                  ]),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final formState = _key.currentState;
+                    if (formState != null &&
+                        formState.mounted &&
+                        formState.validate()) {
+                      final entity = AuthEntity(
+                        firstName: _firstNameController.text,
+                        lastName: _lastNameController.text,
+                        email: _emailController.text,
+                        phone: _phoneController.text,
+                        password: _passwordController.text,
+                      );
+                      // Register staff
+                      ref
+                          .read(authViewModelProvider.notifier)
+                          .registerUser(entity);
+                    }
+                  },
                   child: Ink(
                     decoration: BoxDecoration(
                         gradient: const LinearGradient(colors: [
