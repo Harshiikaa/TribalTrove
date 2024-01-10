@@ -4,7 +4,7 @@ class ApiEndpoints {
   static const Duration connectionTimeout = Duration(seconds: 1000);
   static const Duration receiveTimeout = Duration(seconds: 1000);
   // For Windows
-  static const String baseUrl = "http://10.0.2.2:3000/api/v1/";
+  static const String baseUrl = "http://10.0.2.2:5000/api/";
   // For MAC
   // static const String baseUrl = "http://10.0.2.2:5000/";
 
@@ -13,5 +13,5 @@ class ApiEndpoints {
 
   // ====================== Auth Routes ======================
   static const String login = "auth/login";
-  static const String register = "api/users/create";
+  static const String register = "users/create";
 }

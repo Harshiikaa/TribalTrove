@@ -1,7 +1,7 @@
 import 'package:TribalTrove/feature/dashboard/presentation/view/admin/dashboard_admin.dart';
 import 'package:TribalTrove/feature/dashboard/presentation/view/dashboard_view_user.dart';
 import 'package:TribalTrove/feature/authentication/presentation/view/forgotPass_view.dart';
-import 'package:TribalTrove/feature/authentication/presentation/view/registerPage(Merchant).dart';
+import 'package:TribalTrove/feature/authentication/presentation/view/registerPage_merchant.dart';
 import 'package:TribalTrove/feature/authentication/presentation/view/landingPage_view.dart';
 import 'package:TribalTrove/feature/authentication/presentation/view/loginPage_view.dart';
 import 'package:TribalTrove/feature/authentication/presentation/view/registerPage_view.dart';
