@@ -14,7 +14,6 @@ class AuthApiModel {
   final String? phone;
   // final String username;
   final String password;
-  final String? address;
 
   AuthApiModel({
     this.userId,
@@ -24,7 +23,6 @@ class AuthApiModel {
     this.phone,
     // required this.username,
     required this.password,
-    this.address,
   });
 
   factory AuthApiModel.fromJson(Map<String, dynamic> json) =>

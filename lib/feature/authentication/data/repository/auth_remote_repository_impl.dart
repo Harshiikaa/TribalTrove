@@ -27,7 +27,7 @@ class AuthRemoteRepository implements IAuthRepository {
 
   @override
   Future<Either<Failure, bool>> registerUser(AuthEntity user) async {
-    return await _authRemoteDataSource.registerStaff(user);
+    return await _authRemoteDataSource.registerUser(user);
   }
 
   @override

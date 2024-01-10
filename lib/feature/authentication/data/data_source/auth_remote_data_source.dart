@@ -20,9 +20,9 @@ class AuthRemoteDataSource {
 
   AuthRemoteDataSource(this.dio);
 
-  Future<Either<Failure, bool>> registerStaff(AuthEntity staff) async {
+  Future<Either<Failure, bool>> registerUser(AuthEntity user) async {
     try {
-      AuthApiModel apiModel = AuthApiModel.fromEntity(staff);
+      AuthApiModel apiModel = AuthApiModel.fromEntity(user);
       Response response = await dio.post(
         ApiEndpoints.register,
         data: {
@@ -30,9 +30,8 @@ class AuthRemoteDataSource {
           "lastName": apiModel.lastName,
           "email": apiModel.email,
           "phone": apiModel.phone,
-          // "username": apiModel.email,
+          "username": apiModel.email,
           "password": apiModel.password,
-          "address": apiModel.address,
         },
       );
       if (response.statusCode == 200) {

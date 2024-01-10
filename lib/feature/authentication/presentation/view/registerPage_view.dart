@@ -68,7 +68,7 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
           ),
           Positioned(
             top: 200,
-            bottom: 130,
+            bottom: 70,
             left: 20,
             right: 20,
             child: Container(
@@ -183,68 +183,68 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
                             ),
                           )),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                      child: DropdownButtonFormField2<String>(
-                        isExpanded: true,
-                        decoration: InputDecoration(
-                          hintText: 'Enter your phone number',
-                          prefixIcon: Icon(
-                            Icons.people_alt_outlined,
-                            color: GlobalVariables.greyColor,
-                          ),
-                        ),
-                        hint: const Text(
-                          'Role',
-                          style: TextStyle(
-                              fontSize: 15, color: GlobalVariables.greyColor),
-                        ),
-                        items: roleItems
-                            .map((item) => DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Text(
-                                    item,
-                                    style: const TextStyle(
-                                        fontSize: 15,
-                                        color: GlobalVariables.greyColor),
-                                  ),
-                                ))
-                            .toList(),
-                        validator: (value) {
-                          if (value == null) {
-                            return 'Role';
-                          }
-                          return null;
-                        },
-                        onChanged: (value) {
-                          if (value == "Merchant") {
-                            Navigator.pushNamed(
-                                context, '/registerPageMerchant');
-                          }
-                        },
-                        onSaved: (value) {
-                          selectedValue = value.toString();
-                        },
-                        buttonStyleData: const ButtonStyleData(
-                          padding: EdgeInsets.only(right: 8),
-                        ),
-                        iconStyleData: const IconStyleData(
-                          icon: Icon(
-                            Icons.arrow_drop_down,
-                            color: GlobalVariables.greyColor,
-                          ),
-                          iconSize: 24,
-                        ),
-                        dropdownStyleData: DropdownStyleData(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
-                        menuItemStyleData: const MenuItemStyleData(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                    //   child: DropdownButtonFormField2<String>(
+                    //     isExpanded: true,
+                    //     decoration: InputDecoration(
+                    //       hintText: 'Enter your phone number',
+                    //       prefixIcon: Icon(
+                    //         Icons.people_alt_outlined,
+                    //         color: GlobalVariables.greyColor,
+                    //       ),
+                    //     ),
+                    //     hint: const Text(
+                    //       'Role',
+                    //       style: TextStyle(
+                    //           fontSize: 15, color: GlobalVariables.greyColor),
+                    //     ),
+                    //     items: roleItems
+                    //         .map((item) => DropdownMenuItem<String>(
+                    //               value: item,
+                    //               child: Text(
+                    //                 item,
+                    //                 style: const TextStyle(
+                    //                     fontSize: 15,
+                    //                     color: GlobalVariables.greyColor),
+                    //               ),
+                    //             ))
+                    //         .toList(),
+                    //     validator: (value) {
+                    //       if (value == null) {
+                    //         return 'Role';
+                    //       }
+                    //       return null;
+                    //     },
+                    //     onChanged: (value) {
+                    //       if (value == "Merchant") {
+                    //         Navigator.pushNamed(
+                    //             context, '/registerPageMerchant');
+                    //       }
+                    //     },
+                    //     onSaved: (value) {
+                    //       selectedValue = value.toString();
+                    //     },
+                    //     buttonStyleData: const ButtonStyleData(
+                    //       padding: EdgeInsets.only(right: 8),
+                    //     ),
+                    //     iconStyleData: const IconStyleData(
+                    //       icon: Icon(
+                    //         Icons.arrow_drop_down,
+                    //         color: GlobalVariables.greyColor,
+                    //       ),
+                    //       iconSize: 24,
+                    //     ),
+                    //     dropdownStyleData: DropdownStyleData(
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(15),
+                    //       ),
+                    //     ),
+                    //     menuItemStyleData: const MenuItemStyleData(
+                    //       padding: EdgeInsets.symmetric(horizontal: 16),
+                    //     ),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                       child: TextFormField(
