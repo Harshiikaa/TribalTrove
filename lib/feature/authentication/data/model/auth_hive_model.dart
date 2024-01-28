@@ -21,7 +21,7 @@ class AuthHiveModel {
   final String email;
 
   @HiveField(4)
-  final String phone;
+  final String phoneNumber;
 
   // @HiveField(5)
   // final String username;
@@ -35,7 +35,7 @@ class AuthHiveModel {
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.phone,
+    required this.phoneNumber,
     // required this.username,
     required this.password,
   }) : userId = userId ?? const Uuid().v4();
@@ -47,7 +47,7 @@ class AuthHiveModel {
           firstName: '',
           lastName: '',
           email: '',
-          phone: '',
+          phoneNumber: '',
           // username: '',
           password: '',
         );
@@ -57,7 +57,7 @@ class AuthHiveModel {
         firstName: entity.firstName,
         lastName: entity.lastName,
         email: entity.email,
-        phone: entity.phone,
+        phoneNumber: entity.phoneNumber,
         // username: entity.username,
         password: entity.password,
       );
@@ -68,17 +68,17 @@ class AuthHiveModel {
         firstName: hiveModel.firstName,
         lastName: hiveModel.lastName,
         email: hiveModel.email,
-        phone: hiveModel.phone,
+        phoneNumber: hiveModel.phoneNumber,
         // username: hiveModel.username,
         password: hiveModel.password,
       );
 
   @override
   String toString() {
-    return 'userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, phone: $phone, password: $password';
+    return 'userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, password: $password';
   }
 
   @override
   List<Object?> get props =>
-      [userId, firstName, lastName, email, phone, password];
+      [userId, firstName, lastName, email, phoneNumber, password];
 }

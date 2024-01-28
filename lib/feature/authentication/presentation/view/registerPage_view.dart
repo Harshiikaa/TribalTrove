@@ -271,7 +271,7 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
                         firstName: _firstNameController.text,
                         lastName: _lastNameController.text,
                         email: _emailController.text,
-                        phone: _phoneController.text,
+                        phoneNumber: _phoneController.text,
                         password: _passwordController.text,
                       );
                       // Register staff
