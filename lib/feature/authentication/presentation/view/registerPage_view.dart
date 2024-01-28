@@ -178,7 +178,7 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
                           decoration: InputDecoration(
                             hintText: 'Enter your phone number',
                             prefixIcon: Icon(
-                              Icons.mail_outline,
+                              Icons.phone_android_outlined,
                               color: GlobalVariables.greyColor,
                             ),
                           )),
@@ -254,7 +254,7 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
                           decoration: InputDecoration(
                             hintText: 'create your password',
                             prefixIcon: Icon(
-                              Icons.password_outlined,
+                              Icons.lock,
                               color: GlobalVariables.greyColor,
                             ),
                           )),
