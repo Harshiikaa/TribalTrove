@@ -1,3 +1,5 @@
+import 'package:TribalTrove/core/common/provider/internet_connectivity.dart';
+import 'package:TribalTrove/core/common/snackbar/snackbar.dart';
 import 'package:TribalTrove/feature/authentication/domain/entity/auth_entity.dart';
 import 'package:TribalTrove/feature/authentication/presentation/view_model/auth_viewmodel.dart';
 import 'package:TribalTrove/view/commons/parentPage.dart';
@@ -29,28 +31,24 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
 
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   // Connectivity Status
-    //   if (ref.watch(connectivityStatusProvider) ==
-    //       ConnectivityStatus.isDisconnected) {
-    //     showSnackBar(
-    //         message: 'No Internet Connection',
-    //         context: context,
-    //         color: Colors.red);
-    //   } else if (ref.watch(connectivityStatusProvider) ==
-    //       ConnectivityStatus.isConnecting) {
-    //     showSnackBar(
-    //         message: 'Connecting...', context: context, color: Colors.yellow);
-    //   } else if (ref.watch(connectivityStatusProvider) ==
-    //       ConnectivityStatus.isConnected) {
-    //     showSnackBar(
-    //         message: 'Connected', context: context, color: Colors.green);
-    //   }
-    //   if (ref.watch(authViewModelProvider).showMessage!) {
-    //     showSnackBar(message: 'User Registerd Successfully', context: context);
-    //     ref.read(authViewModelProvider.notifier).resetMessage(false);
-    //   }
-    // });
+    final isConnected = ref.watch(connectivityStatusProvider);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (isConnected == ConnectivityStatus.isDisconnected) {
+        showSnackBar(
+            message: 'No Internet Connection',
+            context: context,
+            color: Colors.red);
+      } else if (isConnected == ConnectivityStatus.isConnected) {
+        showSnackBar(message: 'You are online', context: context);
+      }
+
+      if (ref.watch(authViewModelProvider).showMessage!) {
+        showSnackBar(
+            message: 'Student Registerd Successfully', context: context);
+        ref.read(authViewModelProvider.notifier).resetMessage();
+      }
+    });
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -141,6 +139,12 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
                             color: GlobalVariables.greyColor,
                           ),
                         ),
+                        validator: ((value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter first name';
+                          }
+                          return null;
+                        }),
                       ),
                     ),
                     Padding(
@@ -155,33 +159,60 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
                             color: GlobalVariables.greyColor,
                           ),
                         ),
+                        validator: ((value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter last name';
+                          }
+                          return null;
+                        }),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                       child: TextFormField(
-                          key: const ValueKey('email'),
-                          controller: _emailController,
-                          decoration: InputDecoration(
-                            hintText: 'Enter your email',
-                            prefixIcon: Icon(
-                              Icons.mail_outline,
-                              color: GlobalVariables.greyColor,
-                            ),
-                          )),
+                        key: const ValueKey('email'),
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your email',
+                          prefixIcon: Icon(
+                            Icons.mail_outline,
+                            color: GlobalVariables.greyColor,
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email address';
+                          }
+                          RegExp emailRegExp =
+                              RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+
+                          if (!emailRegExp.hasMatch(value)) {
+                            return 'Please enter a valid email address';
+                          }
+
+                          return null;
+                        },
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                       child: TextFormField(
-                          key: const ValueKey('phoneNumber'),
-                          controller: _phoneController,
-                          decoration: InputDecoration(
-                            hintText: 'Enter your phone number',
-                            prefixIcon: Icon(
-                              Icons.phone_android_outlined,
-                              color: GlobalVariables.greyColor,
-                            ),
-                          )),
+                        key: const ValueKey('phoneNumber'),
+                        controller: _phoneController,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your phone number',
+                          prefixIcon: Icon(
+                            Icons.phone_android_outlined,
+                            color: GlobalVariables.greyColor,
+                          ),
+                        ),
+                        validator: ((value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your phone Number';
+                          }
+                          return null;
+                        }),
+                      ),
                     ),
                     // Padding(
                     //   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
@@ -248,36 +279,60 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                       child: TextFormField(
-                          key: const ValueKey('password'),
-                          obscureText: isObscure,
-                          controller: _passwordController,
-                          decoration: InputDecoration(
-                            hintText: 'create your password',
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              color: GlobalVariables.greyColor,
+                        key: const ValueKey('password'),
+                        obscureText: isObscure,
+                        controller: _passwordController,
+                        decoration: InputDecoration(
+                          hintText: 'create your password',
+                          prefixIcon: Icon(
+                            Icons.lock,
+                            color: GlobalVariables.greyColor,
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              isObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                             ),
-                          )),
+                            onPressed: () {
+                              setState(() {
+                                isObscure = !isObscure;
+                              });
+                            },
+                          ),
+                        ),
+                        validator: ((value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter password';
+                          }
+                          return null;
+                        }),
+                      ),
                     ),
                   ]),
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    final formState = _key.currentState;
-                    if (formState != null &&
-                        formState.mounted &&
-                        formState.validate()) {
+                    if (_key.currentState!.validate()) {
                       final entity = AuthEntity(
-                        firstName: _firstNameController.text,
-                        lastName: _lastNameController.text,
-                        email: _emailController.text,
-                        phoneNumber: _phoneController.text,
+                        firstName: _firstNameController.text.trim(),
+                        lastName: _lastNameController.text.trim(),
+                        email: _emailController.text.trim(),
+                        phoneNumber: _phoneController.text.trim(),
                         password: _passwordController.text,
                       );
-                      // Register staff
+                      // Register user
                       ref
                           .read(authViewModelProvider.notifier)
-                          .registerUser(entity);
+                          .registerUser(entity)
+                          .then(
+                        (registrationSuccessful) {
+                          // if (registrationSuccessful) {
+                          //   // If registration is successful, navigate to the login page
+                          //   // '/login' should match the route defined for the login page in MaterialApp
+                          // }
+                        },
+                      );
                     }
                   },
                   child: Ink(

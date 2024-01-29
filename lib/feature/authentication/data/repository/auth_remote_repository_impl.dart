@@ -20,9 +20,9 @@ class AuthRemoteRepository implements IAuthRepository {
   AuthRemoteRepository(this._authRemoteDataSource);
 
   @override
-  Future<Either<Failure, bool>> loginUser(String email, String password) {
-    // TODO: implement loginStaff
-    throw UnimplementedError();
+  Future<Either<Failure, bool>> loginUser(String email, String password) async{
+        return await _authRemoteDataSource.loginUser(email, password);
+
   }
 
   @override

@@ -1,5 +1,8 @@
 import 'package:TribalTrove/config/constants/global_variables.dart';
 import 'package:TribalTrove/config/routes/app_route.dart';
+import 'package:TribalTrove/core/common/snackbar/snackbar.dart';
+import 'package:TribalTrove/feature/authentication/domain/entity/auth_entity.dart';
+import 'package:TribalTrove/feature/authentication/presentation/view_model/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,12 +16,19 @@ class LoginPageView extends ConsumerStatefulWidget {
 }
 
 class _LoginPageViewState extends ConsumerState<LoginPageView> {
-  final _formKey = GlobalKey<FormState>();
+  final _key = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool isObscure = true;
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authViewModelProvider);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (authState.showMessage! && authState.error != null) {
+        showSnackBar(message: 'Invalid Credentials', context: context);
+        ref.read(authViewModelProvider.notifier).resetMessage();
+      }
+    });
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -93,56 +103,92 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  child: TextFormField(
-                    key: const ValueKey('email'),
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      hintText: 'Enter your email',
-                      prefixIcon: Icon(
-                        Icons.mail_outlined,
-                        color: GlobalVariables.greyColor,
+                Form(
+                  key: _key,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                        child: TextFormField(
+                          key: const ValueKey('email'),
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            hintText: 'Enter your email',
+                            prefixIcon: Icon(
+                              Icons.mail_outlined,
+                              color: GlobalVariables.greyColor,
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter email';
+                            }
+                            return null;
+                          },
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  child: TextFormField(
-                    key: const ValueKey('password'),
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      hintText: 'Enter your password',
-                      prefixIcon: Icon(
-                        Icons.lock_outline,
-                        color: GlobalVariables.greyColor,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                        child: TextFormField(
+                          key: const ValueKey('password'),
+                          controller: _passwordController,
+                          decoration: InputDecoration(
+                            hintText: 'Enter your password',
+                            prefixIcon: Icon(
+                              Icons.lock_outline,
+                              color: GlobalVariables.greyColor,
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                isObscure
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  isObscure = !isObscure;
+                                });
+                              },
+                            ),
+                          ),
+                          validator: ((value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter password';
+                            }
+                            return null;
+                          }),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/forgotPassPage');
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: "Forgot Password?",
-                          style: TextStyle(
-                            color: GlobalVariables.blueTextColor,
-                            fontSize: 18,
-                            decoration: TextDecoration.underline,
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/forgotPassPage');
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: "Forgot Password?",
+                                style: TextStyle(
+                                  color: GlobalVariables.blueTextColor,
+                                  fontSize: 18,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    Navigator.pushNamed(context, AppRoute.home);
+                    if (_key.currentState!.validate()) {
+                      await ref.read(authViewModelProvider.notifier).loginUser(
+                          context,
+                          _emailController.text,
+                          _passwordController.text);
+                    }
                   },
                   child: Ink(
                     decoration: BoxDecoration(
@@ -206,25 +252,25 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                     ),
                   ],
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/');
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: "Continue as a guest",
-                          style: TextStyle(
-                            color: GlobalVariables.blueTextColor,
-                            fontSize: 16,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // TextButton(
+                //   onPressed: () {
+                //     Navigator.pushNamed(context, '/');
+                //   },
+                //   child: RichText(
+                //     text: TextSpan(
+                //       children: <TextSpan>[
+                //         TextSpan(
+                //           text: "Continue as a guest",
+                //           style: TextStyle(
+                //             color: GlobalVariables.blueTextColor,
+                //             fontSize: 16,
+                //             decoration: TextDecoration.underline,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 RichText(
                   text: TextSpan(
                     children: <TextSpan>[
