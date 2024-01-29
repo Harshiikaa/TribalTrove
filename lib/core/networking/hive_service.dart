@@ -1,5 +1,5 @@
 import 'package:TribalTrove/config/constants/hive_table_constant.dart';
-import 'package:TribalTrove/feature/authentication/data/model/auth_hive_model.dart';
+import 'package:TribalTrove/feature/auth/authentication_user/data/model/auth_hive_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
@@ -20,7 +20,7 @@ class HiveService {
     Hive.registerAdapter(AuthHiveModelAdapter());
   }
 
-  // ======================== Auth Queries ========================
+  // ======================== Auth Buyer Queries ========================
 
   Future<void> registerUser(AuthHiveModel auth) async {
     var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.userBox);
@@ -48,6 +48,37 @@ class HiveService {
     var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.userBox);
     await box.delete(userId);
   }
+
+
+  // ======================== Auth Seller Queries ========================
+
+  //   Future<void> registerSeller(AuthHiveModelSeller auth) async {
+  //   var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.sellerBox);
+  //   await box.put(auth.sellerId, auth);
+  // }
+
+  // // Login
+  // Future<AuthHiveModel?> loginSeller(String email, String password) async {
+  //   var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.sellerBox);
+  //   var auths = box.values.toList();
+  //   var auth = auths.firstWhere(
+  //     (element) => element.email == email && element.password == password,
+  //     orElse: () => AuthHiveModel.empty(),
+  //   );
+  //   return auth;
+  // }
+
+  // Future<List<AuthHiveModel>> getAllSeller() async {
+  //   var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.sellerBox);
+  //   var auths = box.values.toList();
+  //   return auths;
+  // }
+
+  // Future<void> deleteSeller(String sellerId) async {
+  //   var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.sellerBox);
+  //   await box.delete(sellerId);
+  // }
+
 
   // Delete hive
   Future<void> deleteHive() async {

@@ -1,11 +1,11 @@
 import 'package:TribalTrove/feature/dashboard/presentation/view/admin/dashboard_admin.dart';
 import 'package:TribalTrove/feature/dashboard/presentation/view/dashboard_view_user.dart';
-import 'package:TribalTrove/feature/authentication/presentation/view/forgotPass_view.dart';
-import 'package:TribalTrove/feature/authentication/presentation/view/registerPage_merchant.dart';
-import 'package:TribalTrove/feature/authentication/presentation/view/landingPage_view.dart';
-import 'package:TribalTrove/feature/authentication/presentation/view/loginPage_view.dart';
-import 'package:TribalTrove/feature/authentication/presentation/view/registerPage_view.dart';
-import 'package:TribalTrove/feature/authentication/presentation/view/splashScreen_view.dart';
+import 'package:TribalTrove/feature/auth/authentication_user/presentation/view/forgotPass_view.dart';
+import 'package:TribalTrove/feature/auth/authentication_seller/presentation/view/registerPage_merchant.dart';
+import 'package:TribalTrove/feature/auth/authentication_user/presentation/view/landingPage_view.dart';
+import 'package:TribalTrove/feature/auth/authentication_user/presentation/view/loginPage_view.dart';
+import 'package:TribalTrove/feature/auth/authentication_user/presentation/view/registerPage_view.dart';
+import 'package:TribalTrove/feature/auth/authentication_user/presentation/view/splashScreen_view.dart';
 import 'package:TribalTrove/feature/dashboard/presentation/view/user/timeAndDate_view.dart';
 
 class AppRoute {
