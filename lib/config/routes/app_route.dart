@@ -14,7 +14,7 @@ class AppRoute {
   static const String landingPageRoute = "/landingPage";
   static const String loginPageRoute = "/loginPage";
   static const String registerPageRoute = "/registerPage";
-  // static const String registerMerchantRoute = "/registerPageMerchant";
+  static const String registerMerchantRoute = "/registerPageMerchant";
   static const String forgotPasswordPageRoute = "/forgotPassPage";
   static const String splashScreenRoute = "/splashScreen";
   static const String timeAndDateScreenRoute = "/timeAndDateScreen";
@@ -26,7 +26,7 @@ class AppRoute {
       landingPageRoute: (context) => const LandingPageView(),
       loginPageRoute: (context) => const LoginPageView(),
       registerPageRoute: (context) => const RegisterPageView(),
-      // registerMerchantRoute: (context) => const RegisterPageMerchant(),
+      registerMerchantRoute: (context) => const RegisterPageMerchant(),
       forgotPasswordPageRoute: (context) => const ForgotPasswordPageView(),
       splashScreenRoute: (context) => const SplashScreen(),
       timeAndDateScreenRoute: (context) => const TimeAndDateScreen(),

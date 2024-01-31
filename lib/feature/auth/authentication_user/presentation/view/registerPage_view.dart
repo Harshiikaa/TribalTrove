@@ -23,11 +23,11 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool isObscure = true;
-  final List<String> roleItems = [
-    'User',
-    'Merchant',
-  ];
-  String? selectedValue;
+  // final List<String> roleItems = [
+  //   'User',
+  //   'Merchant',
+  // ];
+  // String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
 
       if (ref.watch(authViewModelProvider).showMessage!) {
         showSnackBar(
-            message: 'Student Registerd Successfully', context: context);
+            message: 'User Registerd Successfully', context: context);
         ref.read(authViewModelProvider.notifier).resetMessage();
       }
     });
@@ -397,90 +397,109 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/registerPageMerchant');
+                  },
                   child: RichText(
                     text: TextSpan(
                       children: <TextSpan>[
                         TextSpan(
-                          text: "Sign in with",
+                          text: "Become a Seller",
                           style: TextStyle(
-                            color: GlobalVariables.primaryColor,
+                            color: GlobalVariables.blueTextColor,
                             fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(17.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: Ink(
-                          decoration: const ShapeDecoration(
-                            color: Colors.white,
-                            shape: CircleBorder(),
-                          ),
-                          child: Container(
-                            width: 60, // Adjust the size as needed
-                            height: 60, // Adjust the size as needed
-                            // alignment: Alignment.bottomRight,
-                            child: Image.asset(
-                              'assets/images/facebook_logo.png', // Replace with your Google logo image
-                              width: 40,
-                              height: 40,
-                            ),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Ink(
-                          decoration: const ShapeDecoration(
-                            color: Colors.white,
-                            shape: CircleBorder(),
-                          ),
-                          child: Container(
-                            width: 60, // Adjust the size as needed
-                            height: 60, // Adjust the size as needed
-                            // alignment: Alignment.bottomRight,
-                            child: Image.asset(
-                              'assets/images/google_logo.png', // Replace with your Google logo image
-                              width: 40,
-                              height: 40,
-                            ),
-                          ),
-                        ),
-                      ),
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     // Handle Google sign-in here
-                      //   },
-                      //   child: Ink(
-                      //     decoration: const ShapeDecoration(
-                      //       color: Colors.white,
-                      //       shape: CircleBorder(),
-                      //     ),
-                      //     child: Container(
-                      //       width: 60, // Adjust the size as needed
-                      //       height: 60, // Adjust the size as needed
-                      //       alignment: Alignment.center,
-                      //       child: Image.asset(
-                      //         'assets/apple_logo.png', // Replace with your Google logo image
-                      //         width: 40,
-                      //         height: 40,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // )
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: RichText(
+                //     text: TextSpan(
+                //       children: <TextSpan>[
+                //         TextSpan(
+                //           text: "Sign in with",
+                //           style: TextStyle(
+                //             color: GlobalVariables.primaryColor,
+                //             fontSize: 16,
+                //             fontWeight: FontWeight.bold,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.all(17.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //     children: [
+                //       GestureDetector(
+                //         onTap: () {},
+                //         child: Ink(
+                //           decoration: const ShapeDecoration(
+                //             color: Colors.white,
+                //             shape: CircleBorder(),
+                //           ),
+                //           child: Container(
+                //             width: 60, // Adjust the size as needed
+                //             height: 60, // Adjust the size as needed
+                //             // alignment: Alignment.bottomRight,
+                //             child: Image.asset(
+                //               'assets/images/facebook_logo.png', // Replace with your Google logo image
+                //               width: 40,
+                //               height: 40,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //       GestureDetector(
+                //         onTap: () {},
+                //         child: Ink(
+                //           decoration: const ShapeDecoration(
+                //             color: Colors.white,
+                //             shape: CircleBorder(),
+                //           ),
+                //           child: Container(
+                //             width: 60, // Adjust the size as needed
+                //             height: 60, // Adjust the size as needed
+                //             // alignment: Alignment.bottomRight,
+                //             child: Image.asset(
+                //               'assets/images/google_logo.png', // Replace with your Google logo image
+                //               width: 40,
+                //               height: 40,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //       GestureDetector(
+                //         onTap: () {
+                //           // Handle Google sign-in here
+                //         },
+                //         child: Ink(
+                //           decoration: const ShapeDecoration(
+                //             color: Colors.white,
+                //             shape: CircleBorder(),
+                //           ),
+                //           child: Container(
+                //             width: 60, // Adjust the size as needed
+                //             height: 60, // Adjust the size as needed
+                //             alignment: Alignment.center,
+                //             child: Image.asset(
+                //               'assets/apple_logo.png', // Replace with your Google logo image
+                //               width: 40,
+                //               height: 40,
+                //             ),
+                //           ),
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                // ),
               ]),
             ),
           ),
