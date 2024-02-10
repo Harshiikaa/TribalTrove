@@ -1,4 +1,4 @@
-import 'package:TribalTrove/feature/user/dashboard/presentation/view/dashboard_view_user.dart';
+import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/dashboard_view_user.dart';
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view/forgotPass_view.dart';
 import 'package:TribalTrove/feature/seller/authentication_seller/presentation/view/registerPage_merchant.dart';
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view/landingPage_view.dart';

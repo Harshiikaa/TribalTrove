@@ -1,4 +1,4 @@
-import 'package:TribalTrove/feature/user/dashboard/presentation/view/dashboard_view_user.dart';
+import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/dashboard_view_user.dart';
 import 'package:flutter/material.dart';
 
 class SellerOrderView extends StatefulWidget {

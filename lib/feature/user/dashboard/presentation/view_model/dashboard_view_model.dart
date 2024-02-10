@@ -14,7 +14,7 @@ class DashboardViewModel extends StateNotifier<DashboardState> {
     state = state.copyWith(index: index);
   }
 
-  // void signOut(BuildContext context) {
-  //   Navigator.pushReplacementNamed(context, AppRoute.loginPageRoute);
-  // }
+  void signOut(BuildContext context) {
+    Navigator.pushReplacementNamed(context, AppRoute.loginPageRoute);
+  }
 }
