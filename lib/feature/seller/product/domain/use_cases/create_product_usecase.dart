@@ -5,7 +5,7 @@ import 'package:TribalTrove/feature/seller/product/domain/repository/ProductRepo
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final addBatchUsecaseProvider = Provider.autoDispose<CreateProductUsecase>(
+final createProductUsecaseProvider = Provider.autoDispose<CreateProductUsecase>(
   (ref) => CreateProductUsecase(repository: ref.watch(productRepositoryProvider)),
 );
 

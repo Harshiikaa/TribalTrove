@@ -1,29 +1,31 @@
 
+import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.dart';
+
 class ProductState {
   final bool isLoading;
-  final List<BatchEntity> batches;
+  final List<ProductEntity> products;
   final bool showMessage;
 
   ProductState({
     required this.isLoading,
-    required this.batches,
+    required this.products,
     required this.showMessage,
   });
 
   factory ProductState.initialState() => ProductState(
         isLoading: false,
-        batches: [],
+        products: [],
         showMessage: false,
       );
 
   ProductState copyWith({
     bool? isLoading,
-    List<BatchEntity>? batches,
+    List<ProductEntity>? products,
     bool? showMessage,
   }) {
     return ProductState(
       isLoading: isLoading ?? this.isLoading,
-      batches: batches ?? this.batches,
+      products: products ?? this.products,
       showMessage: showMessage ?? this.showMessage,
     );
   }

@@ -1,12 +1,18 @@
 import 'package:TribalTrove/core/common/snackbar/snackbar.dart';
+import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.dart';
+import 'package:TribalTrove/feature/seller/product/presentation/view_model/product_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SellerAddProductView extends ConsumerWidget{
-  SellerAddProductView({super.key});
+class SellerProductsView extends ConsumerWidget {
+  SellerProductsView({super.key});
 
   final gap = const SizedBox(height: 8);
-  final productController = TextEditingController();
+  final productNameController = TextEditingController();
+  // final productPriceController = TextEditingController();
+  // final productCategoryController = TextEditingController();
+  // final productDescriptionController = TextEditingController();
+  // final productImageController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,7 +32,7 @@ class SellerAddProductView extends ConsumerWidget{
             const Align(
               alignment: Alignment.center,
               child: Text(
-                'Add Batch',
+                'Add Product',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -35,7 +41,7 @@ class SellerAddProductView extends ConsumerWidget{
             ),
             gap,
             TextFormField(
-              controller: productController,
+              controller: productNameController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Product Name',
@@ -52,9 +58,15 @@ class SellerAddProductView extends ConsumerWidget{
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // BatchEntity batch =
-                  //     BatchEntity(batchName: batchController.text);
-                  // ref.read(batchViewModelProvider.notifier).addBatch(batch);
+                  ProductEntity product = ProductEntity(
+                    productName: productNameController.text,
+                    productPrice: "123",
+                    productCategory: 'Ram',
+                    productDescription: 'hhehhe',
+                  );
+                  ref
+                      .read(productViewModelProvider.notifier)
+                      .createProduct(product);
                 },
                 child: const Text('Add Batch'),
               ),
@@ -71,22 +83,22 @@ class SellerAddProductView extends ConsumerWidget{
               ),
             ),
             gap,
-            batchState.isLoading
+            productState.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : Expanded(
                     child: ListView.builder(
-                      itemCount: batchState.batches.length,
+                      itemCount: productState.products.length,
                       itemBuilder: (context, index) {
                         return ListTile(
                           title: Text(
-                            batchState.batches[index].batchName,
+                            productState.products[index].productName,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
                             ),
                           ),
                           subtitle: Text(
-                            batchState.batches[index].batchId ?? 'No id',
+                            productState.products[index].productID ?? 'No id',
                             style: const TextStyle(
                               color: Colors.indigo,
                               fontSize: 12,

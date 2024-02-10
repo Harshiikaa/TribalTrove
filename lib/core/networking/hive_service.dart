@@ -1,5 +1,5 @@
 import 'package:TribalTrove/config/constants/hive_table_constant.dart';
-import 'package:TribalTrove/feature/auth/authentication_user/data/model/auth_hive_model.dart';
+import 'package:TribalTrove/feature/user/authentication_user/data/model/auth_hive_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';

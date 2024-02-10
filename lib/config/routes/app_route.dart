@@ -1,12 +1,13 @@
-import 'package:TribalTrove/feature/dashboard/presentation/view/admin/dashboard_admin.dart';
-import 'package:TribalTrove/feature/dashboard/presentation/view/dashboard_view_user.dart';
-import 'package:TribalTrove/feature/auth/authentication_user/presentation/view/forgotPass_view.dart';
-import 'package:TribalTrove/feature/auth/authentication_seller/presentation/view/registerPage_merchant.dart';
-import 'package:TribalTrove/feature/auth/authentication_user/presentation/view/landingPage_view.dart';
-import 'package:TribalTrove/feature/auth/authentication_user/presentation/view/loginPage_view.dart';
-import 'package:TribalTrove/feature/auth/authentication_user/presentation/view/registerPage_view.dart';
-import 'package:TribalTrove/feature/auth/authentication_user/presentation/view/splashScreen_view.dart';
-import 'package:TribalTrove/feature/dashboard/presentation/view/user/timeAndDate_view.dart';
+import 'package:TribalTrove/feature/user/dashboard/presentation/view/dashboard_view_user.dart';
+import 'package:TribalTrove/feature/user/authentication_user/presentation/view/forgotPass_view.dart';
+import 'package:TribalTrove/feature/seller/authentication_seller/presentation/view/registerPage_merchant.dart';
+import 'package:TribalTrove/feature/user/authentication_user/presentation/view/landingPage_view.dart';
+import 'package:TribalTrove/feature/user/authentication_user/presentation/view/loginPage_view.dart';
+import 'package:TribalTrove/feature/user/authentication_user/presentation/view/registerPage_view.dart';
+import 'package:TribalTrove/feature/user/authentication_user/presentation/view/splashScreen_view.dart';
+import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/timeAndDate_view.dart';
+import 'package:TribalTrove/feature/seller/product/presentation/view/seller_products_view.dart';
+import 'package:TribalTrove/feature/seller/seller_dashboard/presentation/view/seller_dashboard_view.dart';
 
 class AppRoute {
   AppRoute._();
@@ -18,7 +19,8 @@ class AppRoute {
   static const String forgotPasswordPageRoute = "/forgotPassPage";
   static const String splashScreenRoute = "/splashScreen";
   static const String timeAndDateScreenRoute = "/timeAndDateScreen";
-  // static const String dashboardAdminScreenRoute = "/dashboardAdminScreen";
+  static const String sellerProductsScreenRoute = "/sellerProductsScreen";
+  static const String sellerDashboardRoute = "/sellerDashboardScreen";
 
   static getApplication() {
     return {
@@ -30,7 +32,8 @@ class AppRoute {
       forgotPasswordPageRoute: (context) => const ForgotPasswordPageView(),
       splashScreenRoute: (context) => const SplashScreen(),
       timeAndDateScreenRoute: (context) => const TimeAndDateScreen(),
-      // dashboardAdminScreenRoute: (context) => const Dashboard_adminScreen(),
+      sellerProductsScreenRoute: (context) => SellerProductsView(),
+      sellerDashboardRoute: (context) => SellerDashboardView(),
     };
   }
 }

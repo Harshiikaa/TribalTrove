@@ -1,44 +1,48 @@
+import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.dart';
+import 'package:TribalTrove/feature/seller/product/domain/use_cases/create_product_usecase.dart';
+import 'package:TribalTrove/feature/seller/product/domain/use_cases/get_all_products_usecase.dart';
+import 'package:TribalTrove/feature/seller/product/presentation/state/product_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final batchViewModelProvider =
-    StateNotifierProvider.autoDispose<ProductViewModel, BatchState>(
+final productViewModelProvider =
+    StateNotifierProvider.autoDispose<ProductViewModel, ProductState>(
   (ref) => ProductViewModel(
-    addBatchUsecase: ref.read(addBatchUsecaseProvider),
-    getAllBatchUsecase: ref.read(getAllBatchUsecaseProvider),
+    createProductUsecase: ref.read(createProductUsecaseProvider),
+    getAllProductsUsecase: ref.read(getAllProductsUsecaseProvider),
   ),
 );
 
-class ProductViewModel extends StateNotifier<BatchState> {
-  final AddBatchUsecase addBatchUsecase;
-  final GetAllBatchUsecase getAllBatchUsecase;
+class ProductViewModel extends StateNotifier<ProductState> {
+  final CreateProductUsecase createProductUsecase;
+  final GetAllProductsUsecase getAllProductsUsecase;
 
   ProductViewModel({
-    required this.addBatchUsecase,
-    required this.getAllBatchUsecase,
-  }) : super(BatchState.initialState()) {
-    getAllBatch();
+    required this.createProductUsecase,
+    required this.getAllProductsUsecase,
+  }) : super(ProductState.initialState()) {
+    getAllProducts();
   }
 
-  void addBatch(BatchEntity batch) {
+  void createProduct(ProductEntity product) {
     state = state.copyWith(isLoading: true);
-    addBatchUsecase.addBatch(batch).then((value) {
+    createProductUsecase.createProduct(product).then((value) {
       value.fold(
         (failure) => state = state.copyWith(isLoading: false),
         (success) {
           state = state.copyWith(isLoading: false, showMessage: true);
-          getAllBatch();
+          getAllProducts();
         },
       );
     });
   }
 
-  void getAllBatch() {
+  void getAllProducts() {
     state = state.copyWith(isLoading: true);
-    getAllBatchUsecase.getAllBatch().then((value) {
+    getAllProductsUsecase.getAllProducts().then((value) {
       value.fold(
         (failure) => state = state.copyWith(isLoading: false),
-        (batches) {
-          state = state.copyWith(isLoading: false, batches: batches);
+        (products) {
+          state = state.copyWith(isLoading: false, products: products);
         },
       );
     });
