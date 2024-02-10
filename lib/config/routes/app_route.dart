@@ -11,29 +11,36 @@ import 'package:TribalTrove/feature/seller/seller_dashboard/presentation/view/se
 
 class AppRoute {
   AppRoute._();
-  static const String home = "/";
   static const String landingPageRoute = "/landingPage";
   static const String loginPageRoute = "/loginPage";
   static const String registerPageRoute = "/registerPage";
-  static const String registerMerchantRoute = "/registerPageMerchant";
   static const String forgotPasswordPageRoute = "/forgotPassPage";
   static const String splashScreenRoute = "/splashScreen";
   static const String timeAndDateScreenRoute = "/timeAndDateScreen";
+
+  // user
+  static const String home = "/";
+  //seller
+  static const String registerMerchantRoute = "/registerPageMerchant";
   static const String sellerProductsScreenRoute = "/sellerProductsScreen";
   static const String sellerDashboardRoute = "/sellerDashboardScreen";
 
   static getApplication() {
     return {
-      home: (context) => const DashboardViewUser(),
       landingPageRoute: (context) => const LandingPageView(),
       loginPageRoute: (context) => const LoginPageView(),
       registerPageRoute: (context) => const RegisterPageView(),
-      registerMerchantRoute: (context) => const RegisterPageMerchant(),
       forgotPasswordPageRoute: (context) => const ForgotPasswordPageView(),
       splashScreenRoute: (context) => const SplashScreen(),
       timeAndDateScreenRoute: (context) => const TimeAndDateScreen(),
-      sellerProductsScreenRoute: (context) => SellerProductsView(),
+
+      // user
+      home: (context) => const DashboardViewUser(),
+
+      // seller
+      registerMerchantRoute: (context) => const RegisterPageMerchant(),
       sellerDashboardRoute: (context) => SellerDashboardView(),
+      sellerProductsScreenRoute: (context) => SellerProductsView(),
     };
   }
 }
