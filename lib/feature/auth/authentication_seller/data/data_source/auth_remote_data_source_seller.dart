@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:TribalTrove/core/networking/http_service.dart';
 import 'package:TribalTrove/core/shared_pref/seller_shared_prefs.dart';
 import 'package:TribalTrove/core/shared_pref/user_shared_prefs.dart';
@@ -87,4 +89,39 @@ class AuthRemoteDataSourceSeller {
       );
     }
   }
+
+  
+ // Upload image using multipart
+  Future<Either<Failure, String>> uploadProfilePicture(
+    File image,
+  ) async {
+    try {
+      String fileName = image.path.split('/').last;
+      FormData formData = FormData.fromMap(
+        {
+          'profilePicture': await MultipartFile.fromFile(
+            image.path,
+            filename: fileName,
+          ),
+        },
+      );
+
+      Response response = await dio.post(
+        ApiEndpoints.uploadImage,
+        data: formData,
+      );
+
+      return Right(response.data["data"]);
+    } on DioException catch (e) {
+      return Left(
+        Failure(
+          error: e.error.toString(),
+          statusCode: e.response?.statusCode.toString() ?? '0',
+        ),
+      );
+    }
+  }
+
 }
+
+

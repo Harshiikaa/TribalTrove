@@ -31,10 +31,10 @@ class AuthRemoteRepositorySeller implements IAuthRepositorySeller{
   Future<Either<Failure, bool>> registerSeller(AuthEntitySeller seller) async {
     return await _authRemoteDataSourceSeller.registerSeller(seller);
   }
+  
+  @override
+  Future<Either<Failure, String>> uploadProfilePicture(File file) {
+      return _authRemoteDataSourceSeller.uploadProfilePicture(file);
 
-  // @override
-  // Future<Either<Failure, String>> uploadProfilePicture(File file) {
-  //   // TODO: implement uploadProfilePicture
-  //   throw UnimplementedError();
-  // }
+  }
 }

@@ -9,7 +9,7 @@ part 'auth_hive_model.g.dart';
 @HiveType(typeId: HiveTableConstant.userTableId)
 class AuthHiveModel {
   @HiveField(0)
-  final String userId;
+  final String userID;
 
   @HiveField(1)
   final String firstName;
@@ -31,19 +31,19 @@ class AuthHiveModel {
 
   // Constructor
   AuthHiveModel({
-    String? userId,
+    String? userID,
     required this.firstName,
     required this.lastName,
     required this.email,
     required this.phoneNumber,
     // required this.username,
     required this.password,
-  }) : userId = userId ?? const Uuid().v4();
+  }) : userID = userID ?? const Uuid().v4();
 
   // // empty constructor
   AuthHiveModel.empty()
       : this(
-          userId: '',
+          userID: '',
           firstName: '',
           lastName: '',
           email: '',
@@ -64,7 +64,7 @@ class AuthHiveModel {
 
   // Convert Hive Object to Entity
   static AuthEntity toEntity(AuthHiveModel hiveModel) => AuthEntity(
-        userId: hiveModel.userId,
+        userID: hiveModel.userID,
         firstName: hiveModel.firstName,
         lastName: hiveModel.lastName,
         email: hiveModel.email,
@@ -75,10 +75,10 @@ class AuthHiveModel {
 
   @override
   String toString() {
-    return 'userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, password: $password';
+    return 'userId: $userID, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, password: $password';
   }
 
   @override
   List<Object?> get props =>
-      [userId, firstName, lastName, email, phoneNumber, password];
+      [userID, firstName, lastName, email, phoneNumber, password];
 }

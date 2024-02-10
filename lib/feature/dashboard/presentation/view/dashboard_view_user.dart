@@ -1,8 +1,8 @@
 import 'package:TribalTrove/feature/categories/presentation/view/categories_view.dart';
 import 'package:TribalTrove/feature/dashboard/presentation/view_model/dashboard_view_model.dart';
 import 'package:TribalTrove/feature/dashboard/presentation/widgets/bottom_navigation_widget.dart';
-import 'package:TribalTrove/feature/favorites/presentation/view/favorites_view.dart';
-import 'package:TribalTrove/feature/product/data/model/product_model.dart';
+import 'package:TribalTrove/feature/dashboard/presentation/view/user/favorites_view.dart';
+import 'package:TribalTrove/feature/seller/product/data/model/product_model.dart';
 import 'package:TribalTrove/config/constants/global_variables.dart';
 import 'package:TribalTrove/feature/dashboard/presentation/view/user/carousel_view.dart';
 import 'package:TribalTrove/feature/dashboard/presentation/view/user/productItem_view.dart';
@@ -24,7 +24,7 @@ class DashboardViewUser extends ConsumerStatefulWidget {
 }
 
 class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
-  // int _selectedIndex = 0;
+  int _selectedIndex = 0;
   List<Widget> listScreens = [
     const DashboardViewUser(),
     CategoriesView(),
@@ -106,6 +106,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
   @override
   Widget build(BuildContext context) {
     final dashboardState = ref.watch(dashboardViewModelProvider);
+    // final favoriteState = ref.watch(favoriteViewModelProvider);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:

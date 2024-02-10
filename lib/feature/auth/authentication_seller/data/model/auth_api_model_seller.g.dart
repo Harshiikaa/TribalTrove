@@ -8,7 +8,7 @@ part of 'auth_api_model_seller.dart';
 
 AuthApiModelSeller _$AuthApiModelSellerFromJson(Map<String, dynamic> json) =>
     AuthApiModelSeller(
-      sellerId: json['_id'] as String?,
+      sellerID: json['_id'] as String?,
       businessName: json['businessName'] as String,
       businessPhone: json['businessPhone'] as String,
       email: json['email'] as String,
@@ -18,7 +18,7 @@ AuthApiModelSeller _$AuthApiModelSellerFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$AuthApiModelSellerToJson(AuthApiModelSeller instance) =>
     <String, dynamic>{
-      '_id': instance.sellerId,
+      '_id': instance.sellerID,
       'businessName': instance.businessName,
       'businessPhone': instance.businessPhone,
       'businessAddress': instance.businessAddress,

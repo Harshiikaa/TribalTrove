@@ -1,26 +1,28 @@
 import 'package:TribalTrove/config/constants/global_variables.dart';
 import 'package:TribalTrove/core/common/provider/internet_connectivity.dart';
 import 'package:TribalTrove/core/common/snackbar/snackbar.dart';
+import 'package:TribalTrove/feature/auth/authentication_seller/domain/entity/auth_entity_seller.dart';
 import 'package:TribalTrove/feature/auth/authentication_seller/presentation/state/auth_state_seller.dart';
 import 'package:TribalTrove/feature/auth/authentication_seller/presentation/view_model/auth_seller_viewmodel.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegisterPageMerchant extends StatefulWidget {
+class RegisterPageMerchant extends ConsumerStatefulWidget {
   const RegisterPageMerchant({super.key});
 
   @override
-  State<RegisterPageMerchant> createState() => _RegisterPageMerchantState();
+  ConsumerState<RegisterPageMerchant> createState() => _RegisterPageMerchantState();
 }
 
-class _RegisterPageMerchantState extends State<RegisterPageMerchant> {
+class _RegisterPageMerchantState extends ConsumerState<RegisterPageMerchant> {
   // final List<String> roleItems = [
   //   'User',
   //   'Merchant',
   // ];
   final _key = GlobalKey<FormState>();
   final _businessNameController = TextEditingController();
-  final _businessPhoneNumberController = TextEditingController();
+  final _businessPhoneController = TextEditingController();
   final _businessAddressController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -120,33 +122,6 @@ class _RegisterPageMerchantState extends State<RegisterPageMerchant> {
                     ],
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                //   child: TextFormField(
-                //     decoration: InputDecoration(
-                //       contentPadding:
-                //           EdgeInsets.all(10), // Adjust internal padding
-
-                //       focusedBorder: OutlineInputBorder(
-                //         borderSide:
-                //             BorderSide(color: GlobalVariables.outlineColor),
-                //         borderRadius: BorderRadius.circular(10),
-                //       ),
-                //       enabledBorder: OutlineInputBorder(
-                //         borderSide:
-                //             BorderSide(color: GlobalVariables.outlineColor),
-                //         borderRadius: BorderRadius.circular(10),
-                //       ),
-                //       fillColor: GlobalVariables.greyBackgroundColor,
-                //       hintText: 'FullName',
-                //       hintStyle: TextStyle(color: GlobalVariables.greyColor),
-                //       prefixIcon: Icon(
-                //         Icons.person_outlined,
-                //         color: GlobalVariables.greyColor,
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: TextFormField(
@@ -313,87 +288,31 @@ class _RegisterPageMerchantState extends State<RegisterPageMerchant> {
                     }),
                   ),
                 ),
-
-                // Padding(
-                //   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                //   child: DropdownButtonFormField2<String>(
-                //     isExpanded: true,
-                //     decoration: InputDecoration(
-                //       contentPadding:
-                //           EdgeInsets.all(10), // Adjust internal padding
-                //       focusedBorder: OutlineInputBorder(
-                //         borderSide:
-                //             BorderSide(color: GlobalVariables.outlineColor),
-                //         borderRadius: BorderRadius.circular(10),
-                //       ),
-                //       enabledBorder: OutlineInputBorder(
-                //         borderSide:
-                //             BorderSide(color: GlobalVariables.outlineColor),
-                //         borderRadius: BorderRadius.circular(10),
-                //       ),
-                //       fillColor: GlobalVariables.greyBackgroundColor,
-                //       // hintText: 'Enter your phone number',
-                //       hintStyle: TextStyle(color: GlobalVariables.greyColor),
-                //       prefixIcon: Icon(
-                //         Icons.people_alt_outlined,
-                //         color: GlobalVariables.greyColor,
-                //       ),
-                //     ),
-                //     hint: const Text(
-                //       'Merchant',
-                //       style: TextStyle(fontSize: 14),
-                //     ),
-                //     items: roleItems
-                //         .map((item) => DropdownMenuItem<String>(
-                //               value: item,
-                //               child: Text(
-                //                 item,
-                //                 style: const TextStyle(
-                //                     fontSize: 14,
-                //                     color: GlobalVariables.greyColor),
-                //               ),
-                //             ))
-                //         .toList(),
-                //     validator: (value) {
-                //       if (value == null) {
-                //         return 'Merchant';
-                //       }
-                //       return null;
-                //     },
-                //     onChanged: (value) {
-                //       if (value == "Merchant") {
-                //         Navigator.pushNamed(context, '/registerPageMerchant');
-                //       } else if (value == "User") {
-                //         Navigator.pushNamed(context, '/registerPage');
-                //       }
-                //       //Do something when selected item is changed.
-                //     },
-                //     onSaved: (value) {
-                //       selectedValue = value.toString();
-                //     },
-                //     buttonStyleData: const ButtonStyleData(
-                //       padding: EdgeInsets.only(right: 8),
-                //     ),
-                //     iconStyleData: const IconStyleData(
-                //       icon: Icon(
-                //         Icons.arrow_drop_down,
-                //         color: GlobalVariables.greyColor,
-                //       ),
-                //       iconSize: 24,
-                //     ),
-                //     dropdownStyleData: DropdownStyleData(
-                //       decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(15),
-                //       ),
-                //     ),
-                //     menuItemStyleData: const MenuItemStyleData(
-                //       padding: EdgeInsets.symmetric(horizontal: 16),
-                //     ),
-                //   ),
-                // ),
-
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                     if (_key.currentState!.validate()) {
+                      final entity = AuthEntitySeller(
+                        businessName: _businessNameController.text.trim(),
+                        businessAddress: _businessAddressController.text.trim(),
+                        email: _emailController.text.trim(),
+                        businessPhone: _businessPhoneController.text.trim(),
+                        password: _passwordController.text,
+                      );
+                      // Register user
+                      ref
+                          .read(authViewModelSellerProvider.notifier)
+                          .registerSeller(entity)
+                          .then(
+                        (registrationSuccessful) {
+                          // if (registrationSuccessful) {
+                          //   // If registration is successful, navigate to the login page
+                          //   // '/login' should match the route defined for the login page in MaterialApp
+                          // }
+                        },
+                      );
+                    }
+
+                  },
                   style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(0),
                       shape: RoundedRectangleBorder(

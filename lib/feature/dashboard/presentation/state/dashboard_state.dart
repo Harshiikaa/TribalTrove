@@ -1,6 +1,6 @@
 import 'package:TribalTrove/feature/categories/presentation/view/categories_view.dart';
 import 'package:TribalTrove/feature/dashboard/presentation/view/dashboard_view_user.dart';
-import 'package:TribalTrove/feature/favorites/presentation/view/favorites_view.dart';
+import 'package:TribalTrove/feature/dashboard/presentation/view/user/favorites_view.dart';
 import 'package:flutter/material.dart';
 
 class DashboardState {

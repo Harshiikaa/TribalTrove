@@ -6,7 +6,7 @@ part 'auth_api_model_seller.g.dart';
 @JsonSerializable()
 class AuthApiModelSeller {
   @JsonKey(name: '_id')
-  final String? sellerId;
+  final String? sellerID;
   final String businessName;
   final String businessPhone;
   final String? businessAddress;
@@ -14,7 +14,7 @@ class AuthApiModelSeller {
   final String password;
 
   AuthApiModelSeller({
-    this.sellerId,
+    this.sellerID,
     required this.businessName,
     required this.businessPhone,
     required this.email,
@@ -31,7 +31,7 @@ class AuthApiModelSeller {
   // To entity
   factory AuthApiModelSeller.toEntity(AuthApiModelSeller apiModel) {
     return AuthApiModelSeller(
-      sellerId: apiModel.sellerId,
+      sellerID: apiModel.sellerID,
       businessName: apiModel.businessName,
       businessAddress: apiModel.businessAddress,
       businessPhone: apiModel.businessPhone,
@@ -43,7 +43,7 @@ class AuthApiModelSeller {
   // From entity
   factory AuthApiModelSeller.fromEntity(AuthEntitySeller entity) {
     return AuthApiModelSeller(
-      sellerId: entity.sellerId,
+      sellerID: entity.sellerID,
       businessName: entity.businessName,
       businessAddress: entity.businessAddress,
       businessPhone: entity.businessPhone,

@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:TribalTrove/config/routes/app_route.dart';
 import 'package:TribalTrove/feature/auth/authentication_user/domain/use_cases/login_usecase.dart';
 import 'package:TribalTrove/feature/auth/authentication_user/domain/use_cases/register_usecase.dart';
+import 'package:TribalTrove/feature/auth/authentication_user/domain/use_cases/upload_image_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,14 +13,16 @@ import '../state/auth_state.dart';
 
 final authViewModelProvider = StateNotifierProvider<AuthViewModel, AuthState>(
   (ref) => AuthViewModel(
-      ref.read(registerUseCaseProvider), ref.read(loginUseCaseProvider)),
+      ref.read(registerUseCaseProvider), ref.read(loginUseCaseProvider), ref.read(uploadImageUseCaseProvider)),
 );
 
 class AuthViewModel extends StateNotifier<AuthState> {
   final RegisterUseCase _registerUseCase;
   final LoginUseCase _loginUseCase;
+    final UploadImageUseCase _uploadImageUsecase;
 
-  AuthViewModel(this._registerUseCase, this._loginUseCase)
+
+  AuthViewModel(this._registerUseCase, this._loginUseCase, this._uploadImageUsecase)
       : super(AuthState.initial());
 
   Future<void> registerUser(AuthEntity entity) async {
@@ -47,6 +52,23 @@ class AuthViewModel extends StateNotifier<AuthState> {
       ),
     );
     Navigator.popAndPushNamed(context, AppRoute.home);
+  }
+
+  Future<void> uploadImage(File? file) async {
+    state = state.copyWith(isLoading: true);
+    var data = await _uploadImageUsecase.uploadProfilePicture(file!);
+    data.fold(
+      (l) {
+        state = state.copyWith(isLoading: false, error: l.error);
+      },
+      (imageName) {
+        state = state.copyWith(
+          isLoading: false,
+          error: null,
+          imageName: imageName,
+        );
+      },
+    );
   }
 
   void reset() {

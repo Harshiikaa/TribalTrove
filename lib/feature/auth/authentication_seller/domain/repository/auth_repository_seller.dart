@@ -16,5 +16,5 @@ final authRepositorySellerProvider = Provider<IAuthRepositorySeller>(
 abstract class IAuthRepositorySeller {
   Future<Either<Failure, bool>> registerSeller(AuthEntitySeller seller);
   Future<Either<Failure, bool>> loginSeller(String email, String password);
-  // Future<Either<Failure, String>> uploadProfilePicture(File file);
+  Future<Either<Failure, String>> uploadProfilePicture(File file);
 }

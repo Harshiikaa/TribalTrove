@@ -17,7 +17,7 @@ class AuthHiveModelAdapter extends TypeAdapter<AuthHiveModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return AuthHiveModel(
-      userId: fields[0] as String?,
+      userID: fields[0] as String?,
       firstName: fields[1] as String,
       lastName: fields[2] as String,
       email: fields[3] as String,
@@ -31,7 +31,7 @@ class AuthHiveModelAdapter extends TypeAdapter<AuthHiveModel> {
     writer
       ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.userId)
+      ..write(obj.userID)
       ..writeByte(1)
       ..write(obj.firstName)
       ..writeByte(2)

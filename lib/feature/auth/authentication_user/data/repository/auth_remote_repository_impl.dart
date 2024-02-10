@@ -32,7 +32,6 @@ class AuthRemoteRepository implements IAuthRepository {
 
   @override
   Future<Either<Failure, String>> uploadProfilePicture(File file) {
-    // TODO: implement uploadProfilePicture
-    throw UnimplementedError();
+    return _authRemoteDataSource.uploadProfilePicture(file);
   }
 }

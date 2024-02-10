@@ -185,9 +185,10 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                   onPressed: () async {
                     if (_key.currentState!.validate()) {
                       await ref.read(authViewModelProvider.notifier).loginUser(
-                          context,
-                          _emailController.text,
-                          _passwordController.text);
+                            context,
+                            _emailController.text,
+                            _passwordController.text,
+                          );
                     }
                   },
                   child: Ink(
@@ -252,25 +253,6 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                     ),
                   ],
                 ),
-                // TextButton(
-                //   onPressed: () {
-                //     Navigator.pushNamed(context, '/');
-                //   },
-                //   child: RichText(
-                //     text: TextSpan(
-                //       children: <TextSpan>[
-                //         TextSpan(
-                //           text: "Continue as a guest",
-                //           style: TextStyle(
-                //             color: GlobalVariables.blueTextColor,
-                //             fontSize: 16,
-                //             decoration: TextDecoration.underline,
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
                 RichText(
                   text: TextSpan(
                     children: <TextSpan>[

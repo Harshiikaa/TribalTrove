@@ -14,6 +14,18 @@ class ApiEndpoints {
   //static const String baseUrl = "http://192.168.4.4:3000/api/v1/";
 
   // ====================== Auth Routes ======================
-  static const String login = "auth/login";
-  static const String register = "users/create";
+  static const String login = "user/login";
+  static const String register = "user/create";
+  static const String uploadImage = "user/uploadImage";
+
+
+  // ====================== Product Routes ======================
+  static const String createProduct = "product/createProduct";
+    static const String getAllProducts = "product/getAllProducts";
+  static const String getProductBySellerID = "product/getProductBySellerID/";
+  // static const String getProductByCategory = "product/getProductByCategory";
+  static const String updateProduct = "product/updateProduct/";
+  static const String deleteProduct = "product/deleteProduct/";
+
+
 }
