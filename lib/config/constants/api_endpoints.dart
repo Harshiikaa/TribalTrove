@@ -4,8 +4,9 @@ class ApiEndpoints {
   static const Duration connectionTimeout = Duration(seconds: 1000);
   static const Duration receiveTimeout = Duration(seconds: 1000);
   // For Windows
-  // static const String baseUrl = "http://10.0.2.2:5000/api/";
-  static const String baseUrl = "http://192.168.1.67:5000/api/";
+  // static const String baseUrl = "http://10.0.2.2:5000/api";
+  // static const String baseUrl = "http://192.168.1.67:5000/api/";
+  static const String baseUrl = "http://192.168.137.1:5000/api/";
 
   // For MAC
   // static const String baseUrl = "http://10.0.2.2:5000/";
@@ -15,17 +16,16 @@ class ApiEndpoints {
 
   // ====================== Auth Routes ======================
   static const String login = "user/login";
-  static const String register = "user/create";
-  static const String uploadImage = "user/uploadImage";
+  // static const String register = "$baseUrl/user/create";
+    static const String register = "user/create";
 
+  static const String uploadImage = "user/uploadImage";
 
   // ====================== Product Routes ======================
   static const String createProduct = "product/createProduct";
-    static const String getAllProducts = "product/getAllProducts";
+  static const String getAllProducts = "product/getAllProducts";
   static const String getProductBySellerID = "product/getProductBySellerID/";
   // static const String getProductByCategory = "product/getProductByCategory";
   static const String updateProduct = "product/updateProduct/";
   static const String deleteProduct = "product/deleteProduct/";
-
-
 }

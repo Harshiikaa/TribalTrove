@@ -12,7 +12,7 @@ class App extends StatelessWidget {
         theme: getApplicationTheme(),
         debugShowCheckedModeBanner: false,
         // initialRoute: AppRoute.dashboardAdminScreenRoute,
-        initialRoute: AppRoute.home,
+        initialRoute: AppRoute.registerPageRoute,
         routes: AppRoute.getApplication());
   }
 }

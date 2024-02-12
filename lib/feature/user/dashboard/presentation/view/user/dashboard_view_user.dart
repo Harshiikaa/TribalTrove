@@ -143,6 +143,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                     IconButton(
                       icon: const Icon(Icons.person_outline),
                       onPressed: () {
+                        Navigator.pushNamed(context, '/userProfile');
                         // Handle person icon action
                       },
                       iconSize: 30, // Increased icon size for the person icon
@@ -245,7 +246,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
             ),
             Center(
               // child: _widgetOptions.elementAt(_selectedIndex),
-                child: _widgetOptions.elementAt(dashboardState.index),
+              child: _widgetOptions.elementAt(dashboardState.index),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height *
