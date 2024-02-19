@@ -27,7 +27,7 @@ class AuthRemoteDataSourceSeller {
     try {
       AuthApiModelSeller apiModel = AuthApiModelSeller.fromEntity(seller);
       Response response = await dio.post(
-        ApiEndpoints.register,
+        ApiEndpoints.registerSeller,
         data: {
           "businessName": apiModel.businessName,
           "businessPhone": apiModel.businessPhone,
@@ -62,7 +62,7 @@ class AuthRemoteDataSourceSeller {
   ) async {
     try {
       Response response = await dio.post(
-        ApiEndpoints.login,
+        ApiEndpoints.loginSeller ,
         data: {
           "email": email,
           "password": password,

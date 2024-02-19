@@ -26,8 +26,7 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
   final _passwordController = TextEditingController();
   bool isObscure = true;
 
-
-    // Check for the camera permission
+  // Check for the camera permission
   // checkCameraPermission() async {
   //   if (await Permission.camera.request().isRestricted ||
   //       await Permission.camera.request().isDenied) {
@@ -65,8 +64,7 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
       }
 
       if (ref.watch(authViewModelProvider).showMessage!) {
-        showSnackBar(
-            message: 'User Registerd Successfully', context: context);
+        showSnackBar(message: 'User Registerd Successfully', context: context);
         ref.read(authViewModelProvider.notifier).resetMessage();
       }
     });
@@ -220,6 +218,7 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
                       child: TextFormField(
                         key: const ValueKey('phoneNumber'),
                         controller: _phoneController,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           hintText: 'Enter your phone number',
                           prefixIcon: Icon(
@@ -356,25 +355,25 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
                     ),
                   ],
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/registerPageMerchant');
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: "Become a Seller",
-                          style: TextStyle(
-                            color: GlobalVariables.blueTextColor,
-                            fontSize: 16,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // TextButton(
+                //   onPressed: () {
+                //     Navigator.pushNamed(context, '/registerPageMerchant');
+                //   },
+                //   child: RichText(
+                //     text: TextSpan(
+                //       children: <TextSpan>[
+                //         TextSpan(
+                //           text: "Become a Seller",
+                //           style: TextStyle(
+                //             color: GlobalVariables.blueTextColor,
+                //             fontSize: 16,
+                //             decoration: TextDecoration.underline,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 // Padding(
                 //   padding: const EdgeInsets.all(8.0),
                 //   child: RichText(

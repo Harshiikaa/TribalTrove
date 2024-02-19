@@ -1,6 +1,7 @@
 import 'package:TribalTrove/feature/seller/order/presentation/view/seller_order_view.dart';
-import 'package:TribalTrove/feature/seller/product/presentation/view/seller_products_view.dart';
+import 'package:TribalTrove/feature/seller/product/presentation/view/seller_product_view.dart';
 import 'package:TribalTrove/feature/seller/profile/presentation/view/seller_profile_view.dart';
+import 'package:TribalTrove/feature/seller/seller_dashboard/presentation/view/bottom_view/dashboard_view.dart';
 import 'package:TribalTrove/feature/seller/seller_dashboard/presentation/view/seller_dashboard_view.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +14,8 @@ class SellerDashboardState {
   SellerDashboardState.initialState()
       : index = 0,
         lstWidgets = [
-          const SellerDashboardView(),
-          SellerProductsView(),
+          const DashboardView(),
+          SellerProductView(),
           const SellerOrderView(),
           const SellerProfileView(),
         ];

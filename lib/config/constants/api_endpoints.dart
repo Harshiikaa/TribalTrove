@@ -17,9 +17,14 @@ class ApiEndpoints {
   // ====================== Auth Routes ======================
   static const String login = "user/login";
   // static const String register = "$baseUrl/user/create";
-    static const String register = "user/create";
-
+  static const String register = "user/create";
   static const String uploadImage = "user/uploadImage";
+
+  // ====================== Seller Routes ======================
+  static const String loginSeller = "seller/login";
+  // static const String register = "$baseUrl/user/create";
+  static const String registerSeller = "seller/create";
+  static const String uploadImageSeller = "seller/uploadImage";
 
   // ====================== Product Routes ======================
   static const String createProduct = "product/createProduct";

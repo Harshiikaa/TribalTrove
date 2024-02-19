@@ -12,14 +12,11 @@ class RegisterPageMerchant extends ConsumerStatefulWidget {
   const RegisterPageMerchant({super.key});
 
   @override
-  ConsumerState<RegisterPageMerchant> createState() => _RegisterPageMerchantState();
+  ConsumerState<RegisterPageMerchant> createState() =>
+      _RegisterPageMerchantState();
 }
 
 class _RegisterPageMerchantState extends ConsumerState<RegisterPageMerchant> {
-  // final List<String> roleItems = [
-  //   'User',
-  //   'Merchant',
-  // ];
   final _key = GlobalKey<FormState>();
   final _businessNameController = TextEditingController();
   final _businessPhoneController = TextEditingController();
@@ -30,24 +27,24 @@ class _RegisterPageMerchantState extends ConsumerState<RegisterPageMerchant> {
 
   @override
   Widget build(BuildContext context) {
-    // final isConnected = ref.watch(connectivityStatusProvider);
+    final isConnected = ref.watch(connectivityStatusProvider);
 
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   if (isConnected == ConnectivityStatus.isDisconnected) {
-    //     showSnackBar(
-    //         message: 'No Internet Connection',
-    //         context: context,
-    //         color: Colors.red);
-    //   } else if (isConnected == ConnectivityStatus.isConnected) {
-    //     showSnackBar(message: 'You are online', context: context);
-    //   }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (isConnected == ConnectivityStatus.isDisconnected) {
+        showSnackBar(
+            message: 'No Internet Connection',
+            context: context,
+            color: Colors.red);
+      } else if (isConnected == ConnectivityStatus.isConnected) {
+        showSnackBar(message: 'You are online', context: context);
+      }
 
-    //   if (ref.watch(authViewModelSellerProvider).showMessage!) {
-    //     showSnackBar(
-    //         message: 'Student Registerd Successfully', context: context);
-    //     ref.read(authViewModelSellerProvider.notifier).resetMessage();
-    //   }
-    // });
+      if (ref.watch(authViewModelSellerProvider).showMessage!) {
+        showSnackBar(
+            message: 'Seller Registerd Successfully', context: context);
+        ref.read(authViewModelSellerProvider.notifier).resetMessage();
+      }
+    });
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -80,7 +77,7 @@ class _RegisterPageMerchantState extends ConsumerState<RegisterPageMerchant> {
                     children: [
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/loginPage');
+                          Navigator.pushNamed(context, '/loginPageSeller');
                         },
                         child: RichText(
                           text: TextSpan(
@@ -122,41 +119,52 @@ class _RegisterPageMerchantState extends ConsumerState<RegisterPageMerchant> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.all(10), // Adjust internal padding
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: GlobalVariables.outlineColor),
-                        borderRadius: BorderRadius.circular(10),
+                Form(
+                  key: _key,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                        child: TextFormField(
+                          controller: _businessNameController,
+                          decoration: InputDecoration(
+                            contentPadding:
+                                EdgeInsets.all(10), // Adjust internal padding
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: GlobalVariables.outlineColor),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: GlobalVariables.outlineColor),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            fillColor: GlobalVariables.greyBackgroundColor,
+                            hintText: 'Business Name',
+                            hintStyle:
+                                TextStyle(color: GlobalVariables.greyColor),
+                            prefixIcon: Icon(
+                              Icons.business,
+                              color: GlobalVariables.greyColor,
+                            ),
+                          ),
+                          validator: ((value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your bunsiness name';
+                            }
+                            return null;
+                          }),
+                        ),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: GlobalVariables.outlineColor),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      fillColor: GlobalVariables.greyBackgroundColor,
-                      hintText: 'Business Name',
-                      hintStyle: TextStyle(color: GlobalVariables.greyColor),
-                      prefixIcon: Icon(
-                        Icons.business,
-                        color: GlobalVariables.greyColor,
-                      ),
-                    ),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your bunsiness name';
-                      }
-                      return null;
-                    }),
+                    ],
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: TextFormField(
+                    controller: _businessPhoneController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       contentPadding:
                           EdgeInsets.all(10), // Adjust internal padding
@@ -189,6 +197,7 @@ class _RegisterPageMerchantState extends ConsumerState<RegisterPageMerchant> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: TextFormField(
+                    controller: _businessAddressController,
                     decoration: InputDecoration(
                       contentPadding:
                           EdgeInsets.all(10), // Adjust internal padding
@@ -221,6 +230,7 @@ class _RegisterPageMerchantState extends ConsumerState<RegisterPageMerchant> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: TextFormField(
+                    controller: _emailController,
                     decoration: InputDecoration(
                       contentPadding:
                           EdgeInsets.all(10), // Adjust internal padding
@@ -289,8 +299,8 @@ class _RegisterPageMerchantState extends ConsumerState<RegisterPageMerchant> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                     if (_key.currentState!.validate()) {
+                  onPressed: () async {
+                    if (_key.currentState!.validate()) {
                       final entity = AuthEntitySeller(
                         businessName: _businessNameController.text.trim(),
                         businessAddress: _businessAddressController.text.trim(),
@@ -311,7 +321,6 @@ class _RegisterPageMerchantState extends ConsumerState<RegisterPageMerchant> {
                         },
                       );
                     }
-
                   },
                   style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(0),
@@ -360,7 +369,7 @@ class _RegisterPageMerchantState extends ConsumerState<RegisterPageMerchant> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/registerPage');
+                        Navigator.pushNamed(context, '/loginPageSeller');
                       },
                       child: RichText(
                         text: TextSpan(

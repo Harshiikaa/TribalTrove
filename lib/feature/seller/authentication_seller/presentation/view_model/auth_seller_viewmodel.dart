@@ -8,9 +8,10 @@ import 'package:TribalTrove/feature/user/authentication_user/domain/use_cases/re
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final authViewModelSellerProvider = StateNotifierProvider<AuthSellerViewModel, AuthStateSeller>(
-  (ref) => AuthSellerViewModel(
-      ref.read(registerUseCaseSellerProvider), ref.read(loginUseCaseSellerProvider)),
+final authViewModelSellerProvider =
+    StateNotifierProvider<AuthSellerViewModel, AuthStateSeller>(
+  (ref) => AuthSellerViewModel(ref.read(registerUseCaseSellerProvider),
+      ref.read(loginUseCaseSellerProvider)),
 );
 
 class AuthSellerViewModel extends StateNotifier<AuthStateSeller> {
@@ -46,7 +47,7 @@ class AuthSellerViewModel extends StateNotifier<AuthStateSeller> {
         error: null,
       ),
     );
-    Navigator.popAndPushNamed(context, AppRoute.home);
+    Navigator.popAndPushNamed(context, AppRoute.sellerDashboardRoute);
   }
 
   void reset() {

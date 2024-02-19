@@ -19,6 +19,9 @@ class _SellerDashboardViewState extends ConsumerState<SellerDashboardView> {
     return Scaffold(
       body: sellerDashboardState.lstWidgets[sellerDashboardState.index],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.blue, // Set the background color to blue
+        selectedItemColor: Colors.white, // Set the selected item color
+        unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
