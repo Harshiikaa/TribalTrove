@@ -1,4 +1,3 @@
-
 import 'package:TribalTrove/feature/user/dashboard/presentation/view_model/dashboard_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +16,9 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
     return Scaffold(
       body: dashboardState.lstWidgets[dashboardState.index],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.blue, // Set the background color to blue
+        selectedItemColor: Colors.white, // Set the selected item color
+        unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
@@ -26,10 +28,10 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
             icon: Icon(Icons.favorite),
             label: 'Favorites',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'My Cart',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.shopping_cart),
+          //   label: 'My Cart',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',

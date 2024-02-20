@@ -1,6 +1,6 @@
 import 'package:TribalTrove/feature/user/categories/presentation/view/categories_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/dashboard_view_user.dart';
-import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/favorites_view.dart';
+import 'package:TribalTrove/feature/user/favorites/presentation/view/favorites_view.dart';
 import 'package:TribalTrove/feature/user/myCart/presentation/view/myCart_view.dart';
 import 'package:TribalTrove/feature/user/profile/presentation/view/user_profile_view.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +18,8 @@ class DashboardState {
       : index = 0,
         lstWidgets = [
           const DashboardViewUser(),
-          // CategoriesView(),
           const FavoritesView(),
-          const MyCartView(),
           const UserProfileView(),
-
-
         ];
 
   DashboardState copyWith({

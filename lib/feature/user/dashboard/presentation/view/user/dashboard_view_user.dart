@@ -1,11 +1,10 @@
+import 'package:TribalTrove/feature/seller/product/presentation/view_model/product_view_model.dart';
 import 'package:TribalTrove/feature/user/categories/presentation/view/categories_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view_model/dashboard_view_model.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/widgets/bottom_navigation_widget.dart';
-import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/favorites_view.dart';
 import 'package:TribalTrove/config/constants/global_variables.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/carousel_view.dart';
-import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/productItem_view.dart';
-import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/productList_view.dart';
+import 'package:TribalTrove/feature/user/favorites/presentation/view/favorites_view.dart';
 import 'package:TribalTrove/feature/user/searchProduct/presentation/view/searchbox_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/top_categories_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/widgets/product_card.dart';
@@ -104,6 +103,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
   }
   @override
   Widget build(BuildContext context) {
+    final productState = ref.watch(productViewModelProvider);
     final dashboardState = ref.watch(dashboardViewModelProvider);
     // final favoriteState = ref.watch(favoriteViewModelProvider);
     return Scaffold(
@@ -281,6 +281,37 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                 fontSize: MediaQuery.of(context).size.width > 600 ? 24 : 20,
               ),
             ),
+            productState.isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : 
+                Expanded(
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 15,
+                      ),
+                      itemCount: productState.products.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: Center(
+                            child: ListTile(
+                              title: Center(
+                                child: Text(
+                                  productState.products[index].productName,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
             Column(children: [
               Padding(
                 padding: EdgeInsets.all(20.0),
@@ -298,7 +329,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                       _buildProductColumn(
                         'assets/images/clothes.jpg',
                         'Hippie T-shirt',
-                        'Shakya Pashmina Store',
+                        'Shakya Store',
                         'Rs 1200',
                       ),
                       // Add more product columns as needed
@@ -306,222 +337,218 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    // crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 130,
-                            width: 130,
-                            child: Image.asset(
-                              'assets/images/ceramics.jpg',
-                              // widget.product.images,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Text(
-                            'Ceramic Dining Set',
-                            // widget.product.title,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Bajey ko Ceramics',
-                            // widget.product.seller,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.red,
-                            ),
-                          ),
-                          Text(
-                            "Rs 3000",
-                            // ('\$' '${widget.product.price}'),
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 130,
-                            width: 130,
-                            child: Image.asset(
-                              'assets/images/arts.jpg',
-                              // widget.product.images,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Text(
-                            'Goddess Chamunda ',
-                            // widget.product.title,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Everest Thangka Shop',
-                            // widget.product.seller,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.red,
-                            ),
-                          ),
-                          Text(
-                            "Rs 10,000",
-                            // ('\$' '${widget.product.price}'),
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    // crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 130,
-                            width: 130,
-                            child: Image.asset(
-                              'assets/images/ceramics.jpg',
-                              // widget.product.images,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Text(
-                            'Ceramic Dining Set',
-                            // widget.product.title,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Bajey ko Ceramics',
-                            // widget.product.seller,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.red,
-                            ),
-                          ),
-                          Text(
-                            "Rs 3000",
-                            // ('\$' '${widget.product.price}'),
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      // Icon(
-                      //   Icons.favorite_border_outlined,
-                      //   color: GlobalVariables.redColor,
-                      // ),
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 130,
-                            width: 130,
-                            child: Image.asset(
-                              'assets/images/arts.jpg',
-                              // widget.product.images,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Text(
-                            'Goddess Chamunda ',
-                            // widget.product.title,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Everest Thangka Shop',
-                            // widget.product.seller,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.red,
-                            ),
-                          ),
-                          Text(
-                            "Rs 10,000",
-                            // ('\$' '${widget.product.price}'),
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      // Icon(
-                      //   Icons.favorite_border_outlined,
-                      //   color: GlobalVariables.redColor,
-                      // )
-                    ],
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(20.0),
+              //   child: Padding(
+              //     padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //       // crossAxisAlignment: CrossAxisAlignment.stretch,
+              //       children: [
+              //         Column(
+              //           children: [
+              //             SizedBox(
+              //               height: 130,
+              //               width: 130,
+              //               child: Image.asset(
+              //                 'assets/images/ceramics.jpg',
+              //                 // widget.product.images,
+              //                 fit: BoxFit.cover,
+              //               ),
+              //             ),
+              //             Text(
+              //               'Ceramic Dining Set',
+              //               // widget.product.title,
+              //               style: const TextStyle(
+              //                 fontSize: 16,
+              //                 fontWeight: FontWeight.bold,
+              //               ),
+              //             ),
+              //             Text(
+              //               'Bajey ko Ceramics',
+              //               // widget.product.seller,
+              //               style: const TextStyle(
+              //                 fontSize: 14,
+              //                 color: Colors.red,
+              //               ),
+              //             ),
+              //             Text(
+              //               "Rs 3000",
+              //               // ('\$' '${widget.product.price}'),
+              //               style: const TextStyle(
+              //                   fontSize: 18, fontWeight: FontWeight.bold),
+              //             ),
+              //           ],
+              //         ),
+              //         Column(
+              //           children: [
+              //             SizedBox(
+              //               height: 130,
+              //               width: 130,
+              //               child: Image.asset(
+              //                 'assets/images/arts.jpg',
+              //                 // widget.product.images,
+              //                 fit: BoxFit.cover,
+              //               ),
+              //             ),
+              //             Text(
+              //               'Goddess Chamunda ',
+              //               // widget.product.title,
+              //               style: const TextStyle(
+              //                 fontSize: 16,
+              //                 fontWeight: FontWeight.bold,
+              //               ),
+              //             ),
+              //             Text(
+              //               'Everest Thangka Shop',
+              //               // widget.product.seller,
+              //               style: const TextStyle(
+              //                 fontSize: 14,
+              //                 color: Colors.red,
+              //               ),
+              //             ),
+              //             Text(
+              //               "Rs 10,000",
+              //               // ('\$' '${widget.product.price}'),
+              //               style: const TextStyle(
+              //                   fontSize: 18, fontWeight: FontWeight.bold),
+              //             ),
+              //           ],
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.all(20.0),
+              //   child: Padding(
+              //     padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //       // crossAxisAlignment: CrossAxisAlignment.stretch,
+              //       children: [
+              //         Column(
+              //           children: [
+              //             SizedBox(
+              //               height: 130,
+              //               width: 130,
+              //               child: Image.asset(
+              //                 'assets/images/ceramics.jpg',
+              //                 // widget.product.images,
+              //                 fit: BoxFit.cover,
+              //               ),
+              //             ),
+              //             Text(
+              //               'Ceramic Dining Set',
+              //               // widget.product.title,
+              //               style: const TextStyle(
+              //                 fontSize: 16,
+              //                 fontWeight: FontWeight.bold,
+              //               ),
+              //             ),
+              //             Text(
+              //               'Bajey ko Ceramics',
+              //               // widget.product.seller,
+              //               style: const TextStyle(
+              //                 fontSize: 14,
+              //                 color: Colors.red,
+              //               ),
+              //             ),
+              //             Text(
+              //               "Rs 3000",
+              //               // ('\$' '${widget.product.price}'),
+              //               style: const TextStyle(
+              //                   fontSize: 18, fontWeight: FontWeight.bold),
+              //             ),
+              //           ],
+              //         ),
+              //         // Icon(
+              //         //   Icons.favorite_border_outlined,
+              //         //   color: GlobalVariables.redColor,
+              //         // ),
+              //         Column(
+              //           children: [
+              //             SizedBox(
+              //               height: 130,
+              //               width: 130,
+              //               child: Image.asset(
+              //                 'assets/images/arts.jpg',
+              //                 // widget.product.images,
+              //                 fit: BoxFit.cover,
+              //               ),
+              //             ),
+              //             Text(
+              //               'Goddess Chamunda ',
+              //               // widget.product.title,
+              //               style: const TextStyle(
+              //                 fontSize: 16,
+              //                 fontWeight: FontWeight.bold,
+              //               ),
+              //             ),
+              //             Text(
+              //               'Everest Thangka Shop',
+              //               // widget.product.seller,
+              //               style: const TextStyle(
+              //                 fontSize: 14,
+              //                 color: Colors.red,
+              //               ),
+              //             ),
+              //             Text(
+              //               "Rs 10,000",
+              //               // ('\$' '${widget.product.price}'),
+              //               style: const TextStyle(
+              //                   fontSize: 18, fontWeight: FontWeight.bold),
+              //             ),
+              //           ],
+              //         ),
+              //         // Icon(
+              //         //   Icons.favorite_border_outlined,
+              //         //   color: GlobalVariables.redColor,
+              //         // )
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ]),
           ],
         ),
       ),
       // bottomNavigationBar:const BottomNavigationWidget(),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Color(0xffEFF2F4),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.category),
-            label: 'Categories',
-            backgroundColor: Color(0xffEFF2F4),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-            backgroundColor: Color(0xffEFF2F4),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.wallet_giftcard),
-            label: 'My Orders',
-            backgroundColor: Color(0xffEFF2F4),
-          ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.settings),
-          //   label: 'Setting',
-          //   backgroundColor: Color(0xffEFF2F4),
-          // ),
-        ],
-        // currentIndex: _selectedIndex,
-        currentIndex: dashboardState.index,
-        selectedItemColor: Colors.blue[800],
-        unselectedItemColor: Color(0xff91B1E7),
-        onTap: (index) {
-          setState(() {
-            // selectedIndex = index;
-            ref.read(dashboardViewModelProvider.notifier).changeIndex(index);
-          });
-        },
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: 'Home',
+      //       backgroundColor: Color(0xffEFF2F4),
+      //     ),
+      //     // BottomNavigationBarItem(
+      //     //   icon: Icon(Icons.category),
+      //     //   label: 'Categories',
+      //     //   backgroundColor: Color(0xffEFF2F4),
+      //     // ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.favorite),
+      //       label: 'Favorites',
+      //       backgroundColor: Color(0xffEFF2F4),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.person),
+      //       label: 'My Profile',
+      //       backgroundColor: Color(0xffEFF2F4),
+      //     ),
+
+      //   ],
+      //   // currentIndex: _selectedIndex,
+      //   currentIndex: dashboardState.index,
+      //   // selectedItemColor: Colors.blue[800],
+      //   unselectedItemColor: Color(0xff91B1E7),
+      //   onTap: (index) {
+      //     setState(() {
+      //       // selectedIndex = index;
+      //       ref.read(dashboardViewModelProvider.notifier).changeIndex(index);
+      //     });
+      //   },
+      // ),
     );
   }
 }

@@ -9,7 +9,6 @@ import 'package:TribalTrove/feature/user/authentication_user/presentation/view/l
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view/loginPage_view.dart';
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view/registerPage_view.dart';
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view/splashScreen_view.dart';
-import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/timeAndDate_view.dart';
 import 'package:TribalTrove/feature/seller/seller_dashboard/presentation/view/seller_dashboard_view.dart';
 import 'package:TribalTrove/feature/user/profile/presentation/view/user_profile_view.dart';
 
@@ -42,7 +41,6 @@ class AppRoute {
       registerPageRoute: (context) => const RegisterPageView(),
       forgotPasswordPageRoute: (context) => const ForgotPasswordPageView(),
       splashScreenRoute: (context) => const SplashScreen(),
-      timeAndDateScreenRoute: (context) => const TimeAndDateScreen(),
 
       // user
       home: (context) => const DashboardViewUser(),
