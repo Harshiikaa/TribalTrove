@@ -1,7 +1,7 @@
 import 'package:TribalTrove/feature/seller/authentication_seller/presentation/view/loginPage_merchant.dart';
 import 'package:TribalTrove/feature/seller/product/presentation/view/seller_product_view.dart';
-import 'package:TribalTrove/feature/seller/seller_dashboard/presentation/view/bottom_view/dashboard_view.dart';
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view/role.dart';
+import 'package:TribalTrove/feature/user/dashboard/presentation/view/dashboard_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/dashboard_view_user.dart';
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view/forgotPass_view.dart';
 import 'package:TribalTrove/feature/seller/authentication_seller/presentation/view/registerPage_merchant.dart';
@@ -43,7 +43,7 @@ class AppRoute {
       splashScreenRoute: (context) => const SplashScreen(),
 
       // user
-      home: (context) => const DashboardViewUser(),
+      home: (context) => const DashboardView(),
       userProfile: (context) => const UserProfileView(),
 
       // seller

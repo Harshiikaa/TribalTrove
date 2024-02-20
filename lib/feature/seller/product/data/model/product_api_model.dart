@@ -2,6 +2,7 @@ import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.
 import 'package:json_annotation/json_annotation.dart';
 
 part 'product_api_model.g.dart';
+
 @JsonSerializable()
 class ProductAPIModel {
   @JsonKey(name: '_id')
@@ -10,7 +11,8 @@ class ProductAPIModel {
   final String productPrice;
   final String productCategory;
   final String productDescription;
-  final String? productImage;
+  final String? productImageURL;
+  final String? sellerID;
 
   ProductAPIModel(
       {this.productID,
@@ -18,7 +20,8 @@ class ProductAPIModel {
       required this.productPrice,
       required this.productCategory,
       required this.productDescription,
-      this.productImage});
+      this.productImageURL,
+      this.sellerID});
 
   // To Json and fromJson without freezed
   factory ProductAPIModel.fromJson(Map<String, dynamic> json) {
@@ -28,7 +31,8 @@ class ProductAPIModel {
       productPrice: json['productPrice'],
       productCategory: json['productCategory'],
       productDescription: json['productDescription'],
-      productImage: json['productImage'],
+      productImageURL: json['productImageURL'],
+      sellerID: json['sellerID'],
     );
   }
 
@@ -38,7 +42,8 @@ class ProductAPIModel {
       'productPrice': productPrice,
       'productCategory': productCategory,
       'productDescription': productDescription,
-      'productImage': productImage,
+      'productImageURL': productImageURL,
+      'sellerID': sellerID
     };
   }
 
@@ -50,7 +55,8 @@ class ProductAPIModel {
       productPrice: entity.productPrice,
       productCategory: entity.productCategory,
       productDescription: entity.productDescription,
-      productImage: entity.productImage,
+      productImageURL: entity.productImageURL,
+      sellerID: entity.sellerID,
     );
   }
 
@@ -62,7 +68,8 @@ class ProductAPIModel {
       productPrice: model.productPrice,
       productCategory: model.productCategory,
       productDescription: model.productDescription,
-      productImage: model.productImage,
+      productImageURL: model.productImageURL,
+      sellerID: model.sellerID,
     );
   }
 }

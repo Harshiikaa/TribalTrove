@@ -14,7 +14,7 @@ class App extends ConsumerWidget {
         title: 'Tribal Trove',
         theme: getApplicationTheme(),
         // initialRoute: AppRoute.dashboardAdminScreenRoute,
-        initialRoute: AppRoute.rolePageRoute,
+        initialRoute: AppRoute.loginPageRoute,
         routes: AppRoute.getApplication());
   }
 }

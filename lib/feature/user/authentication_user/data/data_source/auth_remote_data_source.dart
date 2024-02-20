@@ -34,7 +34,7 @@ class AuthRemoteDataSource {
           "lastName": apiModel.lastName,
           "email": apiModel.email,
           "phoneNumber": apiModel.phoneNumber,
-          // "username": apiModel.email,
+          "userImage": apiModel.userImage,
           "password": apiModel.password,
         },
       );

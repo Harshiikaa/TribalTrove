@@ -6,17 +6,33 @@ part 'get_all_products_dto.g.dart';
 @JsonSerializable()
 class GetAllProductsDTO {
   final bool success;
-  final int count;
-  final List<ProductAPIModel> data;
+  final String message;
+  final List<ProductAPIModel> products;
 
   GetAllProductsDTO({
     required this.success,
-    required this.count,
-    required this.data,
+    required this.message,
+    required this.products,
   });
 
   factory GetAllProductsDTO.fromJson(Map<String, dynamic> json) =>
       _$GetAllProductsDTOFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetAllProductsDTOToJson(this);
+
+  static GetAllProductsDTO toEntity(GetAllProductsDTO getAllProductsDTO) {
+    return GetAllProductsDTO(
+      success: getAllProductsDTO.success,
+      message: getAllProductsDTO.message,
+      products: getAllProductsDTO.products,
+    );
+  }
+
+  static GetAllProductsDTO fromEntity(GetAllProductsDTO getAllProductsDTO) {
+    return GetAllProductsDTO(
+      success: getAllProductsDTO.success,
+      message: getAllProductsDTO.message,
+      products: getAllProductsDTO.products,
+    );
+  }
 }

@@ -1,4 +1,3 @@
-import 'package:TribalTrove/feature/user/categories/presentation/view/categories_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/dashboard_view_user.dart';
 import 'package:TribalTrove/feature/user/favorites/presentation/view/favorites_view.dart';
 import 'package:TribalTrove/feature/user/myCart/presentation/view/myCart_view.dart';

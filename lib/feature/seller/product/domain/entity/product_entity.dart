@@ -6,7 +6,8 @@ class ProductEntity extends Equatable {
   final String productPrice;
   final String productCategory;
   final String productDescription;
-  final String? productImage;
+  final String? productImageURL;
+  final String? sellerID;
 
   @override
   List<Object?> get props => [
@@ -15,7 +16,8 @@ class ProductEntity extends Equatable {
         productPrice,
         productCategory,
         productDescription,
-        productImage
+        productImageURL,
+        sellerID
       ];
 
   const ProductEntity({
@@ -24,11 +26,12 @@ class ProductEntity extends Equatable {
     required this.productPrice,
     required this.productCategory,
     required this.productDescription,
-    this.productImage,
+    this.productImageURL,
+    this.sellerID
   });
 
   @override
   String toString() {
-    return 'ProductEntity(productID: $productID, productName: $productName,productPrice: $productPrice,productCategory: $productCategory,productDescription: $productDescription, productImage: $productImage)';
+    return 'ProductEntity(productID: $productID, productName: $productName,productPrice: $productPrice,productCategory: $productCategory,productDescription: $productDescription, productImageURL: $productImageURL, sellerID : $sellerID)';
   }
 }

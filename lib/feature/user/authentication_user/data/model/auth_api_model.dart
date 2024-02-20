@@ -11,8 +11,8 @@ class AuthApiModel {
   final String firstName;
   final String lastName;
   final String email;
-  final String? phoneNumber;
-  // final String username;
+  final String phoneNumber;
+  final String? userImage;
   final String password;
 
   AuthApiModel({
@@ -20,8 +20,8 @@ class AuthApiModel {
     required this.firstName,
     required this.lastName,
     required this.email,
-    this.phoneNumber,
-    // required this.username,
+    required this.phoneNumber,
+    this.userImage,
     required this.password,
   });
 
@@ -38,7 +38,7 @@ class AuthApiModel {
       lastName: apiModel.lastName,
       email: apiModel.email,
       phoneNumber: apiModel.phoneNumber,
-      // username: apiModel.username,
+      userImage: apiModel.userImage,
       password: apiModel.password,
     );
   }
@@ -51,7 +51,7 @@ class AuthApiModel {
       lastName: entity.lastName,
       email: entity.email,
       phoneNumber: entity.phoneNumber,
-      // username: entity.username,
+      userImage: entity.userImage,
       password: entity.password,
     );
   }

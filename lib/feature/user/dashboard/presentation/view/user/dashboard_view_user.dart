@@ -1,5 +1,7 @@
+import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.dart';
 import 'package:TribalTrove/feature/seller/product/presentation/view_model/product_view_model.dart';
-import 'package:TribalTrove/feature/user/categories/presentation/view/categories_view.dart';
+import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/product_details.dart';
+
 import 'package:TribalTrove/feature/user/dashboard/presentation/view_model/dashboard_view_model.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/widgets/bottom_navigation_widget.dart';
 import 'package:TribalTrove/config/constants/global_variables.dart';
@@ -10,6 +12,7 @@ import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/top_ca
 import 'package:TribalTrove/feature/user/dashboard/presentation/widgets/product_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DashboardViewUser extends ConsumerStatefulWidget {
@@ -22,12 +25,6 @@ class DashboardViewUser extends ConsumerStatefulWidget {
 }
 
 class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
-  int _selectedIndex = 0;
-  List<Widget> listScreens = [
-    const DashboardViewUser(),
-    CategoriesView(),
-    FavoritesView(),
-  ];
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -103,7 +100,11 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
   }
   @override
   Widget build(BuildContext context) {
+    final List<bool> isFavoriteList = List.generate(5, (index) => false);
+
     final productState = ref.watch(productViewModelProvider);
+    List<ProductEntity?>? products = productState.products;
+
     final dashboardState = ref.watch(dashboardViewModelProvider);
     // final favoriteState = ref.watch(favoriteViewModelProvider);
     return Scaffold(
@@ -281,274 +282,248 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                 fontSize: MediaQuery.of(context).size.width > 600 ? 24 : 20,
               ),
             ),
-            productState.isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : 
-                Expanded(
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 12,
-                        mainAxisSpacing: 15,
-                      ),
-                      itemCount: productState.products.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          child: Center(
-                            child: ListTile(
-                              title: Center(
-                                child: Text(
-                                  productState.products[index].productName,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+            ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: products.length ?? 0,
+                itemBuilder: (context, index) {
+                  return Card(
+                    margin: EdgeInsets.all(10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: GestureDetector(
+                        onTap: () {
+                          // Navigate to the new page here
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProductDetailsView()));
+                        },
+                        child: Container(
+                          height: 220, // Set the desired height
+                          width: double
+                              .infinity, // Set the desired width, use double.infinity for full width
+                          child: Card(
+                            elevation: 5,
+                            margin: EdgeInsets.all(10),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 80, // Adjust the image height
+                                    child: Image.network(
+                                      products?[index]!.productImageURL ?? '',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    '${products?[index]?.productName}',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    'NPR.${products?[index]?.productPrice}',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${products?[index]?.productPrice}',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        );
+                        )),
+                  );
+                  // Card(
+                  //   elevation: 5,
+                  //   margin: EdgeInsets.all(10),
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(10.0),
+                  //   ),
+                  //   child: InkWell(
+                  //     onTap: () {
+                  //       // Handle onTap action
+                  //     },
+                  //     child: Container(
+                  //       width: double
+                  //           .infinity, // Use double.infinity for full width
+                  //       height: 220, // Set the desired height
+                  //       child: Column(
+                  //         children: [
+                  //           Expanded(
+                  //             flex: 2,
+                  //             child: ClipRRect(
+                  //               borderRadius: BorderRadius.vertical(
+                  //                 top: Radius.circular(10.0),
+                  //               ),
+                  //               child: Image.network(
+                  //                 products?[index]!.productImageURL ?? '',
+                  //                 width: double.infinity,
+                  //                 fit: BoxFit.cover,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           Expanded(
+                  //             flex: 1,
+                  //             child: Padding(
+                  //               padding: const EdgeInsets.all(8.0),
+                  //               child: Column(
+                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                  //                 children: [
+                  //                   Text(
+                  //                     '${products?[index]?.productName}',
+                  //                     style: TextStyle(
+                  //                       fontSize: 16,
+                  //                       fontWeight: FontWeight.bold,
+                  //                     ),
+                  //                   ),
+                  //                   SizedBox(height: 4),
+                  //                   Text(
+                  //                     'NPR.${products?[index]?.productPrice}',
+                  //                     style: TextStyle(
+                  //                       fontSize: 16,
+                  //                     ),
+                  //                   ),
+                  //                   // Text(
+                  //                   //   '${products?[index]?.productPrice}',
+                  //                   //   style: TextStyle(
+                  //                   //     fontSize: 16,
+                  //                   //   ),
+                  //                   // ),
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // );
+                }),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Card(
+                    margin: EdgeInsets.all(10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        // Handle onTap action
                       },
+                      child: Container(
+                        width: 150, // Set a fixed width for each card
+                        height: 200,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(10.0),
+                                ),
+                                child: Image.asset(
+                                  'assets/images/terracota.jpg',
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Product Name',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text('Price: \$100'),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-            Column(children: [
-              Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildProductColumn(
-                        'assets/images/homeDecors.jpg',
-                        'Wooden Statue',
-                        'Himalaya Crafts',
-                        'Rs 5000',
-                      ),
-                      _buildProductColumn(
-                        'assets/images/clothes.jpg',
-                        'Hippie T-shirt',
-                        'Shakya Store',
-                        'Rs 1200',
-                      ),
-                      // Add more product columns as needed
-                    ],
-                  ),
-                ),
+                  // Card(
+                  //   margin: EdgeInsets.all(10),
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(10.0),
+                  //   ),
+                  //   child: InkWell(
+                  //     onTap: () {
+                  //       // Handle onTap action
+                  //     },
+                  //     child: Container(
+                  //       width: 150, // Set a fixed width for each card
+                  //       height: 200,
+                  //       child: Column(
+                  //         children: [
+                  //           Expanded(
+                  //             flex: 2,
+                  //             child: ClipRRect(
+                  //               borderRadius: BorderRadius.vertical(
+                  //                 top: Radius.circular(10.0),
+                  //               ),
+                  //               child: Image.asset(
+                  //                 'assets/images/terracota.jpg',
+                  //                 width: double.infinity,
+                  //                 fit: BoxFit.cover,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           Expanded(
+                  //             flex: 1,
+                  //             child: Padding(
+                  //               padding: const EdgeInsets.all(8.0),
+                  //               child: Column(
+                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                  //                 children: [
+                  //                   Text(
+                  //                     'Product Name',
+                  //                     style: TextStyle(
+                  //                       fontWeight: FontWeight.bold,
+                  //                     ),
+                  //                   ),
+                  //                   Text('Price: \$100'),
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // )
+                ],
               ),
-              // Padding(
-              //   padding: const EdgeInsets.all(20.0),
-              //   child: Padding(
-              //     padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //       // crossAxisAlignment: CrossAxisAlignment.stretch,
-              //       children: [
-              //         Column(
-              //           children: [
-              //             SizedBox(
-              //               height: 130,
-              //               width: 130,
-              //               child: Image.asset(
-              //                 'assets/images/ceramics.jpg',
-              //                 // widget.product.images,
-              //                 fit: BoxFit.cover,
-              //               ),
-              //             ),
-              //             Text(
-              //               'Ceramic Dining Set',
-              //               // widget.product.title,
-              //               style: const TextStyle(
-              //                 fontSize: 16,
-              //                 fontWeight: FontWeight.bold,
-              //               ),
-              //             ),
-              //             Text(
-              //               'Bajey ko Ceramics',
-              //               // widget.product.seller,
-              //               style: const TextStyle(
-              //                 fontSize: 14,
-              //                 color: Colors.red,
-              //               ),
-              //             ),
-              //             Text(
-              //               "Rs 3000",
-              //               // ('\$' '${widget.product.price}'),
-              //               style: const TextStyle(
-              //                   fontSize: 18, fontWeight: FontWeight.bold),
-              //             ),
-              //           ],
-              //         ),
-              //         Column(
-              //           children: [
-              //             SizedBox(
-              //               height: 130,
-              //               width: 130,
-              //               child: Image.asset(
-              //                 'assets/images/arts.jpg',
-              //                 // widget.product.images,
-              //                 fit: BoxFit.cover,
-              //               ),
-              //             ),
-              //             Text(
-              //               'Goddess Chamunda ',
-              //               // widget.product.title,
-              //               style: const TextStyle(
-              //                 fontSize: 16,
-              //                 fontWeight: FontWeight.bold,
-              //               ),
-              //             ),
-              //             Text(
-              //               'Everest Thangka Shop',
-              //               // widget.product.seller,
-              //               style: const TextStyle(
-              //                 fontSize: 14,
-              //                 color: Colors.red,
-              //               ),
-              //             ),
-              //             Text(
-              //               "Rs 10,000",
-              //               // ('\$' '${widget.product.price}'),
-              //               style: const TextStyle(
-              //                   fontSize: 18, fontWeight: FontWeight.bold),
-              //             ),
-              //           ],
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.all(20.0),
-              //   child: Padding(
-              //     padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //       // crossAxisAlignment: CrossAxisAlignment.stretch,
-              //       children: [
-              //         Column(
-              //           children: [
-              //             SizedBox(
-              //               height: 130,
-              //               width: 130,
-              //               child: Image.asset(
-              //                 'assets/images/ceramics.jpg',
-              //                 // widget.product.images,
-              //                 fit: BoxFit.cover,
-              //               ),
-              //             ),
-              //             Text(
-              //               'Ceramic Dining Set',
-              //               // widget.product.title,
-              //               style: const TextStyle(
-              //                 fontSize: 16,
-              //                 fontWeight: FontWeight.bold,
-              //               ),
-              //             ),
-              //             Text(
-              //               'Bajey ko Ceramics',
-              //               // widget.product.seller,
-              //               style: const TextStyle(
-              //                 fontSize: 14,
-              //                 color: Colors.red,
-              //               ),
-              //             ),
-              //             Text(
-              //               "Rs 3000",
-              //               // ('\$' '${widget.product.price}'),
-              //               style: const TextStyle(
-              //                   fontSize: 18, fontWeight: FontWeight.bold),
-              //             ),
-              //           ],
-              //         ),
-              //         // Icon(
-              //         //   Icons.favorite_border_outlined,
-              //         //   color: GlobalVariables.redColor,
-              //         // ),
-              //         Column(
-              //           children: [
-              //             SizedBox(
-              //               height: 130,
-              //               width: 130,
-              //               child: Image.asset(
-              //                 'assets/images/arts.jpg',
-              //                 // widget.product.images,
-              //                 fit: BoxFit.cover,
-              //               ),
-              //             ),
-              //             Text(
-              //               'Goddess Chamunda ',
-              //               // widget.product.title,
-              //               style: const TextStyle(
-              //                 fontSize: 16,
-              //                 fontWeight: FontWeight.bold,
-              //               ),
-              //             ),
-              //             Text(
-              //               'Everest Thangka Shop',
-              //               // widget.product.seller,
-              //               style: const TextStyle(
-              //                 fontSize: 14,
-              //                 color: Colors.red,
-              //               ),
-              //             ),
-              //             Text(
-              //               "Rs 10,000",
-              //               // ('\$' '${widget.product.price}'),
-              //               style: const TextStyle(
-              //                   fontSize: 18, fontWeight: FontWeight.bold),
-              //             ),
-              //           ],
-              //         ),
-              //         // Icon(
-              //         //   Icons.favorite_border_outlined,
-              //         //   color: GlobalVariables.redColor,
-              //         // )
-              //       ],
-              //     ),
-              //   ),
-              // ),
-            ]),
+            ),
           ],
         ),
       ),
-      // bottomNavigationBar:const BottomNavigationWidget(),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home),
-      //       label: 'Home',
-      //       backgroundColor: Color(0xffEFF2F4),
-      //     ),
-      //     // BottomNavigationBarItem(
-      //     //   icon: Icon(Icons.category),
-      //     //   label: 'Categories',
-      //     //   backgroundColor: Color(0xffEFF2F4),
-      //     // ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.favorite),
-      //       label: 'Favorites',
-      //       backgroundColor: Color(0xffEFF2F4),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.person),
-      //       label: 'My Profile',
-      //       backgroundColor: Color(0xffEFF2F4),
-      //     ),
-
-      //   ],
-      //   // currentIndex: _selectedIndex,
-      //   currentIndex: dashboardState.index,
-      //   // selectedItemColor: Colors.blue[800],
-      //   unselectedItemColor: Color(0xff91B1E7),
-      //   onTap: (index) {
-      //     setState(() {
-      //       // selectedIndex = index;
-      //       ref.read(dashboardViewModelProvider.notifier).changeIndex(index);
-      //     });
-      //   },
-      // ),
     );
   }
 }

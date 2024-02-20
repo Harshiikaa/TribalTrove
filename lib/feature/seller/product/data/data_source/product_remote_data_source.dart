@@ -51,10 +51,9 @@ class ProductRemoteDataSource {
         GetAllProductsDTO getAllProductsDTO =
             GetAllProductsDTO.fromJson(response.data);
         // Convert ProductsAPIModel to ProductsEntity
-        List<ProductEntity> productList = getAllProductsDTO.data
+        List<ProductEntity> productList = getAllProductsDTO.products
             .map((products) => ProductAPIModel.toEntity(products))
             .toList();
-
         return Right(productList);
       } else {
         return Left(
