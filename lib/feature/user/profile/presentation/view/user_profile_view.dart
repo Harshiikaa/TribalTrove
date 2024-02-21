@@ -20,12 +20,10 @@ class UserProfileView extends ConsumerStatefulWidget {
 }
 
 class _UserProfileViewState extends ConsumerState<UserProfileView> {
-   final _gap = const SizedBox(height: 8);
-     final _key = GlobalKey<FormState>();
+  final _gap = const SizedBox(height: 8);
+  final _key = GlobalKey<FormState>();
 
-     
-
-       // Check for the camera permission
+  // Check for the camera permission
   checkCameraPermission() async {
     if (await Permission.camera.request().isRestricted ||
         await Permission.camera.request().isDenied) {
@@ -33,7 +31,7 @@ class _UserProfileViewState extends ConsumerState<UserProfileView> {
     }
   }
 
-    File? _img;
+  File? _img;
   Future _browseImage(ImageSource imageSource) async {
     try {
       final image = await ImagePicker().pickImage(source: imageSource);
@@ -50,19 +48,12 @@ class _UserProfileViewState extends ConsumerState<UserProfileView> {
 
   @override
   Widget build(BuildContext context) {
-        final isConnected = ref.watch(connectivityStatusProvider);
-        
+    final isConnected = ref.watch(connectivityStatusProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text('Your Profile')),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
+        automaticallyImplyLeading: false,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -163,7 +154,6 @@ class _UserProfileViewState extends ConsumerState<UserProfileView> {
                       return null;
                     }),
                   ),
-               
                   _gap,
                   SizedBox(
                     width: double.infinity,

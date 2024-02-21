@@ -13,6 +13,10 @@ class FavoritesViewState extends State<FavoritesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text('Your Favorites')),
+        automaticallyImplyLeading: false,
+      ),
       body: Center(
         child: Text("Favorites"),
       ),

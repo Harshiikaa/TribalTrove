@@ -142,9 +142,9 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                       iconSize: 30, // Increased icon size for the shopping cart
                     ),
                     IconButton(
-                      icon: const Icon(Icons.person_outline),
+                      icon: const Icon(Icons.logout_outlined),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/userProfile');
+                        // Navigator.pushNamed(context, '/userProfile');
                         // Handle person icon action
                       },
                       iconSize: 30, // Increased icon size for the person icon
@@ -303,7 +303,6 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                                 products[index]?.productCategory,
                                 products[index]?.productImageURL,
                               ]);
-                         
                         },
                         child: Container(
                           height: 220, // Set the desired height
