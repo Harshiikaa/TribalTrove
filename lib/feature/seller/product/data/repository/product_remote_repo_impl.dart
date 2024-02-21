@@ -2,7 +2,7 @@
 import 'package:TribalTrove/core/failure/failure.dart';
 import 'package:TribalTrove/feature/seller/product/data/data_source/product_remote_data_source.dart';
 import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.dart';
-import 'package:TribalTrove/feature/seller/product/domain/repository/ProductRepository.dart';
+import 'package:TribalTrove/feature/seller/product/domain/repository/product_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

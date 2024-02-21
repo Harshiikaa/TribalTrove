@@ -7,10 +7,10 @@ class ApiEndpoints {
   // static const String baseUrl = "http://10.0.2.2:5000/api";
 
   //home
-  static const String baseUrl = "http://192.168.1.68:5000/api/";
+  // static const String baseUrl = "http://192.168.1.68:5000/api/";
 
   // college
-  // static const String baseUrl = "http://192.168.137.1:5000/api/";
+  static const String baseUrl = "http://192.168.137.1:5000/api/";
 
   // For MAC
   // static const String baseUrl = "http://10.0.2.2:5000/";
@@ -39,4 +39,9 @@ class ApiEndpoints {
   // static const String getProductByCategory = "product/getProductByCategory";
   static const String updateProduct = "product/updateProduct/";
   static const String deleteProduct = "product/deleteProduct/";
+
+// ====================== Favorite Routes ======================
+  static const String createFavorite = "favorite/createFavorite";
+    static const String getFavoriteByUserID = "product/getFavoriteByUserID/:id";
+
 }

@@ -1,8 +1,9 @@
+import 'dart:convert';
+
 import 'package:TribalTrove/core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 final userSharedPrefsProvider = Provider<UserSharedPrefs>((ref) {
   return UserSharedPrefs();
@@ -40,6 +41,33 @@ class UserSharedPrefs {
       return right(true);
     } catch (e) {
       return left(Failure(error: e.toString()));
+    }
+  }
+
+  Future<bool> setUser(Map<String, dynamic> user) async {
+    try {
+      _sharedPreferences = await SharedPreferences.getInstance();
+      String userDataString = jsonEncode(user);
+      await _sharedPreferences.setString('user', userDataString);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<Map<String, dynamic>?> getUser() async {
+    try {
+      _sharedPreferences = await SharedPreferences.getInstance();
+      String? userDataString = _sharedPreferences.getString('user');
+
+      if (userDataString == null || userDataString.isEmpty) {
+        return null;
+      }
+
+      Map<String, dynamic> userData = jsonDecode(userDataString);
+      return userData;
+    } catch (e) {
+      return null;
     }
   }
 }

@@ -293,64 +293,59 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/productDetails",
-                              arguments: [
-                                //  products[index]?.productID,
-                                products[index]?.productName,
-                                products[index]?.productPrice,
-                                products[index]?.productDescription,
-                                products[index]?.productCategory,
-                                products[index]?.productImageURL,
-                              ]);
-                        },
-                        child: Container(
-                          height: 220, // Set the desired height
-                          width: double
-                              .infinity, // Set the desired width, use double.infinity for full width
-                          child: Card(
-                            elevation: 5,
-                            margin: EdgeInsets.all(10),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 80, // Adjust the image height
-                                    child: Image.network(
-                                      products?[index]!.productImageURL ?? '',
-                                      fit: BoxFit.cover,
-                                    ),
+                      onTap: () {
+                        Navigator.pushNamed(context, "/productDetails",
+                            arguments: [
+                              products[index]?.productID,
+                              products[index]?.productName,
+                              products[index]?.productPrice,
+                              products[index]?.productDescription,
+                              products[index]?.productCategory,
+                              products[index]?.productImageURL,
+                            ]);
+                      },
+                      child: Container(
+                        height: 220, // Set the desired height
+                        width: double
+                            .infinity, // Set the desired width, use double.infinity for full width
+                        child: Card(
+                          elevation: 5,
+                          margin: EdgeInsets.all(10),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 80, // Adjust the image height
+                                  child: Image.network(
+                                    products?[index]!.productImageURL ?? '',
+                                    fit: BoxFit.cover,
                                   ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    '${products?[index]?.productName}',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  '${products?[index]?.productName}',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  SizedBox(height: 4),
-                                  Text(
-                                    'NPR.${products?[index]?.productPrice}',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                    ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  'NPR.${products?[index]?.productPrice}',
+                                  style: TextStyle(
+                                    fontSize: 16,
                                   ),
-                                  // Text(
-                                  //   '${products?[index]?.productPrice}',
-                                  //   style: TextStyle(
-                                  //     fontSize: 16,
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        )),
+                        ),
+                      ),
+                    ),
                   );
                   // Card(
                   //   elevation: 5,
