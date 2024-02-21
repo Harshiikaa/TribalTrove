@@ -47,46 +47,46 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
   ];
 
 // Helper function to build a responsive product column
-  Widget _buildProductColumn(
-    String imagePath,
-    String title,
-    String seller,
-    String price,
-  ) {
-    return Column(
-      children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.width > 600 ? 220 : 150,
-          width: MediaQuery.of(context).size.width > 600 ? 220 : 150,
-          child: Image.asset(
-            imagePath,
-            fit: BoxFit.cover,
-          ),
-        ),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: MediaQuery.of(context).size.width > 600 ? 24 : 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(
-          seller,
-          style: TextStyle(
-            fontSize: MediaQuery.of(context).size.width > 600 ? 20 : 16,
-            color: Colors.red,
-          ),
-        ),
-        Text(
-          price,
-          style: TextStyle(
-            fontSize: MediaQuery.of(context).size.width > 600 ? 26 : 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _buildProductColumn(
+  //   String imagePath,
+  //   String title,
+  //   String seller,
+  //   String price,
+  // ) {
+  //   return Column(
+  //     children: [
+  //       SizedBox(
+  //         height: MediaQuery.of(context).size.width > 600 ? 220 : 150,
+  //         width: MediaQuery.of(context).size.width > 600 ? 220 : 150,
+  //         child: Image.asset(
+  //           imagePath,
+  //           fit: BoxFit.cover,
+  //         ),
+  //       ),
+  //       Text(
+  //         title,
+  //         style: TextStyle(
+  //           fontSize: MediaQuery.of(context).size.width > 600 ? 24 : 18,
+  //           fontWeight: FontWeight.bold,
+  //         ),
+  //       ),
+  //       Text(
+  //         seller,
+  //         style: TextStyle(
+  //           fontSize: MediaQuery.of(context).size.width > 600 ? 20 : 16,
+  //           color: Colors.red,
+  //         ),
+  //       ),
+  //       Text(
+  //         price,
+  //         style: TextStyle(
+  //           fontSize: MediaQuery.of(context).size.width > 600 ? 26 : 20,
+  //           fontWeight: FontWeight.bold,
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   void navigateToCategoryPage(BuildContext context, String category) {
     // Navigator.pushNamed(context, CategoryDealsScreen.routeName,
@@ -294,11 +294,16 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                     ),
                     child: GestureDetector(
                         onTap: () {
-                          // Navigate to the new page here
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ProductDetailsView()));
+                          Navigator.pushNamed(context, "/productDetails",
+                              arguments: [
+                                //  products[index]?.productID,
+                                products[index]?.productName,
+                                products[index]?.productPrice,
+                                products[index]?.productDescription,
+                                products[index]?.productCategory,
+                                products[index]?.productImageURL,
+                              ]);
+                         
                         },
                         child: Container(
                           height: 220, // Set the desired height
@@ -336,12 +341,12 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                                       fontSize: 16,
                                     ),
                                   ),
-                                  Text(
-                                    '${products?[index]?.productPrice}',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
+                                  // Text(
+                                  //   '${products?[index]?.productPrice}',
+                                  //   style: TextStyle(
+                                  //     fontSize: 16,
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
