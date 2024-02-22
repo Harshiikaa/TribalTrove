@@ -4,6 +4,8 @@ import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.
 import 'package:TribalTrove/feature/seller/product/presentation/view_model/product_view_model.dart';
 import 'package:TribalTrove/feature/user/favorites/domain/entity/favorites_entity.dart';
 import 'package:TribalTrove/feature/user/favorites/presentation/view_model/favorite_view_model.dart';
+import 'package:TribalTrove/feature/user/myCart/domain/entity/mycart_entity.dart';
+import 'package:TribalTrove/feature/user/myCart/presentation/view_model/myCart_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -38,10 +40,26 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
         // ref.read(favoriteViewModelProvider.notifier).resetMessage();
       }
     });
+// for cart
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (isConnected == ConnectivityStatus.isDisconnected) {
+        showSnackBar(
+            message: 'No Internet Connection',
+            context: context,
+            color: Colors.red);
+      } else if (isConnected == ConnectivityStatus.isConnected) {
+        showSnackBar(message: 'You are online', context: context);
+      }
+
+      if (ref.watch(myCartViewModelProvider).showMessage!) {
+        showSnackBar(
+            message: 'Added to My Cart Successfully', context: context);
+        // ref.read(myCartViewModelProvider.notifier).resetMessage();
+      }
+    });
 
     final productState = ref.watch(productViewModelProvider);
     List<ProductEntity?>? products = productState.products;
-    final favoriteState = ref.watch(favoriteViewModelProvider);
     final args = ModalRoute.of(context)!.settings.arguments as List<String?>;
     final productID = args[0] ?? 'productID';
     final productName = args[1] ?? 'productName';
@@ -50,6 +68,9 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
     final productCategory = args[4] ?? 'productCategory';
     final productImageURL = args[5];
     'productImage';
+
+    final favoriteState = ref.watch(favoriteViewModelProvider);
+    final myCartState = ref.watch(myCartViewModelProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text('Product Details'),
@@ -137,12 +158,26 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                         : Icons.add_shopping_cart,
                     // color: Colors.blue,
                   ),
-                  onPressed: () {
-                    // Toggle the cart status or handle the cart action
-                    setState(() {
-                      isInCart = !isInCart;
-                    });
+                  onPressed: () async {
+                    final now = DateTime.now();
+                    final currentDate = DateTime(now.year, now.month, now.day);
+                    final entity = MyCartEntity(
+                      createdAt: currentDate,
+                      productID: productID,
+                      userID: "user",
+                    );
+                    ref
+                        .read(myCartViewModelProvider.notifier)
+                        .addToCart(entity);
                   },
+
+                  // {
+                  //   // Toggle the cart status or handle the cart action
+
+                  //   setState(() {
+                  //     isInCart = !isInCart;
+                  //   });
+                  // },
                 ),
                 Text(
                   isInCart ? 'Remove from Cart' : 'Add to Cart',
