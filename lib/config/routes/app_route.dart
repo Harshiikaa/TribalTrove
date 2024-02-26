@@ -8,11 +8,11 @@ import 'package:TribalTrove/feature/seller/authentication_seller/presentation/vi
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view/landingPage_view.dart';
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view/loginPage_view.dart';
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view/registerPage_view.dart';
-import 'package:TribalTrove/feature/user/authentication_user/presentation/view/splashScreen_view.dart';
 import 'package:TribalTrove/feature/seller/seller_dashboard/presentation/view/seller_dashboard_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/product_details.dart';
 import 'package:TribalTrove/feature/user/myCart/presentation/view/myCart_view.dart';
 import 'package:TribalTrove/feature/user/profile/presentation/view/user_profile_view.dart';
+import 'package:TribalTrove/feature/user/splash_screen/presentation/view/splash_screen.dart';
 
 class AppRoute {
   AppRoute._();
@@ -44,7 +44,7 @@ class AppRoute {
       loginPageRoute: (context) => const LoginPageView(),
       registerPageRoute: (context) => const RegisterPageView(),
       forgotPasswordPageRoute: (context) => const ForgotPasswordPageView(),
-      splashScreenRoute: (context) => const SplashScreen(),
+      splashScreenRoute: (context) => const SplashScreenView(),
 
       // user
       home: (context) => const DashboardView(),
