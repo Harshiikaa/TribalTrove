@@ -48,19 +48,45 @@ class FavoriteRemoteDataSource {
   }
 
   // Get all favorites
+
   Future<Either<Failure, List<FavoriteEntity>>> getFavoriteByUserID() async {
     try {
-      // int id = await userSharedPrefs.getUser();
-      var response = await dio.get(ApiEndpoints.getFavoriteByUserID);
+      // to get the token from usershared preferences
+       String? token;
+      await userSharedPrefs
+          .getUserToken()
+          .then((value) => value.fold((l) => null, (r) => token = r!));
+      final data = await userSharedPrefs.getUser();
+      String? id = data?['_id']?.toString() ?? '';
+      // String token = await userSharedPrefs.getUserToken();
+      // print("Fetching data from API... $id");
+      // print(ApiEndpoints.getFavoriteByUserID + id);
+      var response = await dio.get(
+        ApiEndpoints.getFavoriteByUserID + id,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        )
+      );
+
       if (response.statusCode == 200) {
+        print("Data fetched successfully!");
+
         GetFavoritesByUserIDDTO getFavoritesByUserIDDTO =
             GetFavoritesByUserIDDTO.fromJson(response.data);
+
         // Convert FavoriteAPIModel to FavoriteEntity
         List<FavoriteEntity> favoriteList = getFavoritesByUserIDDTO.favorites
             .map((favorites) => FavoriteAPIModel.toEntity(favorites))
             .toList();
+
+        print("Converted data to FavoriteEntity successfully!");
+
         return Right(favoriteList);
       } else {
+        print("Error fetching data. Status code: ${response.statusCode}");
+
         return Left(
           Failure(
             error: response.statusMessage.toString(),
@@ -69,6 +95,8 @@ class FavoriteRemoteDataSource {
         );
       }
     } on DioException catch (e) {
+      print("DioException caught: ${e.message}");
+
       return Left(Failure(error: e.response?.data['message']));
     }
   }

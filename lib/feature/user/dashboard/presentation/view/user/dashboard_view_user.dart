@@ -138,6 +138,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                       icon: const Icon(Icons.shopping_cart_outlined),
                       onPressed: () {
                         // Handle shopping cart action
+                        Navigator.pushNamed(context, '/myCart');
                       },
                       iconSize: 30, // Increased icon size for the shopping cart
                     ),
@@ -282,137 +283,75 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                 fontSize: MediaQuery.of(context).size.width > 600 ? 24 : 20,
               ),
             ),
-            ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: products.length ?? 0,
-                itemBuilder: (context, index) {
-                  return Card(
-                    margin: EdgeInsets.all(10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "/productDetails",
-                            arguments: [
-                              products[index]?.productID,
-                              products[index]?.productName,
-                              products[index]?.productPrice,
-                              products[index]?.productDescription,
-                              products[index]?.productCategory,
-                              products[index]?.productImageURL,
-                            ]);
-                      },
-                      child: Container(
-                        height: 220, // Set the desired height
-                        width: double
-                            .infinity, // Set the desired width, use double.infinity for full width
-                        child: Card(
-                          elevation: 5,
-                          margin: EdgeInsets.all(10),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 80, // Adjust the image height
-                                  child: Image.network(
-                                    products?[index]!.productImageURL ?? '',
-                                    fit: BoxFit.cover,
-                                  ),
+            productState.isLoading
+                ? const CircularProgressIndicator()
+                : ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: products.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        margin: EdgeInsets.all(10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            // arguments passed to show on the product details page
+                            Navigator.pushNamed(context, "/productDetails",
+                                arguments: [
+                                  products[index]?.productID,
+                                  products[index]?.productName,
+                                  products[index]?.productPrice,
+                                  products[index]?.productDescription,
+                                  products[index]?.productCategory,
+                                  products[index]?.productImageURL,
+                                ]);
+                          },
+                          child: Container(
+                            height: 220, // Set the desired height
+                            width: double
+                                .infinity, // Set the desired width, use double.infinity for full width
+                            child: Card(
+                              elevation: 5,
+                              margin: EdgeInsets.all(10),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 80, // Adjust the image height
+                                      child: Image.network(
+                                        products?[index]!.productImageURL ?? '',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      '${products?[index]?.productName}',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(height: 4),
+                                    Text(
+                                      'NPR.${products?[index]?.productPrice}',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(height: 8),
-                                Text(
-                                  '${products?[index]?.productName}',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(height: 4),
-                                Text(
-                                  'NPR.${products?[index]?.productPrice}',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                  );
-                  // Card(
-                  //   elevation: 5,
-                  //   margin: EdgeInsets.all(10),
-                  //   shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.circular(10.0),
-                  //   ),
-                  //   child: InkWell(
-                  //     onTap: () {
-                  //       // Handle onTap action
-                  //     },
-                  //     child: Container(
-                  //       width: double
-                  //           .infinity, // Use double.infinity for full width
-                  //       height: 220, // Set the desired height
-                  //       child: Column(
-                  //         children: [
-                  //           Expanded(
-                  //             flex: 2,
-                  //             child: ClipRRect(
-                  //               borderRadius: BorderRadius.vertical(
-                  //                 top: Radius.circular(10.0),
-                  //               ),
-                  //               child: Image.network(
-                  //                 products?[index]!.productImageURL ?? '',
-                  //                 width: double.infinity,
-                  //                 fit: BoxFit.cover,
-                  //               ),
-                  //             ),
-                  //           ),
-                  //           Expanded(
-                  //             flex: 1,
-                  //             child: Padding(
-                  //               padding: const EdgeInsets.all(8.0),
-                  //               child: Column(
-                  //                 crossAxisAlignment: CrossAxisAlignment.start,
-                  //                 children: [
-                  //                   Text(
-                  //                     '${products?[index]?.productName}',
-                  //                     style: TextStyle(
-                  //                       fontSize: 16,
-                  //                       fontWeight: FontWeight.bold,
-                  //                     ),
-                  //                   ),
-                  //                   SizedBox(height: 4),
-                  //                   Text(
-                  //                     'NPR.${products?[index]?.productPrice}',
-                  //                     style: TextStyle(
-                  //                       fontSize: 16,
-                  //                     ),
-                  //                   ),
-                  //                   // Text(
-                  //                   //   '${products?[index]?.productPrice}',
-                  //                   //   style: TextStyle(
-                  //                   //     fontSize: 16,
-                  //                   //   ),
-                  //                   // ),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // );
-                }),
+                      );
+                    }),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(

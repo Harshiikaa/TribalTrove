@@ -12,17 +12,17 @@ import '../../domain/entity/auth_entity.dart';
 import '../state/auth_state.dart';
 
 final authViewModelProvider = StateNotifierProvider<AuthViewModel, AuthState>(
-  (ref) => AuthViewModel(
-      ref.read(registerUseCaseProvider), ref.read(loginUseCaseProvider), ref.read(uploadImageUseCaseProvider)),
+  (ref) => AuthViewModel(ref.read(registerUseCaseProvider),
+      ref.read(loginUseCaseProvider), ref.read(uploadImageUseCaseProvider)),
 );
 
 class AuthViewModel extends StateNotifier<AuthState> {
   final RegisterUseCase _registerUseCase;
   final LoginUseCase _loginUseCase;
-    final UploadImageUseCase _uploadImageUsecase;
+  final UploadImageUseCase _uploadImageUsecase;
 
-
-  AuthViewModel(this._registerUseCase, this._loginUseCase, this._uploadImageUsecase)
+  AuthViewModel(
+      this._registerUseCase, this._loginUseCase, this._uploadImageUsecase)
       : super(AuthState.initial());
 
   Future<void> registerUser(AuthEntity entity) async {
@@ -41,17 +41,17 @@ class AuthViewModel extends StateNotifier<AuthState> {
     final result = await _loginUseCase.loginUser(email, password);
     state = state.copyWith(isLoading: false);
     result.fold(
-      (failure) => state = state.copyWith(
-        error: failure.error,
-        showMessage: true,
-      ),
-      (success) => state = state.copyWith(
+        (failure) => state = state.copyWith(
+              error: failure.error,
+              showMessage: true,
+            ), (success) {
+      state = state.copyWith(
         isLoading: false,
         showMessage: true,
         error: null,
-      ),
-    );
-    Navigator.popAndPushNamed(context, AppRoute.home);
+      );
+      Navigator.popAndPushNamed(context, AppRoute.home);
+    });
   }
 
   Future<void> uploadImage(File? file) async {

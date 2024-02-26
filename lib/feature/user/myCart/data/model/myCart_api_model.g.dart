@@ -12,6 +12,7 @@ MyCartAPIModel _$MyCartAPIModelFromJson(Map<String, dynamic> json) =>
       userID: json['userID'] as String?,
       productID: json['productID'] as String?,
       createdAt: json['createdAt'] as String,
+      quantity: json['quantity'] as int,
     );
 
 Map<String, dynamic> _$MyCartAPIModelToJson(MyCartAPIModel instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$MyCartAPIModelToJson(MyCartAPIModel instance) =>
       'userID': instance.userID,
       'productID': instance.productID,
       'createdAt': instance.createdAt,
+      'quantity': instance.quantity,
     };

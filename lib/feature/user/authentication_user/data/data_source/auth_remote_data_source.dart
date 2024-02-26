@@ -73,7 +73,9 @@ class AuthRemoteDataSource {
       );
       if (response.statusCode == 200) {
         String token = response.data["token"];
+        Map<String, dynamic> user = response.data["userData"];
         await userSharedPrefs.setUserToken(token);
+        await userSharedPrefs.setUser(user);
         return const Right(true);
       } else {
         return Left(

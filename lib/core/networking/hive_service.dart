@@ -18,6 +18,9 @@ class HiveService {
 
     // Register Adapters
     Hive.registerAdapter(AuthHiveModelAdapter());
+    //     Hive.registerAdapter(AuthHiveModelAdapter());
+    // Hive.registerAdapter(AuthHiveModelAdapter());
+
   }
 
   // ======================== Auth Buyer Queries ========================

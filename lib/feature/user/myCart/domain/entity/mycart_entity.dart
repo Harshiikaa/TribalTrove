@@ -5,6 +5,7 @@ class MyCartEntity extends Equatable {
   final String? userID;
   final String? productID;
   final DateTime createdAt;
+  final int quantity;
 
   @override
   List<Object?> get props => [myCartID, userID, productID];
@@ -13,11 +14,12 @@ class MyCartEntity extends Equatable {
     this.myCartID,
     this.userID,
     this.productID,
-    required this.createdAt
+    required this.createdAt,
+    required this.quantity,
   });
 
   @override
   String toString() {
-    return 'FavoriteEntity( myCartID: $myCartID ,userID: $userID, productID: $productID, createdAt: $createdAt)';
+    return 'FavoriteEntity( myCartID: $myCartID ,userID: $userID, productID: $productID, createdAt: $createdAt, quantity: $quantity)';
   }
 }

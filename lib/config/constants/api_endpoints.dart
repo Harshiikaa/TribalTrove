@@ -42,10 +42,9 @@ class ApiEndpoints {
 
 // ====================== Favorite Routes ======================
   static const String createFavorite = "favorite/createFavorite";
-    static const String getFavoriteByUserID = "product/getFavoriteByUserID/:id";
+  static const String getFavoriteByUserID = "favorite/getFavoriteByUserID/";
 
-    // ====================== MyCart Routes ======================
+  // ====================== MyCart Routes ======================
   static const String addToCart = "cart/addToCart";
-    static const String getCartByUserID = "cart/getCartByUserID/:id";
-
+  static const String getCartByUserID = "cart/getCartByUserID/:id";
 }

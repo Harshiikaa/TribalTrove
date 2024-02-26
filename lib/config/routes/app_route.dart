@@ -11,6 +11,7 @@ import 'package:TribalTrove/feature/user/authentication_user/presentation/view/r
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view/splashScreen_view.dart';
 import 'package:TribalTrove/feature/seller/seller_dashboard/presentation/view/seller_dashboard_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/product_details.dart';
+import 'package:TribalTrove/feature/user/myCart/presentation/view/myCart_view.dart';
 import 'package:TribalTrove/feature/user/profile/presentation/view/user_profile_view.dart';
 
 class AppRoute {
@@ -26,8 +27,8 @@ class AppRoute {
   // user
   static const String home = "/";
   static const String userProfile = "/userProfile";
-    static const String productDetails = "/productDetails";
-
+  static const String productDetails = "/productDetails";
+  static const String myCart = "/myCart";
 
   //seller
   static const String loginPageSellerRoute = "/loginPageSeller";
@@ -49,6 +50,7 @@ class AppRoute {
       home: (context) => const DashboardView(),
       userProfile: (context) => const UserProfileView(),
       productDetails: (context) => const ProductDetailsView(),
+      myCart: (context) => const MyCartView(),
 
       // seller
       loginPageSellerRoute: (context) => const LoginPageSellerView(),

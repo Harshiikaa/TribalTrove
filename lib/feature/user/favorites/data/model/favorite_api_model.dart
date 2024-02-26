@@ -2,6 +2,7 @@ import 'package:TribalTrove/feature/user/favorites/domain/entity/favorites_entit
 import 'package:json_annotation/json_annotation.dart';
 
 part 'favorite_api_model.g.dart';
+
 @JsonSerializable()
 class FavoriteAPIModel {
   @JsonKey(name: '_id')
@@ -20,9 +21,9 @@ class FavoriteAPIModel {
   // To json and fromJson without freezed
   factory FavoriteAPIModel.fromJson(Map<String, dynamic> json) {
     return FavoriteAPIModel(
-      favoriteID: json['_id'],
+      favoriteID: json['_id'] ,
       userID: json['userID'],
-      productID: json['productID'],
+      productID: json['productID'] ,
       createdAt: json['createdAt'],
     );
   }

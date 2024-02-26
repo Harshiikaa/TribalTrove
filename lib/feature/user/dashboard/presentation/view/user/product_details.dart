@@ -1,5 +1,6 @@
 import 'package:TribalTrove/core/common/provider/internet_connectivity.dart';
 import 'package:TribalTrove/core/common/snackbar/snackbar.dart';
+import 'package:TribalTrove/core/shared_pref/user_shared_prefs.dart';
 import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.dart';
 import 'package:TribalTrove/feature/seller/product/presentation/view_model/product_view_model.dart';
 import 'package:TribalTrove/feature/user/favorites/domain/entity/favorites_entity.dart';
@@ -126,17 +127,21 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                     color: isFavorite ? Colors.red : null,
                   ),
                   onPressed: () async {
+                    final data =
+                        await ref.read(userSharedPrefsProvider).getUser();
+
+                    String? id = data?['_id']?.toString() ?? '';
                     final now = DateTime.now();
                     final currentDate = DateTime(now.year, now.month, now.day);
                     final entity = FavoriteEntity(
                         createdAt: currentDate,
                         productID: productID,
-                        userID: "user");
+                        userID: id);
+                    print('ENTITY: $entity');
                     ref
                         .read(favoriteViewModelProvider.notifier)
                         .createFavorite(entity);
                   },
-
                   // {
                   //   // Toggle the favorite status or handle the favorite action
                   //   setState(() {
@@ -159,12 +164,16 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                     // color: Colors.blue,
                   ),
                   onPressed: () async {
+                    final data =
+                        await ref.read(userSharedPrefsProvider).getUser();
+                    String? id = data?['_id']?.toString() ?? '';
                     final now = DateTime.now();
                     final currentDate = DateTime(now.year, now.month, now.day);
                     final entity = MyCartEntity(
                       createdAt: currentDate,
                       productID: productID,
-                      userID: "user",
+                      userID: id,
+                      quantity: 1,
                     );
                     ref
                         .read(myCartViewModelProvider.notifier)

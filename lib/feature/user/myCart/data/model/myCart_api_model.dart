@@ -10,9 +10,14 @@ class MyCartAPIModel {
   final String? userID;
   final String? productID;
   final String createdAt;
+  final int quantity;
 
   MyCartAPIModel(
-      {this.myCartID, this.userID, this.productID, required this.createdAt});
+      {this.myCartID,
+      this.userID,
+      this.productID,
+      required this.createdAt,
+      required this.quantity});
 
   // To json and fromJson without freezed
   factory MyCartAPIModel.fromJson(Map<String, dynamic> json) {
@@ -21,6 +26,7 @@ class MyCartAPIModel {
       userID: json['userID'],
       productID: json['productID'],
       createdAt: json['createdAt'],
+      quantity: json['quantity'],
     );
   }
 
@@ -30,6 +36,7 @@ class MyCartAPIModel {
       'userID': userID,
       'productID': productID,
       'createdAt': createdAt,
+      'quantity': quantity,
     };
   }
 
@@ -40,6 +47,7 @@ class MyCartAPIModel {
       userID: entity.userID,
       productID: entity.productID,
       createdAt: entity.createdAt.toIso8601String(),
+      quantity: entity.quantity,
     );
   }
   // From model to entity
@@ -48,8 +56,8 @@ class MyCartAPIModel {
       myCartID: model.myCartID,
       productID: model.productID,
       userID: model.userID,
-            createdAt: DateTime.parse(model.createdAt),
-
+      createdAt: DateTime.parse(model.createdAt),
+      quantity: model.quantity
     );
   }
 }

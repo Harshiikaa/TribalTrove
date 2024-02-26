@@ -8,6 +8,7 @@ part 'get_favorites_by_userID_dto.g.dart';
 class GetFavoritesByUserIDDTO {
   final bool success;
   final String message;
+  @JsonKey(name: 'favorites')
   final List<FavoriteAPIModel> favorites;
 
   GetFavoritesByUserIDDTO({

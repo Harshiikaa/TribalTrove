@@ -4,6 +4,8 @@ import 'package:TribalTrove/config/routes/app.dart';
 import 'package:TribalTrove/core/common/provider/internet_connectivity.dart';
 import 'package:TribalTrove/core/failure/failure.dart';
 import 'package:TribalTrove/core/shared_pref/user_shared_prefs.dart';
+import 'package:TribalTrove/feature/user/authentication_user/domain/entity/auth_entity.dart';
+import 'package:TribalTrove/feature/user/authentication_user/presentation/state/auth_state.dart';
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view_model/auth_viewmodel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +51,7 @@ class _UserProfileViewState extends ConsumerState<UserProfileView> {
   @override
   Widget build(BuildContext context) {
     final isConnected = ref.watch(connectivityStatusProvider);
+    final authState = ref.watch(authViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -155,30 +158,25 @@ class _UserProfileViewState extends ConsumerState<UserProfileView> {
                     }),
                   ),
                   _gap,
+                  TextFormField(
+                    // controller: _phoneController,
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                    ),
+                    validator: ((value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your Email';
+                      }
+                      return null;
+                    }),
+                  ),
+                  _gap,
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        // if (_key.currentState!.validate()) {
-                        //   final entity = AuthEntity(
-                        //     fname: _fnameController.text.trim(),
-                        //     lname: _lnameController.text.trim(),
-                        //     phone: _phoneController.text.trim(),
-                        //     batch: selectedBatch!,
-                        //     courses: _lstCourseSelected,
-                        //     image:
-                        //         ref.read(authViewModelProvider).imageName ?? '',
-                        //     username:
-                        //         _usernameController.text.trim().toLowerCase(),
-                        //     password: _passwordController.text,
-                        //   );
-                        //   // Register user
-                        //   ref
-                        //       .read(authViewModelProvider.notifier)
-                        //       .registerStudent(entity);
-                        // }
                       },
-                      child: const Text('Register'),
+                      child: const Text('Update'),
                     ),
                   ),
                 ],
