@@ -13,7 +13,7 @@ class ApiEndpoints {
   static const String baseUrl = "http://192.168.137.1:5000/api/";
 
   // For MAC
-  // static const String baseUrl = "http://10.0.2.2:5000/";
+  // static const String baseUrl = "http://192.168.18.195:5000/api/";
 
   //From WIFI or IP config
   //static const String baseUrl = "http://192.168.4.4:3000/api/v1/";
@@ -36,6 +36,9 @@ class ApiEndpoints {
   static const String getAllProducts = "product/getProducts";
   static const String getSingleProduct = "product/getProduct/:id";
   static const String getProductBySellerID = "product/getProductsBySellerApi/";
+
+
+
   // static const String getProductByCategory = "product/getProductByCategory";
   static const String updateProduct = "product/updateProduct/";
   static const String deleteProduct = "product/deleteProduct/";
@@ -43,8 +46,12 @@ class ApiEndpoints {
 // ====================== Favorite Routes ======================
   static const String createFavorite = "favorite/createFavorite";
   static const String getFavoriteByUserID = "favorite/getFavoriteByUserID/";
+    static const String getFavorite = "favorite/getFavorite/";
+    static const String removeFavorite = "favorite/removeFavorite/";
 
   // ====================== MyCart Routes ======================
   static const String addToCart = "cart/addToCart";
   static const String getCartByUserID = "cart/getCartByUserID/:id";
+
+  static const limitPage = 20;
 }

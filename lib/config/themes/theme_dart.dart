@@ -1,12 +1,40 @@
 import 'package:TribalTrove/config/constants/global_variables.dart';
+import 'package:TribalTrove/config/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 
-ThemeData getApplicationTheme() {
+class AppTheme {
+  AppTheme._();
+
+static getApplicationTheme(bool isDark) {
   return ThemeData(
     // primarySwatch:GlobalVariables.backgroundColor,
     scaffoldBackgroundColor: GlobalVariables.backgroundColor,
     fontFamily: 'Inter Regular',
 
+     // change the theme according to the user choice
+      colorScheme: isDark
+          ? const ColorScheme.dark(
+              primary: ThemeConstant.darkPrimaryColor,
+            )
+          : const ColorScheme.light(
+              primary: Color.fromARGB(255, 17, 119, 20),
+            ),
+      brightness: isDark ? Brightness.dark : Brightness.light,
+      // fontFamily: 'Montserrat',
+      useMaterial3: true,
+
+ // Change app bar color
+      appBarTheme: const AppBarTheme(
+        elevation: 0,
+        backgroundColor: ThemeConstant.appBarColor,
+        centerTitle: true,
+        titleTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+        ),
+      ),
+
+      
     // theme for elevatedButton
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -41,4 +69,5 @@ ThemeData getApplicationTheme() {
       backgroundColor: Colors.blue,
     ),
   );
+}
 }

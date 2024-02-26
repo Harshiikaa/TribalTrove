@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_favorites_by_userID_dto.dart';
+part of 'get_favorite_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetFavoritesByUserIDDTO _$GetFavoritesByUserIDDTOFromJson(
-        Map<String, dynamic> json) =>
-    GetFavoritesByUserIDDTO(
+GetFavoriteDTO _$GetFavoriteDTOFromJson(Map<String, dynamic> json) =>
+    GetFavoriteDTO(
       success: json['success'] as bool,
       message: json['message'] as String,
       favorites: (json['favorites'] as List<dynamic>)
@@ -16,8 +15,7 @@ GetFavoritesByUserIDDTO _$GetFavoritesByUserIDDTOFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$GetFavoritesByUserIDDTOToJson(
-        GetFavoritesByUserIDDTO instance) =>
+Map<String, dynamic> _$GetFavoriteDTOToJson(GetFavoriteDTO instance) =>
     <String, dynamic>{
       'success': instance.success,
       'message': instance.message,

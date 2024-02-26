@@ -3,7 +3,7 @@ import 'package:TribalTrove/core/failure/failure.dart';
 import 'package:TribalTrove/core/networking/http_service.dart';
 import 'package:TribalTrove/core/shared_pref/user_shared_prefs.dart';
 import 'package:TribalTrove/feature/seller/product/data/data_source/product_remote_data_source.dart';
-import 'package:TribalTrove/feature/user/favorites/data/dto/get_favorites_by_userID_dto.dart';
+import 'package:TribalTrove/feature/user/favorites/data/dto/get_favorite_dto.dart';
 import 'package:TribalTrove/feature/user/favorites/data/model/favorite_api_model.dart';
 import 'package:TribalTrove/feature/user/favorites/domain/entity/favorites_entity.dart';
 import 'package:dartz/dartz.dart';
@@ -47,57 +47,107 @@ class FavoriteRemoteDataSource {
     }
   }
 
-  // Get all favorites
+  // get favorite
+  // Future<Either<Failure, List<FavoriteEntity>>> getFavorite(int page) async {
+  //   try {
+  //     final userData = await userSharedPrefs.getUser();
+  //     if (userData == null || userData['_id'] == null) {
+  //       return Left(Failure(error: 'User data or user ID is null'));
+  //     }
 
-  Future<Either<Failure, List<FavoriteEntity>>> getFavoriteByUserID() async {
+  //     String id = userData['_id'].toString();
+  //     final url = 'favorite/getFavorite/$id';
+  //     final response = await dio.get(url, queryParameters: {
+  //       '_page': page,
+  //       '_limit': ApiEndpoints.limitPage,
+  //     });
+
+  //     if (response.statusCode == 200) {
+  //       GetFavoriteDTO getFavoriteDTO = GetFavoriteDTO.fromJson(response.data);
+  //       List<FavoriteEntity> favoriteList = getFavoriteDTO.favorites
+  //           .map((data) => FavoriteAPIModel.toEntity(data))
+  //           .toList();
+
+  //       return Right(favoriteList);
+  //     } else {
+  //       return Left(Failure(
+  //         error: response.statusMessage?.toString() ?? 'Unknown Error',
+  //         statusCode: response.statusCode.toString(),
+  //       ));
+  //     }
+  //   } on DioException catch (e) {
+  //     return Left(Failure(error: e.message.toString()));
+  //   }
+  // }
+  Future<Either<Failure, List<FavoriteEntity>>> getFavorite(int page) async {
     try {
-      // to get the token from usershared preferences
-       String? token;
-      await userSharedPrefs
-          .getUserToken()
-          .then((value) => value.fold((l) => null, (r) => token = r!));
-      final data = await userSharedPrefs.getUser();
-      String? id = data?['_id']?.toString() ?? '';
-      // String token = await userSharedPrefs.getUserToken();
-      // print("Fetching data from API... $id");
-      // print(ApiEndpoints.getFavoriteByUserID + id);
-      var response = await dio.get(
-        ApiEndpoints.getFavoriteByUserID + id,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
-        )
-      );
+      final userData = await userSharedPrefs.getUser();
+      if (userData == null || userData['_id'] == null) {
+        print('User data or user ID is null');
+        return Left(Failure(error: 'User data or user ID is null'));
+      }
+
+      String id = userData['_id'].toString();
+      final url = 'favorite/getFavorite/$id';
+      print('Requesting data from: $url');
+
+      final response = await dio.get(url, queryParameters: {
+        '_page': page,
+        '_limit': ApiEndpoints.limitPage,
+      });
 
       if (response.statusCode == 200) {
-        print("Data fetched successfully!");
+        print('Data received successfully');
 
-        GetFavoritesByUserIDDTO getFavoritesByUserIDDTO =
-            GetFavoritesByUserIDDTO.fromJson(response.data);
-
-        // Convert FavoriteAPIModel to FavoriteEntity
-        List<FavoriteEntity> favoriteList = getFavoritesByUserIDDTO.favorites
-            .map((favorites) => FavoriteAPIModel.toEntity(favorites))
+        GetFavoriteDTO getFavoriteDTO = GetFavoriteDTO.fromJson(response.data);
+        List<FavoriteEntity> favoriteList = getFavoriteDTO.favorites
+            .map((data) => FavoriteAPIModel.toEntity(data))
             .toList();
-
-        print("Converted data to FavoriteEntity successfully!");
 
         return Right(favoriteList);
       } else {
-        print("Error fetching data. Status code: ${response.statusCode}");
+        print('Failed to get data. Status Code: ${response.statusCode}');
 
-        return Left(
-          Failure(
-            error: response.statusMessage.toString(),
-            statusCode: response.statusCode.toString(),
-          ),
-        );
+        return Left(Failure(
+          error: response.statusMessage?.toString() ?? 'Unknown Error',
+          statusCode: response.statusCode.toString(),
+        ));
       }
     } on DioException catch (e) {
-      print("DioException caught: ${e.message}");
+      print('DioException: ${e.message}');
+      return Left(Failure(error: e.message.toString()));
+    }
+  }
 
-      return Left(Failure(error: e.response?.data['message']));
+  // delete favorite
+  Future<Either<Failure, bool>> removeFavorite(
+      FavoriteEntity favoriteEntity) async {
+    try {
+      final userTokenEither = await UserSharedPrefs().getUserToken();
+      if (userTokenEither.isLeft()) {
+        // Handle the failure to get the user token
+        return left(userTokenEither.fold(
+            (failure) => failure, (_) => Failure(error: '')));
+      }
+
+      final userToken = userTokenEither.getOrElse(() => null);
+
+      final response = await dio.delete(
+          ApiEndpoints.removeFavorite + favoriteEntity.favoriteID!,
+          options: Options(headers: {'Authorization': 'Bearer $userToken'}));
+
+      if (response.statusCode == 200) {
+        return const Right(true);
+      } else {
+        return Left(Failure(
+          error: response.data["message"],
+          statusCode: response.statusCode.toString(),
+        ));
+      }
+    } on DioException catch (e) {
+      return Left(Failure(
+        error: 'Failed to add feedback: ${e.toString()}',
+      ));
     }
   }
 }

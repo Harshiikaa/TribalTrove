@@ -19,16 +19,26 @@ class FavoriteRemoteRepoImpl implements IFavoriteRepository {
     return favoriteRemoteDataSource.createFavorite(favorite);
   }
 
+  
+  @override
+  Future<Either<Failure, List<FavoriteEntity>>> getFavorite(int page) {
+    return favoriteRemoteDataSource.getFavorite(page);
+  }
+ 
+  @override
+  Future<Either<Failure, bool>> removeFavorite(FavoriteEntity favoriteEntity) {
+    return favoriteRemoteDataSource.removeFavorite(favoriteEntity);
+  }
+  
   @override
   Future<Either<Failure, Unit>> deleteFavorite(String id) {
     // TODO: implement deleteFavorite
     throw UnimplementedError();
   }
   
-  @override
-  Future<Either<Failure, List<FavoriteEntity>>> getFavoriteByUserID() {
-    // TODO: implement getFavoriteByUserID
-       return favoriteRemoteDataSource.getFavoriteByUserID();
-
-  }
+  // @override
+  // Future<Either<Failure, List<FavoriteEntity>>> getFavoriteByUserID() {
+  //   // TODO: implement getFavoriteByUserID
+  //   throw UnimplementedError();
+  // }
 }

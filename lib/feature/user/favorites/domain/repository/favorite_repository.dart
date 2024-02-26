@@ -4,16 +4,15 @@ import 'package:TribalTrove/feature/user/favorites/domain/entity/favorites_entit
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 final favoriteRepositoryProvider = Provider.autoDispose<IFavoriteRepository>(
-  (ref){
+  (ref) {
     return ref.read(favoriteRemoteRepositoryProvider);
+  },
+);
 
-  },);
-abstract class IFavoriteRepository{
-  Future<Either<Failure,bool>> createFavorite(FavoriteEntity  favorite);
-    Future<Either<Failure, List<FavoriteEntity>>> getFavoriteByUserID();
-
-  Future<Either<Failure,Unit>> deleteFavorite(String id);
-
+abstract class IFavoriteRepository {
+  Future<Either<Failure, bool>> createFavorite(FavoriteEntity favorite);
+  // Future<Either<Failure, List<FavoriteEntity>>> getFavoriteByUserID();
+  Future<Either<Failure, List<FavoriteEntity>>> getFavorite(int page);
+  Future<Either<Failure, Unit>> deleteFavorite(String id);
 }
