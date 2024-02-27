@@ -24,8 +24,7 @@ class MyCartAPIModel {
     return MyCartAPIModel(
       myCartID: json['_id'],
       userID: json['userID'],
-      productID: json['productID']['productName']['productPrice']
-          ['productImageURL'],
+      productID: json['productID']['productName'],
       createdAt: json['createdAt'],
       quantity: json['quantity'],
     );

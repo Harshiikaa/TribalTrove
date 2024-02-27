@@ -41,6 +41,7 @@ class FavoriteViewModel extends StateNotifier<FavoriteState> {
     state = state.copyWith(
       isLoading: false,
       showMessage: false,
+    
     );
   }
 

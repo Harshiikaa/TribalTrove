@@ -42,6 +42,9 @@ dependencies:
   permission_handler: ^11.3.0
   image_picker: ^1.0.7
   jwt_decoder: ^2.0.1
+  all_sensors2: ^1.0.1
+  rxdart: ^0.27.7
+  shake: ^2.2.0
 
 dev_dependencies:
   flutter_test:

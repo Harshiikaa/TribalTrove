@@ -39,7 +39,7 @@ class MyCartViewModel extends StateNotifier<MyCartState> {
     );
   }
 
-  void resetMessage(bool value) {
-    state = state.copyWith(showMessage: value, isLoading: false);
+  void resetMessage() {
+    state = state.copyWith(showMessage: false, isLoading: false);
   }
 }

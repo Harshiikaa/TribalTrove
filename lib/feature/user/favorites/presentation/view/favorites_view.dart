@@ -65,9 +65,6 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
                   itemCount: favoriteState.favorites.length,
                   itemBuilder: (context, index) {
                     final favorite = favoriteState.favorites[index];
-                    // String? imagePath=favorite.productID;
-                    // imagePath
-
                     return Card(
                       elevation: 3,
                       shape: RoundedRectangleBorder(
@@ -75,14 +72,6 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
                       ),
                       child: ListTile(
                         contentPadding: const EdgeInsets.all(15),
-                        // leading: SizedBox(
-                        //   width: 80, // Adjust the width of the image container as needed
-                        //   child: Image.network(
-
-                        //    favorite.
-                        //     fit: BoxFit.cover, // Adjust the BoxFit property as needed
-                        //   ),
-                        // ),
                         title: Text(
                           favorite.productID!,
                           style: const TextStyle(
@@ -90,22 +79,10 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Text(
-                            //   'Price: \$${favorite.productID['productPrice']}', // Replace 'price' with the actual field name in your model
-                            //   style: const TextStyle(
-                            //     fontSize: 16,
-                            //     color: Colors.green, // Customize the color if needed
-                            //   ),
-                            // ),
-                          ],
-                        ),
                         trailing: IconButton(
                           icon: const Icon(
                             Icons.delete,
-                            color: Colors.red, // Customize delete icon color
+                            color: Colors.red, // Customize favorite icon color
                           ),
                           onPressed: () {
                             ref

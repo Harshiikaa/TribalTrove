@@ -1,12 +1,15 @@
+import 'package:TribalTrove/config/routes/app_route.dart';
+import 'package:TribalTrove/core/common/provider/is_dark_theme.dart';
+import 'package:TribalTrove/core/shared_pref/user_shared_prefs.dart';
 import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.dart';
 import 'package:TribalTrove/feature/seller/product/presentation/view_model/product_view_model.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/product_details.dart';
-
 import 'package:TribalTrove/feature/user/dashboard/presentation/view_model/dashboard_view_model.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/widgets/bottom_navigation_widget.dart';
 import 'package:TribalTrove/config/constants/global_variables.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/carousel_view.dart';
 import 'package:TribalTrove/feature/user/favorites/presentation/view/favorites_view.dart';
+import 'package:TribalTrove/feature/user/myCart/presentation/view/myCart_view.dart';
 import 'package:TribalTrove/feature/user/searchProduct/presentation/view/searchbox_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/top_categories_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/widgets/product_card.dart';
@@ -25,6 +28,13 @@ class DashboardViewUser extends ConsumerStatefulWidget {
 }
 
 class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
+  late bool isDark;
+  @override
+  void initState() {
+    isDark = ref.read(isDarkThemeProvider);
+    super.initState();
+  }
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -95,11 +105,75 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
 
   static final TextEditingController _searchController =
       TextEditingController();
-  void navigateToSearchScreen(String query) {
-    // Navigator.pushNamed(context,, arguments: query);
+  void navigateToSearchScreen(String query) {}
+
+  Future<void> showLogoutConfirmationDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Do you want to logout?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, false); // No
+              },
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () async {
+                // Remove the token when user clicks Yes
+                final userSharedPrefs = UserSharedPrefs();
+                final result = await userSharedPrefs.deleteUserToken();
+
+                result.fold(
+                  (failure) {
+                    // Handle failure
+                    print("Failed to remove token: ${failure.error}");
+                  },
+                  (success) {
+                    // Token removed successfully
+                    print("Token removed successfully");
+                    // Navigate to the login page
+                    Navigator.pushReplacementNamed(context, '/loginPage');
+                  },
+                );
+              },
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
   }
+
+  List<ProductEntity?> filterProductsByPrice(
+    List<ProductEntity?> products,
+    double minPrice,
+    double maxPrice,
+  ) {
+    return products.where((product) {
+      if (product != null) {
+        double productPrice =
+            double.tryParse(product.productPrice ?? '') ?? 0.0;
+        return productPrice >= minPrice && productPrice <= maxPrice;
+      }
+      return false;
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
+    double minPriceFilter = 0.0;
+    double maxPriceFilter = double.infinity;
+
+    void updatePriceFilter(double min, double max) {
+      setState(() {
+        minPriceFilter = min;
+        maxPriceFilter = max;
+      });
+    }
+
     final List<bool> isFavoriteList = List.generate(5, (index) => false);
 
     final productState = ref.watch(productViewModelProvider);
@@ -137,16 +211,27 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                     IconButton(
                       icon: const Icon(Icons.shopping_cart_outlined),
                       onPressed: () {
-                        // Handle shopping cart action
-                        Navigator.pushNamed(context, '/myCart');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MyCartView()),
+                        );
                       },
                       iconSize: 30, // Increased icon size for the shopping cart
                     ),
+                    // Switch(
+                    //     value: isDark,
+                    //     onChanged: (value) {
+                    //       setState(() {
+                    //         isDark = value;
+                    //         ref
+                    //             .read(isDarkThemeProvider.notifier)
+                    //             .updateTheme(value);
+                    //       });
+                    //     }),
                     IconButton(
                       icon: const Icon(Icons.logout_outlined),
                       onPressed: () {
-                        // Navigator.pushNamed(context, '/userProfile');
-                        // Handle person icon action
+                        showLogoutConfirmationDialog(context);
                       },
                       iconSize: 30, // Increased icon size for the person icon
                     ),
@@ -160,34 +245,30 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: TextField(
-                  controller: _searchController,
-                  style: TextStyle(fontSize: 18.0), // Increased font size
-                  decoration: InputDecoration(
-                    filled: true,
-                    hintText: 'Search',
-                    contentPadding: const EdgeInsets.all(12.0),
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.clear, size: 24.0),
-                      color: GlobalVariables.greyColor,
-                      onPressed: () => _searchController.clear(),
-                    ),
-                    prefixIcon: IconButton(
-                      icon: Icon(Icons.search, size: 24.0),
-                      color: GlobalVariables.greyColor,
-                      onPressed: () {
-                        // Perform the search here
-                      },
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide:
-                          BorderSide(color: GlobalVariables.outlineColor),
-                    ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: TextField(
+                controller: _searchController,
+                style: TextStyle(fontSize: 18.0),
+                decoration: InputDecoration(
+                  filled: true,
+                  hintText: 'Search',
+                  contentPadding: const EdgeInsets.all(12.0),
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.clear, size: 24.0),
+                    color: GlobalVariables.greyColor,
+                    onPressed: () => _searchController.clear(),
+                  ),
+                  prefixIcon: IconButton(
+                    icon: Icon(Icons.search, size: 24.0),
+                    color: GlobalVariables.greyColor,
+                    onPressed: () {
+                      // Perform the search here
+                    },
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                    borderSide: BorderSide(color: GlobalVariables.outlineColor),
                   ),
                 ),
               ),
@@ -283,6 +364,47 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                 fontSize: MediaQuery.of(context).size.width > 600 ? 24 : 20,
               ),
             ),
+            ElevatedButton(
+              onPressed: () {
+                // Call the function to filter products based on the specified price range
+                List<ProductEntity?> filteredProducts = filterProductsByPrice(
+                  products,
+                  minPriceFilter,
+                  maxPriceFilter,
+                );
+
+                // Now you can use filteredProducts in your UI
+                print(filteredProducts);
+              },
+              child: Text('Apply Filter'),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    // Sort products by minimum price
+                    products.sort((a, b) =>
+                        (double.tryParse(a?.productPrice ?? '') ?? 0.0)
+                            .compareTo(
+                                double.tryParse(b?.productPrice ?? '') ?? 0.0));
+                    setState(() {});
+                  },
+                  child: Text('Sort by Minimum'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Sort products by maximum price
+                    products.sort((a, b) =>
+                        (double.tryParse(b?.productPrice ?? '') ?? 0.0)
+                            .compareTo(
+                                double.tryParse(a?.productPrice ?? '') ?? 0.0));
+                    setState(() {});
+                  },
+                  child: Text('Sort by Maximum'),
+                ),
+              ],
+            ),
             productState.isLoading
                 ? const CircularProgressIndicator()
                 : ListView.builder(
@@ -370,9 +492,8 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                         height: 200,
                         child: Column(
                           children: [
+                            // pretty card
 
-                            // pretty card 
-                            
                             // Expanded(
                             //   flex: 2,
                             //   child: ClipRRect(
@@ -409,7 +530,6 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                       ),
                     ),
                   ),
-                
                 ],
               ),
             ),
