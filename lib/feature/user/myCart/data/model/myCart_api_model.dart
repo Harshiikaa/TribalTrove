@@ -10,7 +10,7 @@ class MyCartAPIModel {
   final String? userID;
   final String? productID;
   final String createdAt;
-  final int quantity;
+  final String ?quantity;
 
   MyCartAPIModel(
       {this.myCartID,
@@ -47,7 +47,7 @@ class MyCartAPIModel {
       userID: entity.userID,
       productID: entity.productID,
       createdAt: entity.createdAt.toIso8601String(),
-      quantity: entity.quantity,
+      quantity: entity.quantity.toString(),
     );
   }
   // From model to entity
@@ -57,6 +57,6 @@ class MyCartAPIModel {
         productID: model.productID,
         userID: model.userID,
         createdAt: DateTime.parse(model.createdAt),
-        quantity: model.quantity);
+        quantity: int.parse(model.quantity!));
   }
 }

@@ -147,33 +147,12 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
     );
   }
 
-  List<ProductEntity?> filterProductsByPrice(
-    List<ProductEntity?> products,
-    double minPrice,
-    double maxPrice,
-  ) {
-    return products.where((product) {
-      if (product != null) {
-        double productPrice =
-            double.tryParse(product.productPrice ?? '') ?? 0.0;
-        return productPrice >= minPrice && productPrice <= maxPrice;
-      }
-      return false;
-    }).toList();
-  }
+  
+  String selectedFilter = 'Sort by Minimum Price';
+  List<String> filterOptions = ['Sort by Minimum Price', 'Sort by Maximum Price'];
 
   @override
   Widget build(BuildContext context) {
-    double minPriceFilter = 0.0;
-    double maxPriceFilter = double.infinity;
-
-    void updatePriceFilter(double min, double max) {
-      setState(() {
-        minPriceFilter = min;
-        maxPriceFilter = max;
-      });
-    }
-
     final List<bool> isFavoriteList = List.generate(5, (index) => false);
 
     final productState = ref.watch(productViewModelProvider);
@@ -364,47 +343,38 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                 fontSize: MediaQuery.of(context).size.width > 600 ? 24 : 20,
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                // Call the function to filter products based on the specified price range
-                List<ProductEntity?> filteredProducts = filterProductsByPrice(
-                  products,
-                  minPriceFilter,
-                  maxPriceFilter,
+           
+            DropdownButton<String>(
+              value: selectedFilter,
+              items: filterOptions.map((String option) {
+                return DropdownMenuItem<String>(
+                  value: option,
+                  child: Text(option),
                 );
-
-                // Now you can use filteredProducts in your UI
-                print(filteredProducts);
+              }).toList(),
+              onChanged: (String? newValue) {
+                if (newValue != null) {
+                  setState(() {
+                    selectedFilter = newValue;
+                    // Perform sorting based on selected option
+                    if (selectedFilter == 'Sort by Minimum Price') {
+                      products.sort((a, b) =>
+                          (double.tryParse(a?.productPrice ?? '') ?? 0.0)
+                              .compareTo(
+                                  double.tryParse(b?.productPrice ?? '') ??
+                                      0.0));
+                    } else if (selectedFilter == 'Sort by Maximum Price') {
+                      products.sort((a, b) =>
+                          (double.tryParse(b?.productPrice ?? '') ?? 0.0)
+                              .compareTo(
+                                  double.tryParse(a?.productPrice ?? '') ??
+                                      0.0));
+                    }
+                  });
+                }
               },
-              child: Text('Apply Filter'),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // Sort products by minimum price
-                    products.sort((a, b) =>
-                        (double.tryParse(a?.productPrice ?? '') ?? 0.0)
-                            .compareTo(
-                                double.tryParse(b?.productPrice ?? '') ?? 0.0));
-                    setState(() {});
-                  },
-                  child: Text('Sort by Minimum'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Sort products by maximum price
-                    products.sort((a, b) =>
-                        (double.tryParse(b?.productPrice ?? '') ?? 0.0)
-                            .compareTo(
-                                double.tryParse(a?.productPrice ?? '') ?? 0.0));
-                    setState(() {});
-                  },
-                  child: Text('Sort by Maximum'),
-                ),
-              ],
-            ),
+           
             productState.isLoading
                 ? const CircularProgressIndicator()
                 : ListView.builder(
