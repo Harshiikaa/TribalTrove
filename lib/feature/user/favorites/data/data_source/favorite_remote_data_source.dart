@@ -47,38 +47,6 @@ class FavoriteRemoteDataSource {
     }
   }
 
-  // get favorite
-  // Future<Either<Failure, List<FavoriteEntity>>> getFavorite(int page) async {
-  //   try {
-  //     final userData = await userSharedPrefs.getUser();
-  //     if (userData == null || userData['_id'] == null) {
-  //       return Left(Failure(error: 'User data or user ID is null'));
-  //     }
-
-  //     String id = userData['_id'].toString();
-  //     final url = 'favorite/getFavorite/$id';
-  //     final response = await dio.get(url, queryParameters: {
-  //       '_page': page,
-  //       '_limit': ApiEndpoints.limitPage,
-  //     });
-
-  //     if (response.statusCode == 200) {
-  //       GetFavoriteDTO getFavoriteDTO = GetFavoriteDTO.fromJson(response.data);
-  //       List<FavoriteEntity> favoriteList = getFavoriteDTO.favorites
-  //           .map((data) => FavoriteAPIModel.toEntity(data))
-  //           .toList();
-
-  //       return Right(favoriteList);
-  //     } else {
-  //       return Left(Failure(
-  //         error: response.statusMessage?.toString() ?? 'Unknown Error',
-  //         statusCode: response.statusCode.toString(),
-  //       ));
-  //     }
-  //   } on DioException catch (e) {
-  //     return Left(Failure(error: e.message.toString()));
-  //   }
-  // }
   Future<Either<Failure, List<FavoriteEntity>>> getFavorite(int page) async {
     try {
       final userData = await userSharedPrefs.getUser();
@@ -97,7 +65,7 @@ class FavoriteRemoteDataSource {
       });
 
       if (response.statusCode == 200) {
-        print('Data received successfully');
+        // print('Data received successfully');
 
         GetFavoriteDTO getFavoriteDTO = GetFavoriteDTO.fromJson(response.data);
         List<FavoriteEntity> favoriteList = getFavoriteDTO.favorites
@@ -106,7 +74,7 @@ class FavoriteRemoteDataSource {
 
         return Right(favoriteList);
       } else {
-        print('Failed to get data. Status Code: ${response.statusCode}');
+        // print('Failed to get data. Status Code: ${response.statusCode}');
 
         return Left(Failure(
           error: response.statusMessage?.toString() ?? 'Unknown Error',
@@ -114,7 +82,7 @@ class FavoriteRemoteDataSource {
         ));
       }
     } on DioException catch (e) {
-      print('DioException: ${e.message}');
+      // print('DioException: ${e.message}');
       return Left(Failure(error: e.message.toString()));
     }
   }

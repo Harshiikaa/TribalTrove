@@ -23,6 +23,7 @@ class GetFavoriteViewModel extends StateNotifier<FavoriteState> {
   }
 
   Future getFavorite() async {
+    print('inside vm');
     state = state.copyWith(isLoading: true);
 
     final currentState = state;

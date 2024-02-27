@@ -18,8 +18,29 @@ class MyCartEntity extends Equatable {
     required this.quantity,
   });
 
+  factory MyCartEntity.fromJson(Map<String, dynamic> json) => MyCartEntity(
+      myCartID: json['myCartID'],
+      userID: json['userID'],
+      productID: json['productID']['productName'],
+      createdAt: json['createdAt'],
+      quantity: json['quantity']);
+
   @override
   String toString() {
     return 'FavoriteEntity( myCartID: $myCartID ,userID: $userID, productID: $productID, createdAt: $createdAt, quantity: $quantity)';
+  }
+
+  MyCartEntity copyWith({
+    String? productID,
+    DateTime? createdAt,
+    String? userID,
+    int? quantity, // Include userId in copyWith
+  }) {
+    return MyCartEntity(
+      productID: productID ?? this.productID,
+      createdAt: createdAt ?? this.createdAt,
+      userID: userID ?? this.userID,
+      quantity: quantity ?? this.quantity,
+    );
   }
 }

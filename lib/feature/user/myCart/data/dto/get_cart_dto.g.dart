@@ -1,13 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_cart_by_userID_dto.dart';
+part of 'get_cart_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetCartByUserIDDTO _$GetCartByUserIDDTOFromJson(Map<String, dynamic> json) =>
-    GetCartByUserIDDTO(
+GetCartDTO _$GetCartDTOFromJson(Map<String, dynamic> json) => GetCartDTO(
       success: json['success'] as bool,
       message: json['message'] as String,
       cart: (json['cart'] as List<dynamic>)
@@ -15,7 +14,7 @@ GetCartByUserIDDTO _$GetCartByUserIDDTOFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$GetCartByUserIDDTOToJson(GetCartByUserIDDTO instance) =>
+Map<String, dynamic> _$GetCartDTOToJson(GetCartDTO instance) =>
     <String, dynamic>{
       'success': instance.success,
       'message': instance.message,

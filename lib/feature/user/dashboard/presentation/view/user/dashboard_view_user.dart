@@ -370,19 +370,22 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                         height: 200,
                         child: Column(
                           children: [
-                            Expanded(
-                              flex: 2,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(10.0),
-                                ),
-                                child: Image.asset(
-                                  'assets/images/terracota.jpg',
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
+
+                            // pretty card 
+                            
+                            // Expanded(
+                            //   flex: 2,
+                            //   child: ClipRRect(
+                            //     borderRadius: BorderRadius.vertical(
+                            //       top: Radius.circular(10.0),
+                            //     ),
+                            //     child: Image.asset(
+                            //       'assets/images/terracota.jpg',
+                            //       width: double.infinity,
+                            //       fit: BoxFit.cover,
+                            //     ),
+                            //   ),
+                            // ),
                             Expanded(
                               flex: 1,
                               child: Padding(
@@ -406,56 +409,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                       ),
                     ),
                   ),
-                  // Card(
-                  //   margin: EdgeInsets.all(10),
-                  //   shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.circular(10.0),
-                  //   ),
-                  //   child: InkWell(
-                  //     onTap: () {
-                  //       // Handle onTap action
-                  //     },
-                  //     child: Container(
-                  //       width: 150, // Set a fixed width for each card
-                  //       height: 200,
-                  //       child: Column(
-                  //         children: [
-                  //           Expanded(
-                  //             flex: 2,
-                  //             child: ClipRRect(
-                  //               borderRadius: BorderRadius.vertical(
-                  //                 top: Radius.circular(10.0),
-                  //               ),
-                  //               child: Image.asset(
-                  //                 'assets/images/terracota.jpg',
-                  //                 width: double.infinity,
-                  //                 fit: BoxFit.cover,
-                  //               ),
-                  //             ),
-                  //           ),
-                  //           Expanded(
-                  //             flex: 1,
-                  //             child: Padding(
-                  //               padding: const EdgeInsets.all(8.0),
-                  //               child: Column(
-                  //                 crossAxisAlignment: CrossAxisAlignment.start,
-                  //                 children: [
-                  //                   Text(
-                  //                     'Product Name',
-                  //                     style: TextStyle(
-                  //                       fontWeight: FontWeight.bold,
-                  //                     ),
-                  //                   ),
-                  //                   Text('Price: \$100'),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // )
+                
                 ],
               ),
             ),

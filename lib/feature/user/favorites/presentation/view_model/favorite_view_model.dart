@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final favoriteViewModelProvider =
-    StateNotifierProvider.autoDispose<FavoriteViewModel, FavoriteState>(
+    StateNotifierProvider<FavoriteViewModel, FavoriteState>(
         (ref) => FavoriteViewModel(
               createFavoriteUseCase: ref.read(createFavoriteUseCaseProvider),
               getFavoriteUsecase: ref.read(getFavoriteUsecaseProvider),
@@ -22,9 +22,7 @@ class FavoriteViewModel extends StateNotifier<FavoriteState> {
   FavoriteViewModel(
       {required this.createFavoriteUseCase, required this.getFavoriteUsecase})
       : super(FavoriteState.initialState());
-  //   getFavorite()
-  //   // fetch data
-  // }
+
 
   void createFavorite(FavoriteEntity favorite) {
     state = state.copyWith(isLoading: true);
@@ -38,42 +36,6 @@ class FavoriteViewModel extends StateNotifier<FavoriteState> {
       );
     });
   }
-
-  // Future getFavorite() async {
-  //   state = state.copyWith(isLoading: true);
-
-  //   final currentState = state;
-  //   final page = currentState.page + 1;
-  //   final favorites = currentState.favorites;
-  //   final hasReachedMax = currentState.hasReachedMax;
-  //   if (!hasReachedMax) {
-  //     // get data from data source
-  //     final result = await favoriteRemoteDataSourceProvider.getFavorite(page);
-  //     result.fold(
-  //       (failure) =>
-  //           state = state.copyWith(hasReachedMax: true, isLoading: false),
-  //       (data) {
-  //         if (data.isEmpty) {
-  //           state = state.copyWith(hasReachedMax: true);
-  //         } else {
-  //           state = state.copyWith(
-  //             favorites: [...favorites, ...data],
-  //             page: page,
-  //             isLoading: false,
-  //           );
-  //         }
-  //       },
-  //     );
-  //   }
-  // }
-
-  //   Future<void> removeFavorite(FavoriteEntity favoriteID) async {
-  //   try {
-  //     await favoriteRemoteDataSource.removeFavorite(favoriteID);
-  //   } catch (error) {
-  //     print(error.toString());
-  //   }
-  // }
 
   void reset() {
     state = state.copyWith(

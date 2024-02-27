@@ -13,8 +13,8 @@ class GetCartByUserIDUsecase{
   final IMyCartRepository repository;
   GetCartByUserIDUsecase({required this.repository});
 
-  Future<Either<Failure, List<MyCartEntity>>> getCartByUserID() async {
-    return await repository.getCartByUserID();
+  Future<Either<Failure, List<MyCartEntity>>> getCart(int page) async {
+    return await repository.getCart(page);
   }
 
 }

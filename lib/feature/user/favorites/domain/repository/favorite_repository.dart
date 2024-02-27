@@ -14,5 +14,5 @@ abstract class IFavoriteRepository {
   Future<Either<Failure, bool>> createFavorite(FavoriteEntity favorite);
   // Future<Either<Failure, List<FavoriteEntity>>> getFavoriteByUserID();
   Future<Either<Failure, List<FavoriteEntity>>> getFavorite(int page);
-  Future<Either<Failure, Unit>> deleteFavorite(String id);
+  Future<Either<Failure, bool>> removeFavorite(FavoriteEntity favoriteEntity);
 }

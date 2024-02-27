@@ -25,22 +25,22 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
   @override
   Widget build(BuildContext context) {
     final isConnected = ref.watch(connectivityStatusProvider);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (isConnected == ConnectivityStatus.isDisconnected) {
-        showSnackBar(
-            message: 'No Internet Connection',
-            context: context,
-            color: Colors.red);
-      } else if (isConnected == ConnectivityStatus.isConnected) {
-        showSnackBar(message: 'You are online', context: context);
-      }
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   if (isConnected == ConnectivityStatus.isDisconnected) {
+    //     showSnackBar(
+    //         message: 'No Internet Connection',
+    //         context: context,
+    //         color: Colors.red);
+    //   } else if (isConnected == ConnectivityStatus.isConnected) {
+    //     showSnackBar(message: 'You are online', context: context);
+    //   }
 
-      if (ref.watch(favoriteViewModelProvider).showMessage!) {
-        showSnackBar(
-            message: 'Favorite created Successfully', context: context);
-        // ref.read(favoriteViewModelProvider.notifier).resetMessage();
-      }
-    });
+    //   if (ref.watch(favoriteViewModelProvider).showMessage!) {
+    //     showSnackBar(
+    //         message: 'Favorite created Successfully', context: context);
+    //     // ref.read(favoriteViewModelProvider.notifier).resetMessage();
+    //   }
+    // });
 // for cart
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (isConnected == ConnectivityStatus.isDisconnected) {
@@ -137,7 +137,7 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                         createdAt: currentDate,
                         productID: productID,
                         userID: id);
-                    print('ENTITY: $entity');
+                    // print('ENTITY: $entity');
                     ref
                         .read(favoriteViewModelProvider.notifier)
                         .createFavorite(entity);

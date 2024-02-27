@@ -12,7 +12,6 @@ final myCartRepositoryProvider = Provider.autoDispose<IMyCartRepository>(
   }, );
 abstract class IMyCartRepository {
   Future<Either<Failure, bool>> addToCart(MyCartEntity cart);
-  Future<Either<Failure, List<MyCartEntity>>> getCartByUserID();
-
-  // Future<Either<Failure,Unit>> deleteFavorite(String id);
+  Future<Either<Failure, List<MyCartEntity>>> getCart(int page);
+  Future<Either<Failure,bool>> removeFromCart(MyCartEntity cartEntity);
 }

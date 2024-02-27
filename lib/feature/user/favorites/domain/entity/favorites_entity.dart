@@ -6,9 +6,6 @@ class FavoriteEntity extends Equatable {
   final String? productID;
   final DateTime createdAt;
 
-  @override
-  List<Object?> get props => [favoriteID, productID, createdAt];
-
   const FavoriteEntity({
     this.favoriteID,
     this.userID,
@@ -16,8 +13,27 @@ class FavoriteEntity extends Equatable {
     required this.createdAt,
   });
 
+  List<Object?> get props => [favoriteID, userID, productID, createdAt];
+ 
+  factory FavoriteEntity.fromJson(Map<String, dynamic> json) => FavoriteEntity(
+      favoriteID: json['favoriteID'],
+      userID: json['userID'],
+      productID: json['productID']['productName'],
+      createdAt: json['createdAt']);
+
   @override
   String toString() {
     return 'FavoriteEntity( favoriteID: $favoriteID ,userID: $userID, productID: $productID, createdAt: $createdAt)';
+  }
+   FavoriteEntity copyWith({
+    String? productID,
+    DateTime? createdAt,
+    String? userID, // Include userId in copyWith
+  }) {
+    return FavoriteEntity(
+      productID: productID ?? this.productID,
+      createdAt: createdAt ?? this.createdAt,
+      userID: userID ?? this.userID,
+    );
   }
 }

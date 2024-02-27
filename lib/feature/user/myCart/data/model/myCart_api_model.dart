@@ -24,7 +24,8 @@ class MyCartAPIModel {
     return MyCartAPIModel(
       myCartID: json['_id'],
       userID: json['userID'],
-      productID: json['productID'],
+      productID: json['productID']['productName']['productPrice']
+          ['productImageURL'],
       createdAt: json['createdAt'],
       quantity: json['quantity'],
     );
@@ -53,11 +54,10 @@ class MyCartAPIModel {
   // From model to entity
   static MyCartEntity toEntity(MyCartAPIModel model) {
     return MyCartEntity(
-      myCartID: model.myCartID,
-      productID: model.productID,
-      userID: model.userID,
-      createdAt: DateTime.parse(model.createdAt),
-      quantity: model.quantity
-    );
+        myCartID: model.myCartID,
+        productID: model.productID,
+        userID: model.userID,
+        createdAt: DateTime.parse(model.createdAt),
+        quantity: model.quantity);
   }
 }

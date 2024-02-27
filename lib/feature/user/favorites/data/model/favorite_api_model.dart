@@ -21,9 +21,10 @@ class FavoriteAPIModel {
   // To json and fromJson without freezed
   factory FavoriteAPIModel.fromJson(Map<String, dynamic> json) {
     return FavoriteAPIModel(
-      favoriteID: json['_id'] ,
+      favoriteID: json['_id'],
       userID: json['userID'],
-      productID: json['productID'] ,
+      productID: json['productID']['productName']['productPrice']
+          ['productImageURL'],
       createdAt: json['createdAt'],
     );
   }
