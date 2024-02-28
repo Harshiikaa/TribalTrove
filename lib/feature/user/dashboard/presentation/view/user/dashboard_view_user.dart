@@ -14,7 +14,6 @@ import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/carous
 import 'package:TribalTrove/feature/user/favorites/presentation/view/favorites_view.dart';
 import 'package:TribalTrove/feature/user/myCart/presentation/view/myCart_view.dart';
 import 'package:TribalTrove/feature/user/searchProduct/presentation/view/searchbox_view.dart';
-import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/top_categories_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/widgets/product_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -170,20 +169,17 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
 
   // Function to handle search
   void onSearch(String query) {
-    setState(() {
-      // Trigger a rebuild when the search query changes
-    });
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<bool> isFavoriteList = List.generate(5, (index) => false);
+    // final List<bool> isFavoriteList = List.generate(5, (index) => false);
 
     final productState = ref.watch(productViewModelProvider);
     List<ProductEntity?>? products = productState.products;
 
     final dashboardState = ref.watch(dashboardViewModelProvider);
-    // final favoriteState = ref.watch(favoriteViewModelProvider);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
@@ -259,10 +255,14 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                   hintText: 'Search',
                   contentPadding: const EdgeInsets.all(12.0),
                   suffixIcon: IconButton(
-                    icon: Icon(Icons.clear, size: 24.0),
-                    color: GlobalVariables.greyColor,
-                    onPressed: () => _searchController.clear(),
-                  ),
+                      icon: Icon(Icons.clear, size: 24.0),
+                      color: GlobalVariables.greyColor,
+                      onPressed: () {
+                        _searchController.clear();
+                        ref
+                            .read(productViewModelProvider.notifier)
+                            .getAllProducts();
+                      }),
                   prefixIcon: IconButton(
                     icon: Icon(Icons.search, size: 24.0),
                     color: GlobalVariables.greyColor,
@@ -281,63 +281,171 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
               height: MediaQuery.of(context).size.height *
                   0.01, // Increased for responsiveness
             ),
-            SizedBox(
-              height: 60,
-              child: Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceEvenly, // Added for spacing
-                children: List.generate(
-                  GlobalVariables.categoryImages.length,
-                  (index) {
-                    double itemSize = MediaQuery.of(context).size.width *
-                        0.08; // Adjusted for responsiveness
 
-                    return GestureDetector(
-                      onTap: () => navigateToCategoryPage(
-                        context,
-                        GlobalVariables.categoryImages[index]['title']!,
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: itemSize * 0.2),
-                            child: ClipRRect(
-                              borderRadius:
-                                  BorderRadius.circular(itemSize * 0.5),
-                              child: Image.asset(
-                                GlobalVariables.categoryImages[index]['image']!,
-                                fit: BoxFit.cover,
-                                height: itemSize,
-                                width: itemSize,
+            // SizedBox(
+            //   height: 60,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     children: List.generate(
+            //       GlobalVariables.categoryImages.length,
+            //       (index) {
+            //         double itemSize = MediaQuery.of(context).size.width *
+            //             0.08; // Adjusted for responsiveness
+
+            //         return GestureDetector(
+            //           onTap: () {
+            //             // Use the Navigator to navigate to the desired page for each category
+            //             switch (index) {
+            //               case 0:
+            //                 Navigator.pushNamed(context, "/decor");
+            //                 break;
+            //               case 1:
+            //                 Navigator.pushNamed(context, "/categoryPage2");
+            //                 break;
+            //               case 2:
+            //                 Navigator.pushNamed(context, "/categoryPage2");
+            //                 break;
+            //               case 3:
+            //                 Navigator.pushNamed(context, "/categoryPage2");
+            //                 break;
+            //               case 4:
+            //                 Navigator.pushNamed(context, "/categoryPage2");
+            //                 break;
+            //               // Add cases for other categories as needed
+            //               default:
+            //                 break;
+            //             }
+            //           },
+            //           child: Column(
+            //             children: [
+            //               Container(
+            //                 padding: EdgeInsets.symmetric(
+            //                     horizontal: itemSize * 0.2),
+            //                 child: ClipRRect(
+            //                   borderRadius:
+            //                       BorderRadius.circular(itemSize * 0.5),
+            //                   child: Image.asset(
+            //                     GlobalVariables.categoryImages[index]['image']!,
+            //                     fit: BoxFit.cover,
+            //                     height: itemSize,
+            //                     width: itemSize,
+            //                   ),
+            //                 ),
+            //               ),
+            //               SizedBox(
+            //                 height: 8, // Increased gap between category items
+            //               ),
+            //               Text(
+            //                 GlobalVariables.categoryImages[index]['title']!,
+            //                 style: TextStyle(
+            //                   fontSize: MediaQuery.of(context).size.width *
+            //                       0.03, // Adjusted for responsiveness
+            //                   fontWeight: FontWeight.w400,
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //         );
+            //       },
+            //     ),
+            //   ),
+            // ),
+
+            SizedBox(
+              height: 80, // Increase the height for text
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(
+                    GlobalVariables.categoryImages.length,
+                    (index) {
+                      double itemSize = MediaQuery.of(context).size.width *
+                          0.1; // Adjusted for responsiveness and increased size
+
+                      return GestureDetector(
+                        onTap: () {
+                          // Use the Navigator to navigate to the desired page for each category
+                          switch (index) {
+                            case 0:
+                              Navigator.pushNamed(context, "/jewelry");
+                              break;
+                            case 1:
+                              Navigator.pushNamed(context, "/categoryPage2");
+                              break;
+                            case 2:
+                              Navigator.pushNamed(context, "/categoryPage2");
+                              break;
+                            case 3:
+                              Navigator.pushNamed(context, "/categoryPage2");
+                              break;
+                            case 4:
+                              Navigator.pushNamed(context, "/categoryPage2");
+                              break;
+                            // Add cases for other categories as needed
+                            default:
+                              break;
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: itemSize * 0.2),
+                                child: ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.circular(itemSize * 0.5),
+                                  child: Image.asset(
+                                    GlobalVariables.categoryImages[index]
+                                        ['image']!,
+                                    fit: BoxFit.cover,
+                                    height: itemSize,
+                                    width: itemSize,
+                                  ),
+                                ),
                               ),
-                            ),
+                              SizedBox(
+                                height:
+                                    8, // Increased gap between category items
+                              ),
+                              Container(
+                                height:
+                                    40, // Set a fixed height for the text container
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Text(
+                                    GlobalVariables.categoryImages[index]
+                                        ['title']!,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2, // Set the desired max lines
+                                    style: TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.03,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            height: 8, // Increased gap between category items
-                          ),
-                          Text(
-                            GlobalVariables.categoryImages[index]['title']!,
-                            style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.width *
-                                  0.03, // Adjusted for responsiveness
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
-            Center(
-              // child: _widgetOptions.elementAt(_selectedIndex),
-              child: _widgetOptions.elementAt(dashboardState.index),
-            ),
+
+            // Center(
+            //   // child: _widgetOptions.elementAt(_selectedIndex),
+            //   child: _widgetOptions.elementAt(dashboardState.index),
+            // ),
             SizedBox(
               height: MediaQuery.of(context).size.height *
-                  0.02, // Increased for responsiveness
+                  0.04, // Increased for responsiveness
             ),
             CarouselSlider(
               items: GlobalVariables.carouselImages.map(
@@ -398,83 +506,146 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                 }
               },
             ),
-            productState.isLoading
-                ? const CircularProgressIndicator()
-                : ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: products.length ?? 0,
-                    itemBuilder: (context, index) {
-                      // Filter products based on search query
-                      if (_searchController.text.isNotEmpty &&
-                          !products[index]!
-                              .productName
-                              .toLowerCase()
-                              .contains(_searchController.text.toLowerCase())) {
-                        return Container();
-                      }
-                      return Card(
-                        margin: EdgeInsets.all(10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            // arguments passed to show on the product details page
-                            Navigator.pushNamed(context, "/productDetails",
-                                arguments: [
-                                  products[index]?.productID,
-                                  products[index]?.productName,
-                                  products[index]?.productPrice,
-                                  products[index]?.productDescription,
-                                  products[index]?.productCategory,
-                                  products[index]?.productImageURL,
-                                ]);
-                          },
-                          child: Container(
-                            height: 220, // Set the desired height
-                            width: double
-                                .infinity, // Set the desired width, use double.infinity for full width
-                            child: Card(
-                              elevation: 5,
-                              margin: EdgeInsets.all(10),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 80, // Adjust the image height
-                                      child: Image.network(
-                                        products?[index]!.productImageURL ?? '',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    SizedBox(height: 8),
-                                    Text(
-                                      '${products?[index]?.productName}',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(height: 4),
-                                    Text(
-                                      'NPR.${products?[index]?.productPrice}',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+            GridView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, // Number of columns
+                crossAxisSpacing: 8.0, // Spacing between columns
+                mainAxisSpacing: 8.0, // Spacing between rows
+              ),
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    // Navigate to the product details page with arguments
+                    Navigator.pushNamed(
+                      context,
+                      "/productDetails",
+                      arguments: [
+                        products[index]?.productID,
+                        products[index]?.productName,
+                        products[index]?.productPrice,
+                        products[index]?.productDescription,
+                        products[index]?.productCategory,
+                        products[index]?.productImageURL,
+                      ],
+                    );
+                  },
+                  child: Card(
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 80, // Adjust the image height
+                            child: Image.network(
+                              products[index]?.productImageURL ?? '',
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                      );
-                    }),
+                          SizedBox(height: 8),
+                          Text(
+                            '${products[index]?.productName}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'NPR.${products[index]?.productPrice}',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+
+            // : ListView.builder(
+            //     shrinkWrap: true,
+            //     physics: const NeverScrollableScrollPhysics(),
+            //     itemCount: products.length ?? 0,
+            //     itemBuilder: (context, index) {
+            //       // Filter products based on search query
+            //       if (_searchController.text.isNotEmpty &&
+            //           !products[index]!
+            //               .productName
+            //               .toLowerCase()
+            //               .contains(_searchController.text.toLowerCase())) {
+            //         return Container();
+            //       }
+            //       return Card(
+            //         margin: EdgeInsets.all(10),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(10.0),
+            //         ),
+            //         child: GestureDetector(
+            //           onTap: () {
+            //             // arguments passed to show on the product details page
+            //             Navigator.pushNamed(context, "/productDetails",
+            //                 arguments: [
+            //                   products[index]?.productID,
+            //                   products[index]?.productName,
+            //                   products[index]?.productPrice,
+            //                   products[index]?.productDescription,
+            //                   products[index]?.productCategory,
+            //                   products[index]?.productImageURL,
+            //                 ]);
+            //           },
+            //           child: Container(
+            //             height: 220, // Set the desired height
+            //             width: double
+            //                 .infinity, // Set the desired width, use double.infinity for full width
+            //             child: Card(
+            //               elevation: 5,
+            //               margin: EdgeInsets.all(10),
+            //               shape: RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.circular(10.0),
+            //               ),
+            //               child: Padding(
+            //                 padding: EdgeInsets.all(8.0),
+            //                 child: Column(
+            //                   children: [
+            //                     SizedBox(
+            //                       height: 80, // Adjust the image height
+            //                       child: Image.network(
+            //                         products?[index]!.productImageURL ?? '',
+            //                         fit: BoxFit.cover,
+            //                       ),
+            //                     ),
+            //                     SizedBox(height: 8),
+            //                     Text(
+            //                       '${products?[index]?.productName}',
+            //                       style: TextStyle(
+            //                         fontSize: 16,
+            //                         fontWeight: FontWeight.bold,
+            //                       ),
+            //                     ),
+            //                     SizedBox(height: 4),
+            //                     Text(
+            //                       'NPR.${products?[index]?.productPrice}',
+            //                       style: TextStyle(
+            //                         fontSize: 16,
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       );
+            //     }),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(

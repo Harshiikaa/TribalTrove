@@ -37,6 +37,7 @@ class ApiEndpoints {
   static const String getAllProducts = "product/getProducts";
   static const String getSingleProduct = "product/getProduct/:id";
   static const String getProductBySellerID = "product/getProductsBySellerApi/";
+  static const String getProductsByAntiqueJewelry = "product/getProductsByAntiqueJewelry/category";
 
   // static const String getProductByCategory = "product/getProductByCategory";
   static const String updateProduct = "product/updateProduct/";

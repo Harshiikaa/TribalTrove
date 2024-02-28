@@ -16,9 +16,9 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
     return Scaffold(
       body: dashboardState.lstWidgets[dashboardState.index],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blue, // Set the background color to blue
-        selectedItemColor: Colors.white, // Set the selected item color
-        unselectedItemColor: Colors.grey,
+        backgroundColor: Color(0xFFFFFFFF), // Pure white
+        selectedItemColor: Color(0xFF333333), // Dark grey
+        unselectedItemColor: Color(0xFF888888), // A shade of grey
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
