@@ -121,7 +121,10 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
               onPressed: () {
                 Navigator.pop(context, false); // No
               },
-              child: Text('No'),
+              child: Text(
+                'No',
+                style: TextStyle(color: Colors.black),
+              ),
             ),
             TextButton(
               onPressed: () async {
@@ -142,7 +145,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                   },
                 );
               },
-              child: Text('Yes'),
+              child: Text('Yes', style: TextStyle(color: Colors.black)),
             ),
           ],
         );
@@ -514,8 +517,22 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                 crossAxisSpacing: 8.0, // Spacing between columns
                 mainAxisSpacing: 8.0, // Spacing between rows
               ),
-              itemCount: products.length,
+              itemCount: products
+                  .where((product) =>
+                      _searchController.text.isEmpty ||
+                      product!.productName
+                          .toLowerCase()
+                          .contains(_searchController.text.toLowerCase()))
+                  .length,
               itemBuilder: (context, index) {
+                final filteredProducts = products
+                    .where((product) =>
+                        _searchController.text.isEmpty ||
+                        product!.productName
+                            .toLowerCase()
+                            .contains(_searchController.text.toLowerCase()))
+                    .toList();
+
                 return GestureDetector(
                   onTap: () {
                     // Navigate to the product details page with arguments
@@ -523,12 +540,12 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                       context,
                       "/productDetails",
                       arguments: [
-                        products[index]?.productID,
-                        products[index]?.productName,
-                        products[index]?.productPrice,
-                        products[index]?.productDescription,
-                        products[index]?.productCategory,
-                        products[index]?.productImageURL,
+                        filteredProducts[index]?.productID,
+                        filteredProducts[index]?.productName,
+                        filteredProducts[index]?.productPrice,
+                        filteredProducts[index]?.productDescription,
+                        filteredProducts[index]?.productCategory,
+                        filteredProducts[index]?.productImageURL,
                       ],
                     );
                   },
@@ -544,13 +561,13 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                           SizedBox(
                             height: 80, // Adjust the image height
                             child: Image.network(
-                              products[index]?.productImageURL ?? '',
+                              filteredProducts[index]?.productImageURL ?? '',
                               fit: BoxFit.cover,
                             ),
                           ),
                           SizedBox(height: 8),
                           Text(
-                            '${products[index]?.productName}',
+                            '${filteredProducts[index]?.productName}',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -558,7 +575,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                           ),
                           SizedBox(height: 4),
                           Text(
-                            'NPR.${products[index]?.productPrice}',
+                            'NPR.${filteredProducts[index]?.productPrice}',
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -646,65 +663,51 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
             //         ),
             //       );
             //     }),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Card(
-                    margin: EdgeInsets.all(10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        // Handle onTap action
-                      },
-                      child: Container(
-                        width: 150, // Set a fixed width for each card
-                        height: 200,
-                        child: Column(
-                          children: [
-                            // pretty card
+            // SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            //   child: Row(
+            //     children: [
+            //       Card(
+            //         margin: EdgeInsets.all(10),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(10.0),
+            //         ),
+            //         child: InkWell(
+            //           onTap: () {
+            //             // Handle onTap action
+            //           },
+            //           child: Container(
+            //             width: 150, // Set a fixed width for each card
+            //             height: 200,
+            //             child: Column(
+            //               children: [
 
-                            // Expanded(
-                            //   flex: 2,
-                            //   child: ClipRRect(
-                            //     borderRadius: BorderRadius.vertical(
-                            //       top: Radius.circular(10.0),
-                            //     ),
-                            //     child: Image.asset(
-                            //       'assets/images/terracota.jpg',
-                            //       width: double.infinity,
-                            //       fit: BoxFit.cover,
-                            //     ),
-                            //   ),
-                            // ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Product Name',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text('Price: \$100'),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            //                 Expanded(
+            //                   flex: 1,
+            //                   child: Padding(
+            //                     padding: const EdgeInsets.all(8.0),
+            //                     child: Column(
+            //                       crossAxisAlignment: CrossAxisAlignment.start,
+            //                       children: [
+            //                         Text(
+            //                           'Product Name',
+            //                           style: TextStyle(
+            //                             fontWeight: FontWeight.bold,
+            //                           ),
+            //                         ),
+            //                         Text('Price: \$100'),
+            //                       ],
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),
