@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:TribalTrove/config/routes/app_route.dart';
 import 'package:TribalTrove/core/common/provider/is_dark_theme.dart';
 import 'package:TribalTrove/core/shared_pref/user_shared_prefs.dart';
 import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.dart';
 import 'package:TribalTrove/feature/seller/product/presentation/view_model/product_view_model.dart';
+import 'package:TribalTrove/feature/user/authentication_user/presentation/view_model/auth_viewmodel.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/product_details.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view_model/dashboard_view_model.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/widgets/bottom_navigation_widget.dart';
@@ -16,6 +19,7 @@ import 'package:TribalTrove/feature/user/dashboard/presentation/widgets/product_
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:all_sensors2/all_sensors2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DashboardViewUser extends ConsumerStatefulWidget {
@@ -28,12 +32,12 @@ class DashboardViewUser extends ConsumerStatefulWidget {
 }
 
 class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
-  late bool isDark;
-  @override
-  void initState() {
-    isDark = ref.read(isDarkThemeProvider);
-    super.initState();
-  }
+  // late bool isDark;
+  // @override
+  // void initState() {
+  //   isDark = ref.read(isDarkThemeProvider);
+  //   super.initState();
+  // }
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -147,9 +151,29 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
     );
   }
 
-  
   String selectedFilter = 'Sort by Minimum Price';
-  List<String> filterOptions = ['Sort by Minimum Price', 'Sort by Maximum Price'];
+  List<String> filterOptions = [
+    'Sort by Minimum Price',
+    'Sort by Maximum Price'
+  ];
+
+  late StreamSubscription<ProximityEvent> _proximityEvent;
+  @override
+  void initState() {
+    super.initState();
+    _proximityEvent = proximityEvents!.listen((ProximityEvent event) async {
+      if (event.proximity < 2) {
+        showLogoutConfirmationDialog(context);
+      }
+    });
+  }
+
+  // Function to handle search
+  void onSearch(String query) {
+    setState(() {
+      // Trigger a rebuild when the search query changes
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -229,6 +253,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
               child: TextField(
                 controller: _searchController,
                 style: TextStyle(fontSize: 18.0),
+                onChanged: onSearch,
                 decoration: InputDecoration(
                   filled: true,
                   hintText: 'Search',
@@ -343,7 +368,6 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                 fontSize: MediaQuery.of(context).size.width > 600 ? 24 : 20,
               ),
             ),
-           
             DropdownButton<String>(
               value: selectedFilter,
               items: filterOptions.map((String option) {
@@ -374,7 +398,6 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                 }
               },
             ),
-           
             productState.isLoading
                 ? const CircularProgressIndicator()
                 : ListView.builder(
@@ -382,6 +405,14 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: products.length ?? 0,
                     itemBuilder: (context, index) {
+                      // Filter products based on search query
+                      if (_searchController.text.isNotEmpty &&
+                          !products[index]!
+                              .productName
+                              .toLowerCase()
+                              .contains(_searchController.text.toLowerCase())) {
+                        return Container();
+                      }
                       return Card(
                         margin: EdgeInsets.all(10),
                         shape: RoundedRectangleBorder(
