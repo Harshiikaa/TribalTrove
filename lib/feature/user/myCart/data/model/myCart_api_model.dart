@@ -9,8 +9,8 @@ class MyCartAPIModel {
   final String? myCartID;
   final String? userID;
   final String? productID;
-  final String createdAt;
-  final String ?quantity;
+  final DateTime createdAt;
+  final int quantity;
 
   MyCartAPIModel(
       {this.myCartID,
@@ -24,7 +24,7 @@ class MyCartAPIModel {
     return MyCartAPIModel(
       myCartID: json['_id'],
       userID: json['userID'],
-      productID: json['productID']['productName'],
+      productID: json['productID'],
       createdAt: json['createdAt'],
       quantity: json['quantity'],
     );
@@ -46,8 +46,8 @@ class MyCartAPIModel {
       myCartID: entity.myCartID,
       userID: entity.userID,
       productID: entity.productID,
-      createdAt: entity.createdAt.toIso8601String(),
-      quantity: entity.quantity.toString(),
+      createdAt: entity.createdAt,
+      quantity: entity.quantity,
     );
   }
   // From model to entity
@@ -56,7 +56,7 @@ class MyCartAPIModel {
         myCartID: model.myCartID,
         productID: model.productID,
         userID: model.userID,
-        createdAt: DateTime.parse(model.createdAt),
-        quantity: int.parse(model.quantity!));
+        createdAt: model.createdAt,
+        quantity: model.quantity);
   }
 }

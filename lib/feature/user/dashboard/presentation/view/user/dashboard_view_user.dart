@@ -31,12 +31,13 @@ class DashboardViewUser extends ConsumerStatefulWidget {
 }
 
 class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
-  // late bool isDark;
-  // @override
-  // void initState() {
-  //   isDark = ref.read(isDarkThemeProvider);
-  //   super.initState();
-  // }
+  late bool isDark = false;
+
+  @override
+  void initState() {
+    isDark = ref.read(isDarkThemeProvider);
+    super.initState();
+  }
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -159,16 +160,16 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
     'Sort by Maximum Price'
   ];
 
-  late StreamSubscription<ProximityEvent> _proximityEvent;
-  @override
-  void initState() {
-    super.initState();
-    _proximityEvent = proximityEvents!.listen((ProximityEvent event) async {
-      if (event.proximity < 2) {
-        showLogoutConfirmationDialog(context);
-      }
-    });
-  }
+  // late StreamSubscription<ProximityEvent> _proximityEvent;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _proximityEvent = proximityEvents!.listen((ProximityEvent event) async {
+  //     if (event.proximity < 2) {
+  //       showLogoutConfirmationDialog(context);
+  //     }
+  //   });
+  // }
 
   // Function to handle search
   void onSearch(String query) {
@@ -220,16 +221,16 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                       },
                       iconSize: 30, // Increased icon size for the shopping cart
                     ),
-                    // Switch(
-                    //     value: isDark,
-                    //     onChanged: (value) {
-                    //       setState(() {
-                    //         isDark = value;
-                    //         ref
-                    //             .read(isDarkThemeProvider.notifier)
-                    //             .updateTheme(value);
-                    //       });
-                    //     }),
+                    Switch(
+                        value: isDark,
+                        onChanged: (value) {
+                          setState(() {
+                            isDark = value;
+                            ref
+                                .read(isDarkThemeProvider.notifier)
+                                .updateTheme(value);
+                          });
+                        }),
                     IconButton(
                       icon: const Icon(Icons.logout_outlined),
                       onPressed: () {
