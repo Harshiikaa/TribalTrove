@@ -163,7 +163,7 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
     // List<FavoriteEntity?>? favorites = favoriteState.favorites;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.teal, // Customize app bar color
+        // backgroundColor: Colors.teal, // Customize app bar color
         title: const Text(
           'Favorite List',
           style: TextStyle(

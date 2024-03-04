@@ -56,7 +56,9 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
             : Color.fromARGB(255, 47, 52, 47),
         unselectedItemColor:
             isDarkMode ? Colors.white : Color.fromARGB(255, 164, 163, 163),
-        backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        backgroundColor: isDarkMode
+            ? Colors.black
+            : const Color.fromARGB(255, 106, 103, 103),
       ),
     );
   }

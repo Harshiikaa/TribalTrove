@@ -7,36 +7,53 @@ class AppTheme {
 
   static getApplicationTheme(bool isDark) {
     return ThemeData(
-      // primarySwatch:GlobalVariables.backgroundColor,
-      scaffoldBackgroundColor: GlobalVariables.backgroundColor,
-      fontFamily: 'Inter Regular',
+      // scaffoldBackgroundColor: GlobalVariables.backgroundColor,
+      // fontFamily: 'Inter Regular',
 
-      // change the theme according to the user choice
       colorScheme: isDark
           ? const ColorScheme.dark(
-              primary: ThemeConstant.darkPrimaryColor,
+              primary: Color.fromARGB(255, 141, 139, 137),
             )
           : const ColorScheme.light(
-              primary: Color.fromARGB(0, 0, 0, 0),
+              primary: Color.fromARGB(255, 17, 119, 20),
             ),
       brightness: isDark ? Brightness.dark : Brightness.light,
       // fontFamily: 'Montserrat',
       useMaterial3: true,
 
       // Change app bar color
-      appBarTheme: const AppBarTheme(
+      // appBarTheme: const AppBarTheme(
+      //   elevation: 0,
+      //   backgroundColor: isDark
+      //       ? const Color.fromARGB(
+      //           255, 106, 103, 103) // Adjusted color for dark mode
+      //       : const Color.fromARGB(255, 22, 81, 24),
+      //   centerTitle: true,
+      //   titleTextStyle: TextStyle(
+      //     color: Colors.white,
+      //     fontSize: 20,
+      //   ),
+      //   iconTheme: IconThemeData(color: isDark ? Colors.white : Colors.black),
+      // ),
+      appBarTheme: AppBarTheme(
         elevation: 0,
-        backgroundColor: ThemeConstant.appBarColor,
+        backgroundColor: isDark
+            ? const Color.fromARGB(
+                255, 106, 103, 103) // Adjusted color for dark mode
+            : Colors.white,
         centerTitle: true,
-        titleTextStyle: TextStyle(
-          color: Colors.white,
-          fontSize: 20,
-        ),
+        titleTextStyle: const TextStyle(
+            color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+        iconTheme: IconThemeData(color: isDark ? Colors.white : Colors.black),
       ),
 
       // theme for elevatedButton
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white,
+          backgroundColor: isDark
+              ? Colors.grey // Adjusted color for dark mode
+              : Color.fromARGB(255, 123, 212, 123),
           textStyle: const TextStyle(
               fontSize: 18,
               color: Colors.white,
@@ -64,8 +81,12 @@ class AppTheme {
         hintStyle: TextStyle(color: GlobalVariables.greyColor),
       ),
 
+      progressIndicatorTheme: const ProgressIndicatorThemeData(
+        color: ThemeConstant.primaryColor,
+      ),
+
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.white,
       ),
     );
   }

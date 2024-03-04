@@ -129,8 +129,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                 Navigator.pop(context, false); // No
               },
               child: Text(
-                'No',
-                style: TextStyle(color: Colors.black),
+                'No'
               ),
             ),
             TextButton(
@@ -152,7 +151,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                   },
                 );
               },
-              child: Text('Yes', style: TextStyle(color: Colors.black)),
+              child: Text('Yes'),
             ),
           ],
         );
