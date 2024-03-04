@@ -3,13 +3,14 @@ class AuthState {
   final String? error;
   final String? imageName;
   final bool? showMessage;
+  final String? message;
 
-  AuthState({
-    required this.isLoading,
-    this.error,
-    this.imageName,
-    this.showMessage,
-  });
+  AuthState(
+      {required this.isLoading,
+      this.error,
+      this.imageName,
+      this.showMessage,
+      this.message});
 
   factory AuthState.initial() {
     return AuthState(
@@ -20,18 +21,18 @@ class AuthState {
     );
   }
 
-  AuthState copyWith({
-    bool? isLoading,
-    String? error,
-    String? imageName,
-    bool? showMessage,
-  }) {
+  AuthState copyWith(
+      {bool? isLoading,
+      String? error,
+      String? imageName,
+      bool? showMessage,
+      String? message}) {
     return AuthState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      imageName: imageName ?? this.imageName,
-      showMessage: showMessage ?? this.showMessage,
-    );
+        isLoading: isLoading ?? this.isLoading,
+        error: error ?? this.error,
+        imageName: imageName ?? this.imageName,
+        showMessage: showMessage ?? this.showMessage,
+        message: message ?? this.message);
   }
 
   @override

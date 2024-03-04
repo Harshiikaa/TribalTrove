@@ -24,7 +24,11 @@ class ApiEndpoints {
   // static const String register = "$baseUrl/user/create";
   static const String register = "user/create";
   static const String login = "user/login";
+    static const String changePassword = "user/changePassword/";
+  static const String updateProfile = "user/updateUser/";
   static const String uploadImage = "user/uploadImage";
+    static const String forgetPassword = "user/forgetPassword";
+
 
   // ====================== Seller Routes ======================
   static const String loginSeller = "seller/login";

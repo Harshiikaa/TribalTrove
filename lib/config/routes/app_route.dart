@@ -1,6 +1,8 @@
 import 'package:TribalTrove/feature/seller/authentication_seller/presentation/view/loginPage_merchant.dart';
 import 'package:TribalTrove/feature/seller/product/presentation/view/seller_product_view.dart';
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view/role.dart';
+import 'package:TribalTrove/feature/user/authentication_user/presentation/view/updatePassword_view.dart';
+import 'package:TribalTrove/feature/user/authentication_user/presentation/view/updateProfile_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/dashboard_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/categories_page/jewelry.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/dashboard_view_user.dart';
@@ -11,8 +13,8 @@ import 'package:TribalTrove/feature/user/authentication_user/presentation/view/l
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view/registerPage_view.dart';
 import 'package:TribalTrove/feature/seller/seller_dashboard/presentation/view/seller_dashboard_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/product_details.dart';
-import 'package:TribalTrove/feature/user/myCart/presentation/view/myCart_view.dart';
-import 'package:TribalTrove/feature/user/profile/presentation/view/user_profile_view.dart';
+import 'package:TribalTrove/feature/user/myCart/presentation/view/cart_view.dart';
+import 'package:TribalTrove/feature/user/setting/presentation/view/user_setting_.dart';
 import 'package:TribalTrove/feature/user/splash_screen/presentation/view/splash_screen.dart';
 
 class AppRoute {
@@ -31,6 +33,8 @@ class AppRoute {
   static const String productDetails = "/productDetails";
   static const String myCart = "/myCart";
   static const String jewelry = "/jewelry";
+  static const String updateProfileRoute = "/updateProfile";
+  static const String updatePasswordRoute = "/updatePassword";
 
   //seller
   static const String loginPageSellerRoute = "/loginPageSeller";
@@ -50,10 +54,12 @@ class AppRoute {
 
       // user
       home: (context) => const DashboardView(),
-      userProfile: (context) => const UserProfileView(),
+      userProfile: (context) => const UserSettingView(),
       productDetails: (context) => const ProductDetailsView(),
-      myCart: (context) => const MyCartView(),
+      myCart: (context) => const CartView(),
       jewelry: (context) => const Jewelry(),
+      updateProfileRoute: (context) => const UpdateProfile(),
+      updatePasswordRoute: (context) => const UpdatePasswordView(),
 
       // seller
       loginPageSellerRoute: (context) => const LoginPageSellerView(),

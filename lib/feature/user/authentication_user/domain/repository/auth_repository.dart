@@ -15,5 +15,10 @@ final authRepositoryProvider = Provider<IAuthRepository>(
 abstract class IAuthRepository {
   Future<Either<Failure, bool>> registerUser(AuthEntity user);
   Future<Either<Failure, bool>> loginUser(String email, String password);
+  Future<Either<Failure, String>> forgetPassword(String email);
+  Future<Either<Failure, String>> changePassword(
+      String password, String newPassword, String confirmPassword);
+  Future<Either<Failure, String>> changeProfile(
+      String firstName, String lastName, String email, File image);
   Future<Either<Failure, String>> uploadProfilePicture(File file);
 }

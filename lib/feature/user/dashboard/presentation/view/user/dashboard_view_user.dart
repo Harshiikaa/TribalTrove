@@ -12,7 +12,7 @@ import 'package:TribalTrove/feature/user/dashboard/presentation/widgets/bottom_n
 import 'package:TribalTrove/config/constants/global_variables.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/carousel_view.dart';
 import 'package:TribalTrove/feature/user/favorites/presentation/view/favorites_view.dart';
-import 'package:TribalTrove/feature/user/myCart/presentation/view/myCart_view.dart';
+import 'package:TribalTrove/feature/user/myCart/presentation/view/cart_view.dart';
 import 'package:TribalTrove/feature/user/searchProduct/presentation/view/searchbox_view.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/widgets/product_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -33,10 +33,16 @@ class DashboardViewUser extends ConsumerStatefulWidget {
 class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
   late bool isDark = false;
 
+  late StreamSubscription<ProximityEvent> _proximityEvent;
   @override
   void initState() {
     isDark = ref.read(isDarkThemeProvider);
     super.initState();
+    _proximityEvent = proximityEvents!.listen((ProximityEvent event) async {
+      if (event.proximity < 2) {
+        showLogoutConfirmationDialog(context);
+      }
+    });
   }
 
   static const TextStyle optionStyle =
@@ -160,17 +166,6 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
     'Sort by Maximum Price'
   ];
 
-  // late StreamSubscription<ProximityEvent> _proximityEvent;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _proximityEvent = proximityEvents!.listen((ProximityEvent event) async {
-  //     if (event.proximity < 2) {
-  //       showLogoutConfirmationDialog(context);
-  //     }
-  //   });
-  // }
-
   // Function to handle search
   void onSearch(String query) {
     setState(() {});
@@ -216,7 +211,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => MyCartView()),
+                          MaterialPageRoute(builder: (context) => CartView()),
                         );
                       },
                       iconSize: 30, // Increased icon size for the shopping cart

@@ -34,4 +34,25 @@ class AuthRemoteRepository implements IAuthRepository {
   Future<Either<Failure, String>> uploadProfilePicture(File file) {
     return _authRemoteDataSource.uploadProfilePicture(file);
   }
+
+  @override
+  Future<Either<Failure, String>> changePassword(String password, String newPassword, String confirmPassword) async {
+    final result= await _authRemoteDataSource.updateUserPassword(password,newPassword, confirmPassword);
+    return result.fold((failure)=>Left(failure),(sucess)=> Right(sucess));
+  }
+
+    @override
+  Future<Either<Failure, String>> changeProfile(String firstName, String lastName, String email, File image) async {
+    final result= await _authRemoteDataSource.updateProfile(firstName,lastName,email, image);
+    return result.fold((failure)=>Left(failure),(sucess)=> Right(sucess));
+  }
+
+    @override
+  Future<Either<Failure, String>> forgetPassword(String email) async{
+  final result= await _authRemoteDataSource.forgetPassword(email);
+  return result.fold((failure)=>Left(failure),(sucess)=> Right(sucess));
+  
+  }
+  
+
 }

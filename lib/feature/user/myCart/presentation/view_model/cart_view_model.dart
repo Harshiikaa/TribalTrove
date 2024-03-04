@@ -1,28 +1,29 @@
 import 'package:TribalTrove/core/shared_pref/user_shared_prefs.dart';
-import 'package:TribalTrove/feature/user/myCart/domain/entity/mycart_entity.dart';
+import 'package:TribalTrove/feature/user/myCart/domain/entity/cart_entity.dart';
 import 'package:TribalTrove/feature/user/myCart/domain/usecase/add_to_cart_usecase.dart';
 import 'package:TribalTrove/feature/user/myCart/domain/usecase/get_cart_usecase.dart';
-import 'package:TribalTrove/feature/user/myCart/presentation/state/myCart_state.dart';
+import 'package:TribalTrove/feature/user/myCart/presentation/state/cart_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final myCartViewModelProvider =
-    StateNotifierProvider.autoDispose<MyCartViewModel, MyCartState>(
-        (ref) => MyCartViewModel(
-              addToCartUseCase: ref.read(addToCartUseCaseProvider),
-              getCartUsecase: ref.read(getCartUsecaseProvider),
-              userSharedPrefs: ref.read(userSharedPrefsProvider)
+final cartViewModelProvider = StateNotifierProvider<CartViewModel, CartState>(
+    (ref) => CartViewModel(
+        addToCartUseCase: ref.read(addToCartUseCaseProvider),
+        getCartUsecase: ref.read(getCartUsecaseProvider),
+        userSharedPrefs: ref.read(userSharedPrefsProvider)
 // fetch fav
-            ));
+        ));
 
-class MyCartViewModel extends StateNotifier<MyCartState> {
+class CartViewModel extends StateNotifier<CartState> {
   final AddToCartUseCase addToCartUseCase;
   final GetCartUsecase getCartUsecase;
   final UserSharedPrefs userSharedPrefs;
-  MyCartViewModel(
-      {required this.addToCartUseCase, required this.getCartUsecase, required this.userSharedPrefs})
-      : super(MyCartState.initialState());
+  CartViewModel(
+      {required this.addToCartUseCase,
+      required this.getCartUsecase,
+      required this.userSharedPrefs})
+      : super(CartState.initialState());
 
-  void addToCart(MyCartEntity cart) {
+  void addToCart(CartEntity cart) {
     state = state.copyWith(isLoading: true);
     addToCartUseCase.addToCart(cart).then((value) {
       value.fold(
@@ -79,7 +80,7 @@ class MyCartViewModel extends StateNotifier<MyCartState> {
   //           print("Failed to get user details: ${failure.error}");
   //         },
   //         (userData) async {
-  //           final 
+  //           final
   //            = userData['_id'];
 
   //           // get data from data source

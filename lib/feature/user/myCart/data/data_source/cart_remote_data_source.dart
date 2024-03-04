@@ -3,34 +3,33 @@ import 'package:TribalTrove/core/failure/failure.dart';
 import 'package:TribalTrove/core/networking/http_service.dart';
 import 'package:TribalTrove/core/shared_pref/user_shared_prefs.dart';
 import 'package:TribalTrove/feature/user/myCart/data/dto/get_cart_dto.dart';
-import 'package:TribalTrove/feature/user/myCart/data/model/myCart_api_model.dart';
-import 'package:TribalTrove/feature/user/myCart/domain/entity/mycart_entity.dart';
+import 'package:TribalTrove/feature/user/myCart/data/model/cart_api_model.dart';
+import 'package:TribalTrove/feature/user/myCart/domain/entity/cart_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final myCartRemoteDataSourceProvider =
-    Provider.autoDispose<MyCartRemoteDataSource>(
-  (ref) => MyCartRemoteDataSource(
+final cartRemoteDataSourceProvider = Provider.autoDispose<CartRemoteDataSource>(
+  (ref) => CartRemoteDataSource(
     dio: ref.read(httpServiceProvider),
     userSharedPrefs: ref.read(userSharedPrefsProvider),
   ),
 );
 
-class MyCartRemoteDataSource {
+class CartRemoteDataSource {
   final Dio dio;
   final UserSharedPrefs userSharedPrefs;
-  MyCartRemoteDataSource({required this.dio, required this.userSharedPrefs});
+  CartRemoteDataSource({required this.dio, required this.userSharedPrefs});
 
-  Future<Either<Failure, bool>> addToCart(MyCartEntity myCart) async {
+  Future<Either<Failure, bool>> addToCart(CartEntity cart) async {
     try {
       String? token;
       final data = await userSharedPrefs.getUserToken();
       data.fold((l) => token = null, (r) => token = r!);
-      MyCartAPIModel myCartAPIModel = MyCartAPIModel.fromEntity(myCart);
+      CartAPIModel cartAPIModel = CartAPIModel.fromEntity(cart);
       // print('Request Data: ${myCartAPIModel.toJson()}');
       var response = await dio.post(ApiEndpoints.addToCart,
-          data: myCartAPIModel.toJson(),
+          data: cartAPIModel.toJson(),
           options: Options(headers: {'Authorization': 'Bearer $token'}));
       // print('Response Data: ${response.data}');
       if (response.statusCode == 201) {
@@ -49,7 +48,7 @@ class MyCartRemoteDataSource {
   }
 
   // Get all cart
-    Future<Either<Failure, List<MyCartEntity>>> getCart(int page) async {
+  Future<Either<Failure, List<CartEntity>>> getCart(int page) async {
     try {
       final userData = await userSharedPrefs.getUser();
       if (userData == null || userData['_id'] == null) {
@@ -68,9 +67,8 @@ class MyCartRemoteDataSource {
 
       if (response.statusCode == 200) {
         GetCartDTO getCartDTO = GetCartDTO.fromJson(response.data);
-        List<MyCartEntity> cartList = getCartDTO.cart
-            .map((data) => MyCartAPIModel.toEntity(data))
-            .toList();
+        List<CartEntity> cartList =
+            getCartDTO.cart.map((data) => CartAPIModel.toEntity(data)).toList();
 
         return Right(cartList);
       } else {
@@ -85,8 +83,7 @@ class MyCartRemoteDataSource {
   }
 
 // removeFromCart
-  Future<Either<Failure, bool>> removeFromCart(
-      MyCartEntity cartEntity) async {
+  Future<Either<Failure, bool>> removeFromCart(CartEntity cartEntity) async {
     try {
       final userTokenEither = await UserSharedPrefs().getUserToken();
       if (userTokenEither.isLeft()) {
@@ -98,7 +95,7 @@ class MyCartRemoteDataSource {
       final userToken = userTokenEither.getOrElse(() => null);
 
       final response = await dio.delete(
-          ApiEndpoints.removeFromCart + cartEntity.myCartID!,
+          ApiEndpoints.removeFromCart + cartEntity.cartID!,
           options: Options(headers: {'Authorization': 'Bearer $userToken'}));
 
       if (response.statusCode == 200) {
@@ -115,5 +112,4 @@ class MyCartRemoteDataSource {
       ));
     }
   }
-
 }

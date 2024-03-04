@@ -31,4 +31,22 @@ class AuthLocalRepository implements IAuthRepository {
   Future<Either<Failure, String>> uploadProfilePicture(File file) async {
     return const Right("");
   }
+  
+  @override
+  Future<Either<Failure, String>> changePassword(String password, String newPassword, String confirmPassword) {
+    // TODO: implement changePassword
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, String>> changeProfile(String firstName, String lastName, String email, File image) {
+    // TODO: implement changeProfile
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, String>> forgetPassword(String email) {
+    // TODO: implement forgetPassword
+    throw UnimplementedError();
+  }
 }

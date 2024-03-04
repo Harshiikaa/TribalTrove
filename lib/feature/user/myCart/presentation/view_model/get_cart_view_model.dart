@@ -1,24 +1,24 @@
-import 'package:TribalTrove/feature/user/myCart/data/data_source/myCart_remote_data_source.dart';
-import 'package:TribalTrove/feature/user/myCart/domain/entity/mycart_entity.dart';
-import 'package:TribalTrove/feature/user/myCart/presentation/state/myCart_state.dart';
+import 'package:TribalTrove/feature/user/myCart/data/data_source/cart_remote_data_source.dart';
+import 'package:TribalTrove/feature/user/myCart/domain/entity/cart_entity.dart';
+import 'package:TribalTrove/feature/user/myCart/presentation/state/cart_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final getCartViewModelProvider =
-    StateNotifierProvider<GetCartViewModel, MyCartState>((ref) {
-  final myCartRemoteDataSource = ref.read(myCartRemoteDataSourceProvider);
-  return GetCartViewModel(myCartRemoteDataSource);
+    StateNotifierProvider<GetCartViewModel, CartState>((ref) {
+  final cartRemoteDataSource = ref.read(cartRemoteDataSourceProvider);
+  return GetCartViewModel(cartRemoteDataSource);
 });
 
-class GetCartViewModel extends StateNotifier<MyCartState> {
-  final MyCartRemoteDataSource myCartRemoteDataSource;
+class GetCartViewModel extends StateNotifier<CartState> {
+  final CartRemoteDataSource cartRemoteDataSource;
 
-  GetCartViewModel(this.myCartRemoteDataSource)
-      : super(MyCartState.initialState()) {
+  GetCartViewModel(this.cartRemoteDataSource)
+      : super(CartState.initialState()) {
     getCart();
   }
 
   Future resetState() async {
-    state = MyCartState.initialState();
+    state = CartState.initialState();
     getCart();
   }
 
@@ -32,7 +32,7 @@ class GetCartViewModel extends StateNotifier<MyCartState> {
     final hasReachedMax = currentState.hasReachedMax;
     if (!hasReachedMax) {
       // get data from data source
-      final result = await myCartRemoteDataSource.getCart(page);
+      final result = await cartRemoteDataSource.getCart(page);
       result.fold(
         (failure) =>
             state = state.copyWith(hasReachedMax: true, isLoading: false),
@@ -52,9 +52,9 @@ class GetCartViewModel extends StateNotifier<MyCartState> {
   }
 
 // removing from cart
-  Future<void> removeFromCart(MyCartEntity cartID) async {
+  Future<void> removeFromCart(CartEntity cartID) async {
     try {
-      await myCartRemoteDataSource.removeFromCart(cartID);
+      await cartRemoteDataSource.removeFromCart(cartID);
     } catch (error) {
       print(error.toString());
     }

@@ -1,4 +1,4 @@
-import 'package:TribalTrove/feature/user/myCart/data/model/myCart_api_model.dart';
+import 'package:TribalTrove/feature/user/myCart/data/model/cart_api_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'get_cart_dto.g.dart';
@@ -7,7 +7,8 @@ part 'get_cart_dto.g.dart';
 class GetCartDTO {
   final bool success;
   final String message;
-  final List<MyCartAPIModel> cart;
+    @JsonKey(name: 'cart')
+  final List<CartAPIModel> cart;
 
   GetCartDTO({
     required this.success,

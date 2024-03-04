@@ -1,4 +1,7 @@
+import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/dashboard_view_user.dart';
 import 'package:TribalTrove/feature/user/dashboard/presentation/view_model/dashboard_view_model.dart';
+import 'package:TribalTrove/feature/user/favorites/presentation/view/favorites_view.dart';
+import 'package:TribalTrove/feature/user/setting/presentation/view/user_setting_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,15 +13,23 @@ class DashboardView extends ConsumerStatefulWidget {
 }
 
 class _DashboardViewState extends ConsumerState<DashboardView> {
+  int selectedIndex = 0;
+  bool isDarkMode = false;
+
+  List<Widget> lstScreen = [
+    const DashboardViewUser(),
+    const FavoritesView(),
+    const UserSettingView(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final dashboardState = ref.watch(dashboardViewModelProvider);
+    // final dashboardState = ref.watch(dashboardViewModelProvider);
     return Scaffold(
-      body: dashboardState.lstWidgets[dashboardState.index],
+      body: lstScreen[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xFFFFFFFF), // Pure white
-        selectedItemColor: Color(0xFF333333), // Dark grey
-        unselectedItemColor: Color(0xFF888888), // A shade of grey
+        showSelectedLabels: true,
+        showUnselectedLabels: true, // Set the background color here
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
@@ -33,10 +44,19 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
             label: 'Profile',
           ),
         ],
-        currentIndex: dashboardState.index,
+        currentIndex: selectedIndex,
         onTap: (index) {
-          ref.read(dashboardViewModelProvider.notifier).changeIndex(index);
+          // ref.read(dashboardViewModelProvider.notifier).changeIndex(index);
+          setState(() {
+            selectedIndex = index;
+          });
         },
+        selectedItemColor: isDarkMode
+            ? Color.fromARGB(255, 53, 51, 51)
+            : Color.fromARGB(255, 47, 52, 47),
+        unselectedItemColor:
+            isDarkMode ? Colors.white : Color.fromARGB(255, 164, 163, 163),
+        backgroundColor: isDarkMode ? Colors.black : Colors.white,
       ),
     );
   }

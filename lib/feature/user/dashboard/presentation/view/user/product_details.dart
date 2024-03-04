@@ -8,8 +8,8 @@ import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.
 import 'package:TribalTrove/feature/seller/product/presentation/view_model/product_view_model.dart';
 import 'package:TribalTrove/feature/user/favorites/domain/entity/favorites_entity.dart';
 import 'package:TribalTrove/feature/user/favorites/presentation/view_model/favorite_view_model.dart';
-import 'package:TribalTrove/feature/user/myCart/domain/entity/mycart_entity.dart';
-import 'package:TribalTrove/feature/user/myCart/presentation/view_model/myCart_view_model.dart';
+import 'package:TribalTrove/feature/user/myCart/domain/entity/cart_entity.dart';
+import 'package:TribalTrove/feature/user/myCart/presentation/view_model/cart_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -39,7 +39,7 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
         showSnackBar(message: 'You are online', context: context);
       }
 
-      if (ref.watch(myCartViewModelProvider).showMessage) {
+      if (ref.watch(cartViewModelProvider).showMessage) {
         showSnackBar(
             message: 'Added to My Cart Successfully', context: context);
       }
@@ -148,14 +148,14 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                     String? id = data?['_id']?.toString() ?? '';
                     final now = DateTime.now();
                     final currentDate = DateTime(now.year, now.month, now.day);
-                    final entity = MyCartEntity(
+                    final entity = CartEntity(
                       createdAt: currentDate,
-                      productID: productID,
+                      productID: productEntity,
                       userID: id,
                       quantity: 1,
                     );
                     ref
-                        .read(myCartViewModelProvider.notifier)
+                        .read(cartViewModelProvider.notifier)
                         .addToCart(entity);
                   },
                 ),
