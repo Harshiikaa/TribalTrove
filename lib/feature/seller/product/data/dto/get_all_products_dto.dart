@@ -15,10 +15,19 @@ class GetAllProductsDTO {
     required this.products,
   });
 
-  factory GetAllProductsDTO.fromJson(Map<String, dynamic> json) =>
-      _$GetAllProductsDTOFromJson(json);
+  factory GetAllProductsDTO.fromJson(Map<String, dynamic> json) {
+    print("Converting JSON to GetAllProductsDTO: $json");
+    final result = _$GetAllProductsDTOFromJson(json);
+    print("Converted result: $result");
+    return result;
+  }
 
-  Map<String, dynamic> toJson() => _$GetAllProductsDTOToJson(this);
+  Map<String, dynamic> toJson() {
+    print("Converting GetAllProductsDTO to JSON: $this");
+    final result = _$GetAllProductsDTOToJson(this);
+    print("Converted result: $result");
+    return result;
+  }
 
   static GetAllProductsDTO toEntity(GetAllProductsDTO getAllProductsDTO) {
     return GetAllProductsDTO(

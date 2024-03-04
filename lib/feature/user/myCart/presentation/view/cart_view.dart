@@ -1,5 +1,6 @@
 import 'package:TribalTrove/feature/seller/product/data/model/product_api_model.dart';
 import 'package:TribalTrove/feature/user/myCart/domain/entity/cart_entity.dart';
+import 'package:TribalTrove/feature/user/myCart/domain/entity/carts_entity.dart';
 import 'package:TribalTrove/feature/user/myCart/presentation/view_model/get_cart_view_model.dart';
 import 'package:TribalTrove/feature/user/myCart/presentation/view_model/cart_view_model.dart';
 import 'package:flutter/foundation.dart';
@@ -16,7 +17,7 @@ class CartView extends ConsumerStatefulWidget {
 
 class _CartViewState extends ConsumerState<CartView> {
   final ScrollController _scrollController = ScrollController();
-  late List<CartEntity> cartList;
+  late List<CartsEntity> cartList;
 
   @override
   void dispose() {
@@ -75,42 +76,42 @@ class _CartViewState extends ConsumerState<CartView> {
 
                     final cartEntity = CartEntity(
                         cartID: cartID,
-                        productID: productID,
+                        productID: productID?['_id'] as String,
                         quantity: quantity,
                         createdAt: createdAt);
-                    // return Card(
-                    //   elevation: 3,
-                    //   shape: RoundedRectangleBorder(
-                    //     borderRadius: BorderRadius.circular(10),
-                    //   ),
-                    //   child: ListTile(
-                    //     contentPadding: const EdgeInsets.all(15),
-                    //     leading: Image.network(
-                    //       productID?['plantImageUrl'],
-                    //       width: 100,
-                    //       height: 100,
-                    //       fit: BoxFit.cover,
-                    //     ),
-                    //     title: Text(
-                    //       cart.productID?['ProductsName'] as String,
-                    //       style: const TextStyle(
-                    //         fontSize: 18,
-                    //         fontWeight: FontWeight.bold,
-                    //       ),
-                    //     ),
-                    //     trailing: IconButton(
-                    //       icon: const Icon(
-                    //         Icons.delete,
-                    //         color: Colors.red, // Customize favorite icon color
-                    //       ),
-                    //       onPressed: () {
-                    //         ref
-                    //             .read(getCartViewModelProvider.notifier)
-                    //             .removeFromCart(cartEntity);
-                    //       },
-                    //     ),
-                    //   ),
-                    // );
+                    return Card(
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.all(15),
+                        leading: Image.network(
+                          productID?['productImageUrl'] as String,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+                        title: Text(
+                          cart.productID?['productName'] as String,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red, // Customize favorite icon color
+                          ),
+                          onPressed: () {
+                            ref
+                                .read(cartViewModelProvider.notifier)
+                                .removeFromCart(cartEntity);
+                          },
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),

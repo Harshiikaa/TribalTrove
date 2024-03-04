@@ -7,8 +7,8 @@ part 'get_cart_dto.g.dart';
 class GetCartDTO {
   final bool success;
   final String message;
-    @JsonKey(name: 'cart')
-  final List<CartAPIModel> cart;
+  @JsonKey(name: 'cart')
+  final List<CartsAPIModel> cart;
 
   GetCartDTO({
     required this.success,

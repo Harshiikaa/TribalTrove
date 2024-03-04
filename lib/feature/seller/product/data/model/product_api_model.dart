@@ -8,7 +8,7 @@ class ProductAPIModel {
   @JsonKey(name: '_id')
   final String? productID;
   final String productName;
-  final int productPrice;
+  final String productPrice;
   final String productCategory;
   final String productDescription;
   final String? productImageURL;
@@ -71,5 +71,19 @@ class ProductAPIModel {
       productImageURL: model.productImageURL,
       sellerID: model.sellerID,
     );
+
   }
+
+    ProductEntity toAnEntity() => ProductEntity(
+        productID: productID,
+        productName: productName,
+        productPrice: productPrice,
+        productDescription: productDescription,
+        productCategory: productCategory,
+        productImageURL: productImageURL,
+        sellerID: sellerID
+    );
+ List<ProductEntity> toEntityList(List<ProductAPIModel> models) =>
+      models.map((model) => model.toAnEntity()).toList();
+
 }

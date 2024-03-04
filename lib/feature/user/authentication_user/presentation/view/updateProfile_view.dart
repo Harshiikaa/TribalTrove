@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:TribalTrove/core/common/provider/internet_connectivity.dart';
@@ -21,9 +20,10 @@ class _updateProfileViewState extends ConsumerState<UpdateProfile> {
   final _gap = const SizedBox(height: 20);
 
   final _key = GlobalKey<FormState>();
-  final _updatefnameController = TextEditingController();
-  final _updatelnameController = TextEditingController();
-  final _updateemailController = TextEditingController();
+  final _updateFnameController = TextEditingController();
+  final _updateLnameController = TextEditingController();
+  final _updateEmailController = TextEditingController();
+  final _updatePhoneNumberController = TextEditingController();
 
   bool isObscure = true;
   File? _img;
@@ -35,9 +35,8 @@ class _updateProfileViewState extends ConsumerState<UpdateProfile> {
       await Permission.camera.request();
     }
   }
-   
+
   // A method to load user data into the form fields.
-  
 
   Future _browseImage(ImageSource imageSource) async {
     try {
@@ -120,7 +119,7 @@ class _updateProfileViewState extends ConsumerState<UpdateProfile> {
                   ),
                   _gap,
                   TextFormField(
-                    controller: _updatefnameController,
+                    controller: _updateFnameController,
                     decoration: InputDecoration(
                         labelText: 'First Name',
                         prefixIcon: const Icon(Icons.person),
@@ -131,7 +130,7 @@ class _updateProfileViewState extends ConsumerState<UpdateProfile> {
                   ),
                   _gap,
                   TextFormField(
-                    controller: _updatelnameController,
+                    controller: _updateLnameController,
                     decoration: InputDecoration(
                         labelText: 'Last Name',
                         prefixIcon: const Icon(Icons.person),
@@ -142,7 +141,7 @@ class _updateProfileViewState extends ConsumerState<UpdateProfile> {
                   ),
                   _gap,
                   TextFormField(
-                    controller: _updateemailController,
+                    controller: _updateEmailController,
                     decoration: InputDecoration(
                       labelText: 'Email',
                       prefixIcon: const Icon(Icons.email),
@@ -152,14 +151,17 @@ class _updateProfileViewState extends ConsumerState<UpdateProfile> {
                     ),
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: false,
-                        onChanged: (bool? value) {},
+                  _gap,
+                  TextFormField(
+                    controller: _updatePhoneNumberController,
+                    decoration: InputDecoration(
+                      labelText: 'Phone Number',
+                      prefixIcon: const Icon(Icons.phone),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
-                      const Text('I agree to the given terms and conditions provided by the app'),
-                    ],
+                    ),
+                    keyboardType: TextInputType.number,
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
@@ -169,9 +171,10 @@ class _updateProfileViewState extends ConsumerState<UpdateProfile> {
                         await ref
                             .read(authViewModelProvider.notifier)
                             .updateUserProfile(
-                              _updatefnameController.text,
-                              _updatelnameController.text,
-                              _updateemailController.text,
+                              _updateFnameController.text,
+                              _updateLnameController.text,
+                              _updateEmailController.text,
+                              _updatePhoneNumberController.text,
                               _img!,
                               context,
                             );
@@ -187,24 +190,6 @@ class _updateProfileViewState extends ConsumerState<UpdateProfile> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text('Already have an account?'),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoginPageView()),
-                          );
-                        },
-                        child: const Text(
-                          'Login',
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),

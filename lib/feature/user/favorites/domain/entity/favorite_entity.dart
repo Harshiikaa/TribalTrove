@@ -2,13 +2,13 @@ import 'package:TribalTrove/feature/seller/product/data/model/product_api_model.
 import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.dart';
 import 'package:equatable/equatable.dart';
 
-class FavoritesEntity extends Equatable {
+class FavoriteEntity extends Equatable {
   final String? favoriteID;
   final String? userID;
-   Map<String, dynamic>? productID;
+  final String? productID;
   final DateTime createdAt;
 
-  FavoritesEntity({
+  const FavoriteEntity({
     this.favoriteID,
     this.userID,
     this.productID,
@@ -17,10 +17,10 @@ class FavoritesEntity extends Equatable {
 
   List<Object?> get props => [favoriteID, userID, productID, createdAt];
 
-  factory FavoritesEntity.fromJson(Map<String, dynamic> json) => FavoritesEntity(
+  factory FavoriteEntity.fromJson(Map<String, dynamic> json) => FavoriteEntity(
       favoriteID: json['favoriteID'],
       userID: json['userID'],
-      productID: json['productID'],
+      productID: json['productID']['productName'],
       createdAt: json['createdAt']);
 
   @override
@@ -28,12 +28,12 @@ class FavoritesEntity extends Equatable {
     return 'FavoriteEntity( favoriteID: $favoriteID ,userID: $userID, productID: $productID, createdAt: $createdAt)';
   }
 
-  FavoritesEntity copyWith({
-    Map<String, dynamic>? productID,
+  FavoriteEntity copyWith({
+    String? productID,
     DateTime? createdAt,
     String? userID, // Include userId in copyWith
   }) {
-    return FavoritesEntity(
+    return FavoriteEntity(
       productID: productID ?? this.productID,
       createdAt: createdAt ?? this.createdAt,
       userID: userID ?? this.userID,

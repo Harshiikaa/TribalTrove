@@ -19,6 +19,6 @@ abstract class IAuthRepository {
   Future<Either<Failure, String>> changePassword(
       String password, String newPassword, String confirmPassword);
   Future<Either<Failure, String>> changeProfile(
-      String firstName, String lastName, String email, File image);
+      String firstName, String lastName, String email,String phoneNumber, File image);
   Future<Either<Failure, String>> uploadProfilePicture(File file);
 }

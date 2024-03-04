@@ -1,24 +1,25 @@
 import 'package:TribalTrove/feature/user/myCart/data/data_source/cart_remote_data_source.dart';
 import 'package:TribalTrove/feature/user/myCart/domain/entity/cart_entity.dart';
 import 'package:TribalTrove/feature/user/myCart/presentation/state/cart_state.dart';
+import 'package:TribalTrove/feature/user/myCart/presentation/state/carts_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final getCartViewModelProvider =
-    StateNotifierProvider<GetCartViewModel, CartState>((ref) {
+    StateNotifierProvider<GetCartViewModel, CartsState>((ref) {
   final cartRemoteDataSource = ref.read(cartRemoteDataSourceProvider);
   return GetCartViewModel(cartRemoteDataSource);
 });
 
-class GetCartViewModel extends StateNotifier<CartState> {
+class GetCartViewModel extends StateNotifier<CartsState> {
   final CartRemoteDataSource cartRemoteDataSource;
 
   GetCartViewModel(this.cartRemoteDataSource)
-      : super(CartState.initialState()) {
+      : super(CartsState.initialState()) {
     getCart();
   }
 
   Future resetState() async {
-    state = CartState.initialState();
+    state = CartsState.initialState();
     getCart();
   }
 
@@ -51,12 +52,4 @@ class GetCartViewModel extends StateNotifier<CartState> {
     }
   }
 
-// removing from cart
-  Future<void> removeFromCart(CartEntity cartID) async {
-    try {
-      await cartRemoteDataSource.removeFromCart(cartID);
-    } catch (error) {
-      print(error.toString());
-    }
-  }
 }

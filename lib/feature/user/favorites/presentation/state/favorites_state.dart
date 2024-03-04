@@ -1,15 +1,16 @@
 import 'package:TribalTrove/feature/user/favorites/domain/entity/favorite_entity.dart';
+import 'package:TribalTrove/feature/user/favorites/domain/entity/favorites_entity.dart';
 
-class FavoriteState {
+class FavoritesState {
   final bool isLoading;
   final String? error;
-  final List<FavoriteEntity> favorites;
+  final List<FavoritesEntity> favorites;
   final bool showMessage;
   final int page;
   final bool hasReachedMax;
   final String? message;
 
-  FavoriteState(
+  FavoritesState(
       {required this.isLoading,
       this.error,
       required this.favorites,
@@ -18,7 +19,7 @@ class FavoriteState {
       required this.hasReachedMax,
       this.message});
 
-  factory FavoriteState.initialState() => FavoriteState(
+  factory FavoritesState.initialState() => FavoritesState(
       isLoading: false,
       error: null,
       favorites: [],
@@ -26,15 +27,15 @@ class FavoriteState {
       page: 0,
       hasReachedMax: false);
 
-  FavoriteState copyWith(
+  FavoritesState copyWith(
       {bool? isLoading,
       String? error,
-      List<FavoriteEntity>? favorites,
+      List<FavoritesEntity>? favorites,
       bool? showMessage,
       bool? hasReachedMax,
       String? message,
       int? page}) {
-    return FavoriteState(
+    return FavoritesState(
         isLoading: isLoading ?? this.isLoading,
         error: error ?? this.error,
         favorites: favorites ?? this.favorites,

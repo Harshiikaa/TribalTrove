@@ -97,7 +97,7 @@ class AuthRemoteDataSource {
 
 
   Future<Either<Failure, String>> updateProfile(
-    String firstName, String lastName, String email, File image) async {
+    String firstName, String lastName,String phoneNumber, String email, File image) async {
   try {
     String? token;
     final data = await userSharedPrefs.getUserToken();
@@ -111,6 +111,7 @@ class AuthRemoteDataSource {
         'firstName': firstName,
         'lastName': lastName,
         'email': email,
+        'phoneNumber': phoneNumber,
         'userImage': await MultipartFile.fromFile(
           image.path,
           filename: fileName,

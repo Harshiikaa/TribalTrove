@@ -2,21 +2,21 @@ import 'dart:developer';
 
 import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.dart';
 import 'package:TribalTrove/feature/user/favorites/domain/entity/favorite_entity.dart';
+import 'package:TribalTrove/feature/user/favorites/domain/entity/favorites_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../seller/product/data/model/product_api_model.dart';
 
-part 'favorite_api_model.g.dart';
 
 @JsonSerializable()
-class FavoriteAPIModel {
+class FavoritesAPIModel {
   @JsonKey(name: '_id')
   final String? favoriteID;
   final String? userID;
-  final String? productID;
+  Map<String, dynamic>? productID;
   final String createdAt;
 
-  FavoriteAPIModel({
+  FavoritesAPIModel({
     this.favoriteID,
     this.userID,
     this.productID,
@@ -34,11 +34,11 @@ class FavoriteAPIModel {
     };
   }
 
-  factory FavoriteAPIModel.fromJson(Map<String, dynamic> json) {
-    return FavoriteAPIModel(
+  factory FavoritesAPIModel.fromJson(Map<String, dynamic> json) {
+    return FavoritesAPIModel(
       favoriteID: json['_id'],
       userID: json['userID'],
-      productID:json['productID']['productName'],
+      productID:json['productID'],
       createdAt: json['createdAt'],
     );
   }
@@ -55,8 +55,8 @@ class FavoriteAPIModel {
   // }
 
   // From entity to model
-  factory FavoriteAPIModel.fromEntity(FavoriteEntity entity) {
-    return FavoriteAPIModel(
+  factory FavoritesAPIModel.fromEntity(FavoritesEntity entity) {
+    return FavoritesAPIModel(
       favoriteID: entity.favoriteID,
       userID: entity.userID,
       productID: entity.productID,
@@ -64,8 +64,8 @@ class FavoriteAPIModel {
     );
   }
   // From model to entity
-  static FavoriteEntity toEntity(FavoriteAPIModel model) {
-    return FavoriteEntity(
+  static FavoritesEntity toEntity(FavoritesAPIModel model) {
+    return FavoritesEntity(
       productID: model.productID,
       favoriteID: model.favoriteID,
       userID: model.userID,

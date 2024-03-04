@@ -1,24 +1,25 @@
 import 'package:TribalTrove/feature/user/favorites/data/data_source/favorite_remote_data_source.dart';
-import 'package:TribalTrove/feature/user/favorites/domain/entity/favorites_entity.dart';
+import 'package:TribalTrove/feature/user/favorites/domain/entity/favorite_entity.dart';
 import 'package:TribalTrove/feature/user/favorites/presentation/state/favorite_state.dart';
+import 'package:TribalTrove/feature/user/favorites/presentation/state/favorites_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final getFavoriteViewModelProvider =
-    StateNotifierProvider<GetFavoriteViewModel, FavoriteState>((ref) {
+    StateNotifierProvider<GetFavoriteViewModel, FavoritesState>((ref) {
   final favoriteRemoteDataSource = ref.read(favoriteRemoteDataSourceProvider);
   return GetFavoriteViewModel(favoriteRemoteDataSource);
 });
 
-class GetFavoriteViewModel extends StateNotifier<FavoriteState> {
+class GetFavoriteViewModel extends StateNotifier<FavoritesState> {
   final FavoriteRemoteDataSource favoriteRemoteDataSource;
 
   GetFavoriteViewModel(this.favoriteRemoteDataSource)
-      : super(FavoriteState.initialState()) {
+      : super(FavoritesState.initialState()) {
     getFavorite();
   }
 
   Future resetState() async {
-    state = FavoriteState.initialState();
+    state = FavoritesState.initialState();
     getFavorite();
   }
 
@@ -52,11 +53,11 @@ class GetFavoriteViewModel extends StateNotifier<FavoriteState> {
   }
 
 // removing favorites
-  Future<void> removeFavorite(FavoriteEntity favoriteID) async {
-    try {
-      await favoriteRemoteDataSource.removeFavorite(favoriteID);
-    } catch (error) {
-      print(error.toString());
-    }
-  }
+  // Future<void> removeFavorite(FavoriteEntity favoriteID) async {
+  //   try {
+  //     await favoriteRemoteDataSource.removeFavorite(favoriteID);
+  //   } catch (error) {
+  //     print(error.toString());
+  //   }
+  // }
 }

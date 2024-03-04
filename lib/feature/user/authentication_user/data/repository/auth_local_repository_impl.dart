@@ -39,7 +39,7 @@ class AuthLocalRepository implements IAuthRepository {
   }
   
   @override
-  Future<Either<Failure, String>> changeProfile(String firstName, String lastName, String email, File image) {
+  Future<Either<Failure, String>> changeProfile(String firstName, String lastName, String phoneNumber, String email, File image) {
     // TODO: implement changeProfile
     throw UnimplementedError();
   }

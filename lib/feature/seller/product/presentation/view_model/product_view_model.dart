@@ -41,9 +41,11 @@ class ProductViewModel extends StateNotifier<ProductState> {
     getAllProductsUsecase.getAllProducts().then((value) {
       value.fold(
         (failure) {
-          state = state.copyWith(isLoading: false, );
+          print("Failed to get all products: $failure");
+          state = state.copyWith(isLoading: false);
         },
         (products) {
+          print("Received products: $products");
           state = state.copyWith(isLoading: false, products: products);
         },
       );

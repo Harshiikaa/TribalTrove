@@ -1,4 +1,5 @@
 import 'package:TribalTrove/feature/seller/product/presentation/view_model/product_view_model.dart';
+import 'package:TribalTrove/feature/user/favorites/domain/entity/favorite_entity.dart';
 import 'package:TribalTrove/feature/user/favorites/domain/entity/favorites_entity.dart';
 import 'package:TribalTrove/feature/user/favorites/presentation/state/favorite_state.dart';
 import 'package:TribalTrove/feature/user/favorites/presentation/view_model/favorite_view_model.dart';
@@ -19,7 +20,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //   final ScrollController scrollController = ScrollController();
 //   late List<FavoriteEntity> favoriteList;
 
-
 //   @override
 //   void initState() {
 //     ref.read(getFavoriteViewModelProvider.notifier).getFavorite();
@@ -32,7 +32,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //     super.dispose();
 //   }
 
-  
 //   @override
 //   Widget build(BuildContext context) {
 //     final favoriteState = ref.watch(getFavoriteViewModelProvider);
@@ -123,7 +122,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //   }
 // }
 
-
 // import 'package:TribalTrove/feature/seller/product/presentation/view_model/product_view_model.dart';
 // import 'package:TribalTrove/feature/user/favorites/domain/entity/favorites_entity.dart';
 // import 'package:TribalTrove/feature/user/favorites/presentation/state/favorite_state.dart';
@@ -143,10 +141,7 @@ class FavoritesView extends ConsumerStatefulWidget {
 
 class FavoritesViewState extends ConsumerState<FavoritesView> {
   final ScrollController scrollController = ScrollController();
-
-
-  late List<FavoriteEntity> favoriteList;
-
+  late List<FavoritesEntity> favoriteList;
 
   @override
   void initState() {
@@ -162,8 +157,10 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
 
   @override
   Widget build(BuildContext context) {
-    final favoriteState = ref.watch(getFavoriteViewModelProvider);
-    List<FavoriteEntity?>? favorites = favoriteState.favorites;
+    final favoriteState = ref.watch(favoriteViewModelProvider);
+    final favoritesState = ref.watch(getFavoriteViewModelProvider);
+    favoriteList = favoritesState.favorites;
+    // List<FavoriteEntity?>? favorites = favoriteState.favorites;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal, // Customize app bar color
@@ -202,7 +199,17 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
                   controller: scrollController,
                   itemCount: favoriteState.favorites.length,
                   itemBuilder: (context, index) {
-                    final favorite = favoriteState.favorites[index];
+                    final favorite = favoriteList[index];
+                    final productID = favorite.productID;
+                    final favoriteID = favorite.favoriteID;
+                    final userID = favorite.userID;
+                    final createdAt = favorite.createdAt;
+                    final favoriteEntity = FavoriteEntity(
+                      favoriteID: favoriteID,
+                      userID: userID,
+                      productID: productID?['_id'] as String,
+                      createdAt: createdAt,
+                    );
                     return Card(
                       elevation: 3,
                       shape: RoundedRectangleBorder(
@@ -211,20 +218,20 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
                       child: ListTile(
                         contentPadding: const EdgeInsets.all(15),
                         leading: Image.network(
-                          favorite.productID?.productImageURL ?? '',
+                          productID?['productImageURL'] as String,
                           width: 80,
                           height: 80,
                           fit: BoxFit.cover,
                         ),
                         title: Text(
-                          favorite.productID?.productName ?? '',
+                          favorite.productID?['productName'],
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         subtitle: Text(
-                          'NPR.${favorite.productID?.productPrice ?? ''}',
+                          'NPR.${favorite.productID?['productPrice']}',
                           style: const TextStyle(
                             fontSize: 16,
                           ),
@@ -236,8 +243,8 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
                           ),
                           onPressed: () {
                             ref
-                                .read(getFavoriteViewModelProvider.notifier)
-                                .removeFavorite(favorite);
+                                .read(favoriteViewModelProvider.notifier)
+                                .removeFavorite(favoriteEntity);
                           },
                         ),
                       ),

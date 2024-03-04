@@ -5,49 +5,79 @@ import 'package:TribalTrove/core/shared_pref/user_shared_prefs.dart';
 import 'package:TribalTrove/feature/seller/product/data/data_source/product_remote_data_source.dart';
 import 'package:TribalTrove/feature/user/favorites/data/dto/get_favorite_dto.dart';
 import 'package:TribalTrove/feature/user/favorites/data/model/favorite_api_model.dart';
+import 'package:TribalTrove/feature/user/favorites/data/model/favorites_api_model.dart';
+import 'package:TribalTrove/feature/user/favorites/domain/entity/favorite_entity.dart';
 import 'package:TribalTrove/feature/user/favorites/domain/entity/favorites_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final favoriteRemoteDataSourceProvider =
-    Provider.autoDispose<FavoriteRemoteDataSource>(
+final favoriteRemoteDataSourceProvider = Provider<FavoriteRemoteDataSource>(
   (ref) => FavoriteRemoteDataSource(
-    dio: ref.read(httpServiceProvider),
-    userSharedPrefs: ref.read(userSharedPrefsProvider),
+    ref.read(httpServiceProvider),
+    ref.read(userSharedPrefsProvider),
   ),
 );
 
 class FavoriteRemoteDataSource {
   final Dio dio;
   final UserSharedPrefs userSharedPrefs;
-  FavoriteRemoteDataSource({required this.dio, required this.userSharedPrefs});
+  FavoriteRemoteDataSource(this.dio, this.userSharedPrefs);
 
-  Future<Either<Failure, bool>> createFavorite(FavoriteEntity favorite) async {
+  // Future<Either<Failure, bool>> createFavorite(FavoriteEntity favorite) async {
+  //   try {
+  //     String? token;
+  //     final data = await userSharedPrefs.getUserToken();
+  //     data.fold((l) => token = null, (r) => token = r!);
+  //     FavoriteAPIModel favoriteAPIModel = FavoriteAPIModel.fromEntity(favorite);
+  //     var response = await dio.post(ApiEndpoints.createFavorite,
+  //         data: favoriteAPIModel.toJsonForApi(),
+  //         options: Options(headers: {'Authorization': 'Bearer $token'}));
+  //     if (response.statusCode == 201) {
+  //       return const Right(true);
+  //     } else {
+  //       return Left(
+  //         Failure(
+  //           error: response.statusMessage.toString(),
+  //           statusCode: response.statusCode.toString(),
+  //         ),
+  //       );
+  //     }
+  //   } on DioException catch (e) {
+  //     return Left(Failure(error: e.response?.data['message']));
+  //   }
+  // }
+
+  Future<Either<Failure, String>> createFavorite(
+      FavoriteEntity favorite) async {
     try {
       String? token;
       final data = await userSharedPrefs.getUserToken();
       data.fold((l) => token = null, (r) => token = r!);
       FavoriteAPIModel favoriteAPIModel = FavoriteAPIModel.fromEntity(favorite);
       var response = await dio.post(ApiEndpoints.createFavorite,
-          data: favoriteAPIModel.toJsonForApi(),
+          data: favoriteAPIModel.toJson(),
           options: Options(headers: {'Authorization': 'Bearer $token'}));
-      if (response.statusCode == 201) {
-        return const Right(true);
+      if (response.statusCode == 200) {
+        String message = response.data['message'];
+        return Right(message);
       } else {
         return Left(
           Failure(
-            error: response.statusMessage.toString(),
+            error: response.data['message'],
             statusCode: response.statusCode.toString(),
           ),
         );
       }
     } on DioException catch (e) {
-      return Left(Failure(error: e.response?.data['message']));
+      return Left( Failure(
+        error: e.error.toString(),
+        statusCode: e.response?.statusCode.toString() ?? '0',
+      ),);
     }
   }
 
-  Future<Either<Failure, List<FavoriteEntity>>> getFavorite(int page) async {
+  Future<Either<Failure, List<FavoritesEntity>>> getFavorite(int page) async {
     try {
       final userData = await userSharedPrefs.getUser();
       if (userData == null || userData['_id'] == null) {
@@ -68,8 +98,8 @@ class FavoriteRemoteDataSource {
         // print('Data received successfully');
 
         GetFavoriteDTO getFavoriteDTO = GetFavoriteDTO.fromJson(response.data);
-        List<FavoriteEntity> favoriteList = getFavoriteDTO.favorites
-            .map((data) => FavoriteAPIModel.toEntity(data))
+        List<FavoritesEntity> favoriteList = getFavoriteDTO.favorites
+            .map((data) => FavoritesAPIModel.toEntity(data))
             .toList();
 
         return Right(favoriteList);
@@ -88,7 +118,7 @@ class FavoriteRemoteDataSource {
   }
 
   // delete favorite
-  Future<Either<Failure, bool>> removeFavorite(
+  Future<Either<Failure, String>> removeFavorite(
       FavoriteEntity favoriteEntity) async {
     try {
       final userTokenEither = await UserSharedPrefs().getUserToken();
@@ -105,7 +135,8 @@ class FavoriteRemoteDataSource {
           options: Options(headers: {'Authorization': 'Bearer $userToken'}));
 
       if (response.statusCode == 200) {
-        return const Right(true);
+        String message = response.data['message'];
+      return Right(message);
       } else {
         return Left(Failure(
           error: response.data["message"],
@@ -114,8 +145,9 @@ class FavoriteRemoteDataSource {
       }
     } on DioException catch (e) {
       return Left(Failure(
-        error: 'Failed to add feedback: ${e.toString()}',
-      ));
+        error: e.error.toString(),
+        statusCode: e.response?.statusCode.toString() ?? '0',
+      ),);
     }
   }
 }

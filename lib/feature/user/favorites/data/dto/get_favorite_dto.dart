@@ -1,4 +1,5 @@
 import 'package:TribalTrove/feature/user/favorites/data/model/favorite_api_model.dart';
+import 'package:TribalTrove/feature/user/favorites/data/model/favorites_api_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'get_favorite_dto.g.dart';
@@ -8,7 +9,7 @@ class GetFavoriteDTO {
   final bool success;
   final String message;
   @JsonKey(name: 'favorites')
-  final List<FavoriteAPIModel> favorites;
+  final List<FavoritesAPIModel> favorites;
 
   GetFavoriteDTO({
     required this.success,

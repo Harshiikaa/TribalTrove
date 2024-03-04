@@ -1,40 +1,61 @@
 import 'package:TribalTrove/core/shared_pref/user_shared_prefs.dart';
+import 'package:TribalTrove/feature/user/myCart/data/data_source/cart_remote_data_source.dart';
 import 'package:TribalTrove/feature/user/myCart/domain/entity/cart_entity.dart';
 import 'package:TribalTrove/feature/user/myCart/domain/usecase/add_to_cart_usecase.dart';
 import 'package:TribalTrove/feature/user/myCart/domain/usecase/get_cart_usecase.dart';
 import 'package:TribalTrove/feature/user/myCart/presentation/state/cart_state.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final cartViewModelProvider = StateNotifierProvider<CartViewModel, CartState>(
-    (ref) => CartViewModel(
-        addToCartUseCase: ref.read(addToCartUseCaseProvider),
-        getCartUsecase: ref.read(getCartUsecaseProvider),
-        userSharedPrefs: ref.read(userSharedPrefsProvider)
+final cartViewModelProvider =
+    StateNotifierProvider<CartViewModel, CartState>((ref) => CartViewModel(
+          addToCartUseCase: ref.read(addToCartUseCaseProvider),
+          cartRemoteDataSource: ref.read(cartRemoteDataSourceProvider),
+          // userSharedPrefs: ref.read(userSharedPrefsProvider)
 // fetch fav
         ));
 
 class CartViewModel extends StateNotifier<CartState> {
   final AddToCartUseCase addToCartUseCase;
-  final GetCartUsecase getCartUsecase;
-  final UserSharedPrefs userSharedPrefs;
-  CartViewModel(
-      {required this.addToCartUseCase,
-      required this.getCartUsecase,
-      required this.userSharedPrefs})
-      : super(CartState.initialState());
+  final CartRemoteDataSource cartRemoteDataSource;
 
-  void addToCart(CartEntity cart) {
+  CartViewModel({
+    required this.addToCartUseCase,
+    required this.cartRemoteDataSource,
+    // required this.userSharedPrefs
+  }) : super(CartState.initialState());
+
+  Future<void> addToCart(CartEntity entity, BuildContext context) async {
     state = state.copyWith(isLoading: true);
-    addToCartUseCase.addToCart(cart).then((value) {
-      value.fold(
-        (failure) => state = state.copyWith(isLoading: false),
-        (success) {
-          state = state.copyWith(isLoading: false, showMessage: true);
-          // fetch all data
-        },
-      );
-    });
+    final result = await addToCartUseCase.addToCart(entity);
+    state = state.copyWith(isLoading: false);
+    result.fold(
+      (failure) => state = state.copyWith(error: failure.error),
+      (success) => state = state.copyWith(isLoading: false, showMessage: true),
+    );
+    // showSnackBar(message: state.message!, context: context);
   }
+
+  Future<void> removeFromCart(CartEntity cartID) async {
+    try {
+      await cartRemoteDataSource.removeFromCart(cartID);
+    } catch (error) {
+      print(error.toString());
+    }
+  }
+
+  // void addToCart(CartEntity cart) {
+  //   state = state.copyWith(isLoading: true);
+  //   addToCartUseCase.addToCart(cart).then((value) {
+  //     value.fold(
+  //       (failure) => state = state.copyWith(isLoading: false),
+  //       (success) {
+  //         state = state.copyWith(isLoading: false, showMessage: true);
+  //         // fetch all data
+  //       },
+  //     );
+  //   });
+  // }
 
   //   Future getCart() async {
   //   state = state.copyWith(isLoading: true);

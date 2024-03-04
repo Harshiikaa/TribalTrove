@@ -1,12 +1,11 @@
 import 'dart:developer';
-
 import 'package:TribalTrove/core/common/provider/internet_connectivity.dart';
 import 'package:TribalTrove/core/common/snackbar/snackbar.dart';
 import 'package:TribalTrove/core/shared_pref/user_shared_prefs.dart';
 import 'package:TribalTrove/feature/seller/product/data/model/product_api_model.dart';
 import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.dart';
 import 'package:TribalTrove/feature/seller/product/presentation/view_model/product_view_model.dart';
-import 'package:TribalTrove/feature/user/favorites/domain/entity/favorites_entity.dart';
+import 'package:TribalTrove/feature/user/favorites/domain/entity/favorite_entity.dart';
 import 'package:TribalTrove/feature/user/favorites/presentation/view_model/favorite_view_model.dart';
 import 'package:TribalTrove/feature/user/myCart/domain/entity/cart_entity.dart';
 import 'package:TribalTrove/feature/user/myCart/presentation/view_model/cart_view_model.dart';
@@ -39,16 +38,17 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
         showSnackBar(message: 'You are online', context: context);
       }
 
-      if (ref.watch(cartViewModelProvider).showMessage) {
-        showSnackBar(
-            message: 'Added to My Cart Successfully', context: context);
-      }
+      // if (ref.watch(cartViewModelProvider).showMessage) {
+      //   showSnackBar(
+      //       message: 'Added to My Cart Successfully', context: context);
+      // }
     });
 
+    final productState = ref.watch(productViewModelProvider);
+    List<ProductEntity?>? products = productState.products;
     final args = ModalRoute.of(context)!.settings.arguments as List<String?>;
 
     log('args: $args', name: 'ProductDetailsView');
-
     final productID = args[0] ?? 'productID';
     final productName = args[1] ?? 'productName';
     final productPrice = args[2] ?? 'productPrice';
@@ -60,11 +60,14 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
     final ProductAPIModel productEntity = ProductAPIModel(
       productID: productID,
       productName: productName,
-      productPrice: int.parse(productPrice),
+      productPrice: productPrice,
       productDescription: productDescription,
       productCategory: productCategory,
       productImageURL: productImageURL,
     );
+
+        final favoriteState = ref.watch(favoriteViewModelProvider);
+    final cartState = ref.watch(cartViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -123,13 +126,13 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                     final currentDate = DateTime(now.year, now.month, now.day);
                     final entity = FavoriteEntity(
                       createdAt: currentDate,
-                      productID: productEntity,
+                      productID: productID,
                       userID: id,
                     );
 
                     ref
                         .read(favoriteViewModelProvider.notifier)
-                        .createFavorite(entity);
+                        .createFavorite(entity,context);
                   },
                 ),
                 Text(
@@ -150,13 +153,13 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                     final currentDate = DateTime(now.year, now.month, now.day);
                     final entity = CartEntity(
                       createdAt: currentDate,
-                      productID: productEntity,
+                      productID: productID,
                       userID: id,
                       quantity: 1,
                     );
                     ref
                         .read(cartViewModelProvider.notifier)
-                        .addToCart(entity);
+                        .addToCart(entity,context);
                   },
                 ),
                 Text(

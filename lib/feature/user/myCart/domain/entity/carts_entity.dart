@@ -1,17 +1,17 @@
 import 'package:TribalTrove/feature/seller/product/data/model/product_api_model.dart';
 import 'package:equatable/equatable.dart';
 
-class CartEntity extends Equatable {
+class CartsEntity extends Equatable {
   final String? cartID;
   final String? userID;
-  final String? productID;
+  final Map<String, dynamic>? productID;
   final DateTime createdAt;
   final int quantity;
 
-  const CartEntity({
+  const CartsEntity({
     this.cartID,
     this.userID,
-    this.productID,
+    required this.productID,
     required this.createdAt,
     required this.quantity,
   });
@@ -19,10 +19,10 @@ class CartEntity extends Equatable {
   @override
   List<Object?> get props => [cartID, userID, productID, createdAt, quantity];
 
-  factory CartEntity.fromJson(Map<String, dynamic> json) => CartEntity(
+  factory CartsEntity.fromJson(Map<String, dynamic> json) => CartsEntity(
       cartID: json['cartID'],
       userID: json['userID'],
-      productID: json['productID']['plantName'],
+      productID: json['productID'],
       createdAt: json['createdAt'],
       quantity: json['quantity']);
 
@@ -31,15 +31,15 @@ class CartEntity extends Equatable {
     return 'FavoriteEntity( cartID: $cartID ,userID: $userID, productID: $productID, createdAt: $createdAt, quantity: $quantity)';
   }
 
-  CartEntity copyWith({
-    String? productID,
+  CartsEntity copyWith({
+    required Map<String, dynamic>? productID,
     String? userID, // Include userId in copyWith
     DateTime? createdAt,
     int? quantity,
   }) {
-    return CartEntity(
+    return CartsEntity(
+      productID: productID,
       userID: userID ?? this.userID,
-      productID: productID ?? this.productID,
       createdAt: createdAt ?? this.createdAt,
       quantity: quantity ?? this.quantity,
     );

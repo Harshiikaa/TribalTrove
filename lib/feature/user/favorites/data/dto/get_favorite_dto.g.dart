@@ -11,7 +11,7 @@ GetFavoriteDTO _$GetFavoriteDTOFromJson(Map<String, dynamic> json) =>
       success: json['success'] as bool,
       message: json['message'] as String,
       favorites: (json['favorites'] as List<dynamic>)
-          .map((e) => FavoriteAPIModel.fromJson(e as Map<String, dynamic>))
+          .map((e) => FavoritesAPIModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

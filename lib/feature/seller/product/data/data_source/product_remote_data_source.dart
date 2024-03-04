@@ -14,7 +14,6 @@ final productRemoteDatasourceProvider =
     dio: ref.read(httpServiceProvider),
   ),
 );
-
 class ProductRemoteDataSource {
   final Dio dio;
 
@@ -29,8 +28,10 @@ class ProductRemoteDataSource {
         data: productAPIModel.toJson(),
       );
       if (response.statusCode == 201) {
+        print("Product created successfully");
         return const Right(true);
       } else {
+        print("Failed to create product. Status Code: ${response.statusCode}, Message: ${response.statusMessage}");
         return Left(
           Failure(
             error: response.statusMessage.toString(),
@@ -39,6 +40,7 @@ class ProductRemoteDataSource {
         );
       }
     } on DioException catch (e) {
+      print("DioException during createProduct: ${e.message}");
       return Left(Failure(error: e.response?.data['message']));
     }
   }
@@ -48,6 +50,7 @@ class ProductRemoteDataSource {
     try {
       var response = await dio.get(ApiEndpoints.getAllProducts);
       if (response.statusCode == 200) {
+        print("Received data successfully");
         GetAllProductsDTO getAllProductsDTO =
             GetAllProductsDTO.fromJson(response.data);
         // Convert ProductsAPIModel to ProductsEntity
@@ -56,6 +59,7 @@ class ProductRemoteDataSource {
             .toList();
         return Right(productList);
       } else {
+        print("Failed to get all products. Status Code: ${response.statusCode}, Message: ${response.statusMessage}");
         return Left(
           Failure(
             error: response.statusMessage.toString(),
@@ -64,10 +68,8 @@ class ProductRemoteDataSource {
         );
       }
     } on DioException catch (e) {
+      print("DioException during getAllProducts: ${e.message}");
       return Left(Failure(error: e.response?.data['message']));
     }
   }
-
-  // get all products by seller id
-  // complete the function of remaining
 }

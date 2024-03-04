@@ -192,12 +192,12 @@ class AuthViewModel extends StateNotifier<AuthState> {
     }
   }
 
-  Future<void> updateUserProfile(String firstName, String lastName,
+  Future<void> updateUserProfile(String firstName, String lastName, String phoneNumber,
       String email, File image, BuildContext context) async {
     try {
       state = state.copyWith(isLoading: true);
       final result = await _updateProfileUsecase.updateProfile(
-          firstName, lastName, email, image);
+          firstName, lastName, email, phoneNumber, image);
       state = state.copyWith(isLoading: false);
       result.fold(
         (failure) {

@@ -10,7 +10,7 @@ ProductAPIModel _$ProductAPIModelFromJson(Map<String, dynamic> json) =>
     ProductAPIModel(
       productID: json['_id'] as String?,
       productName: json['productName'] as String,
-      productPrice: json['productPrice'] as int,
+      productPrice: json['productPrice'] as String,
       productCategory: json['productCategory'] as String,
       productDescription: json['productDescription'] as String,
       productImageURL: json['productImageURL'] as String?,

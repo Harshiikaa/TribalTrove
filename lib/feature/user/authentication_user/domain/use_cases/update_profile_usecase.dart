@@ -14,7 +14,7 @@ class UpdateProfileUseCase {
 
   UpdateProfileUseCase({required this.repository});
   Future<Either<Failure, String>> updateProfile(
-      String firstName, String lastName, String email, File image) async {
-    return await repository.changeProfile(firstName, lastName, email, image);
+      String firstName, String lastName, String email, String phoneNumber, File image) async {
+    return await repository.changeProfile(firstName, lastName,email, phoneNumber, image);
   }
 }

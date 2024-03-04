@@ -1,26 +1,26 @@
 import 'package:TribalTrove/feature/user/myCart/domain/entity/cart_entity.dart';
+import 'package:TribalTrove/feature/user/myCart/domain/entity/carts_entity.dart';
 
-class CartState {
+class CartsState {
   final bool isLoading;
   final String? error;
-  final List<CartEntity> cart;
+  final List<CartsEntity> cart;
   final bool? showMessage;
   final String? message;
   final int page;
   final bool hasReachedMax;
 
-  CartState({
+  CartsState({
     required this.isLoading,
     this.error,
     required this.cart,
     this.showMessage,
     required this.page,
-    this.message,
     required this.hasReachedMax,
+    this.message,
   });
 
-  factory CartState.initialState(){
-    return CartState(
+  factory CartsState.initialState() => CartsState(
       isLoading: false,
       error: null,
       cart: [],
@@ -29,17 +29,15 @@ class CartState {
       page: 0,
       hasReachedMax: false);
 
-  } 
-
-  CartState copyWith(
+  CartsState copyWith(
       {bool? isLoading,
-      String? error,
-      List<CartEntity>? cart,
       bool? showMessage,
+      String? error,
+      List<CartsEntity>? cart,
       bool? hasReachedMax,
       String? message,
       int? page}) {
-    return CartState(
+    return CartsState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
       cart: cart ?? this.cart,

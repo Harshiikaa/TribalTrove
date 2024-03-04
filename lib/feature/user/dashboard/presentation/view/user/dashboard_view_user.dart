@@ -350,93 +350,93 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
             //   ),
             // ),
 
-            SizedBox(
-              height: 80, // Increase the height for text
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(
-                    GlobalVariables.categoryImages.length,
-                    (index) {
-                      double itemSize = MediaQuery.of(context).size.width *
-                          0.1; // Adjusted for responsiveness and increased size
+            // SizedBox(
+            //   height: 80, // Increase the height for text
+            //   child: SingleChildScrollView(
+            //     scrollDirection: Axis.horizontal,
+            //     child: Row(
+            //       children: List.generate(
+            //         GlobalVariables.categoryImages.length,
+            //         (index) {
+            //           double itemSize = MediaQuery.of(context).size.width *
+            //               0.1; // Adjusted for responsiveness and increased size
 
-                      return GestureDetector(
-                        onTap: () {
-                          // Use the Navigator to navigate to the desired page for each category
-                          switch (index) {
-                            case 0:
-                              Navigator.pushNamed(context, "/jewelry");
-                              break;
-                            case 1:
-                              Navigator.pushNamed(context, "/categoryPage2");
-                              break;
-                            case 2:
-                              Navigator.pushNamed(context, "/categoryPage2");
-                              break;
-                            case 3:
-                              Navigator.pushNamed(context, "/categoryPage2");
-                              break;
-                            case 4:
-                              Navigator.pushNamed(context, "/categoryPage2");
-                              break;
-                            // Add cases for other categories as needed
-                            default:
-                              break;
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: itemSize * 0.2),
-                                child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.circular(itemSize * 0.5),
-                                  child: Image.asset(
-                                    GlobalVariables.categoryImages[index]
-                                        ['image']!,
-                                    fit: BoxFit.cover,
-                                    height: itemSize,
-                                    width: itemSize,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height:
-                                    8, // Increased gap between category items
-                              ),
-                              Container(
-                                height:
-                                    40, // Set a fixed height for the text container
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: Text(
-                                    GlobalVariables.categoryImages[index]
-                                        ['title']!,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2, // Set the desired max lines
-                                    style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.03,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
+            //           return GestureDetector(
+            //             onTap: () {
+            //               // Use the Navigator to navigate to the desired page for each category
+            //               switch (index) {
+            //                 case 0:
+            //                   Navigator.pushNamed(context, "/jewelry");
+            //                   break;
+            //                 case 1:
+            //                   Navigator.pushNamed(context, "/categoryPage2");
+            //                   break;
+            //                 case 2:
+            //                   Navigator.pushNamed(context, "/categoryPage2");
+            //                   break;
+            //                 case 3:
+            //                   Navigator.pushNamed(context, "/categoryPage2");
+            //                   break;
+            //                 case 4:
+            //                   Navigator.pushNamed(context, "/categoryPage2");
+            //                   break;
+            //                 // Add cases for other categories as needed
+            //                 default:
+            //                   break;
+            //               }
+            //             },
+            //             child: Padding(
+            //               padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            //               child: Column(
+            //                 children: [
+            //                   Container(
+            //                     padding: EdgeInsets.symmetric(
+            //                         horizontal: itemSize * 0.2),
+            //                     child: ClipRRect(
+            //                       borderRadius:
+            //                           BorderRadius.circular(itemSize * 0.5),
+            //                       child: Image.asset(
+            //                         GlobalVariables.categoryImages[index]
+            //                             ['image']!,
+            //                         fit: BoxFit.cover,
+            //                         height: itemSize,
+            //                         width: itemSize,
+            //                       ),
+            //                     ),
+            //                   ),
+            //                   SizedBox(
+            //                     height:
+            //                         8, // Increased gap between category items
+            //                   ),
+            //                   Container(
+            //                     height:
+            //                         40, // Set a fixed height for the text container
+            //                     child: Padding(
+            //                       padding: const EdgeInsets.symmetric(
+            //                           horizontal: 8.0),
+            //                       child: Text(
+            //                         GlobalVariables.categoryImages[index]
+            //                             ['title']!,
+            //                         overflow: TextOverflow.ellipsis,
+            //                         maxLines: 2, // Set the desired max lines
+            //                         style: TextStyle(
+            //                           fontSize:
+            //                               MediaQuery.of(context).size.width *
+            //                                   0.03,
+            //                           fontWeight: FontWeight.w400,
+            //                         ),
+            //                       ),
+            //                     ),
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           );
+            //         },
+            //       ),
+            //     ),
+            //   ),
+            // ),
 
             // Center(
             //   // child: _widgetOptions.elementAt(_selectedIndex),
@@ -483,43 +483,43 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                   child: Text(option),
                 );
               }).toList(),
-              onChanged: (String? newValue) {
-                if (newValue != null) {
-                  setState(() {
-                    selectedFilter = newValue;
-                    // Perform sorting based on selected option
-                    if (selectedFilter == 'Sort by Minimum Price') {
-                      products.sort((a, b) => (a?.productPrice ?? 0)
-                          .compareTo(b?.productPrice ?? 0));
-                    } else if (selectedFilter == 'Sort by Maximum Price') {
-                      products.sort((a, b) => (b?.productPrice ?? 0)
-                          .compareTo(a?.productPrice ?? 0));
-                    }
-                  });
-                }
-              },
-
               // onChanged: (String? newValue) {
               //   if (newValue != null) {
               //     setState(() {
               //       selectedFilter = newValue;
               //       // Perform sorting based on selected option
               //       if (selectedFilter == 'Sort by Minimum Price') {
-              //         products.sort((a, b) =>
-              //             (double.tryParse(a?.productPrice ?? '') ?? 0.0)
-              //                 .compareTo(
-              //                     double.tryParse(b?.productPrice ?? '') ??
-              //                         0.0));
+              //         products.sort((a, b) => (a?.productPrice ?? 0)
+              //             .compareTo(b?.productPrice ?? 0));
               //       } else if (selectedFilter == 'Sort by Maximum Price') {
-              //         products.sort((a, b) =>
-              //             (double.tryParse(b?.productPrice ?? '') ?? 0.0)
-              //                 .compareTo(
-              //                     double.tryParse(a?.productPrice ?? '') ??
-              //                         0.0));
+              //         products.sort((a, b) => (b?.productPrice ?? 0)
+              //             .compareTo(a?.productPrice ?? 0));
               //       }
               //     });
               //   }
               // },
+
+              onChanged: (String? newValue) {
+                if (newValue != null) {
+                  setState(() {
+                    selectedFilter = newValue;
+                    // Perform sorting based on selected option
+                    if (selectedFilter == 'Sort by Minimum Price') {
+                      products.sort((a, b) =>
+                          (double.tryParse(a?.productPrice ?? '') ?? 0.0)
+                              .compareTo(
+                                  double.tryParse(b?.productPrice ?? '') ??
+                                      0.0));
+                    } else if (selectedFilter == 'Sort by Maximum Price') {
+                      products.sort((a, b) =>
+                          (double.tryParse(b?.productPrice ?? '') ?? 0.0)
+                              .compareTo(
+                                  double.tryParse(a?.productPrice ?? '') ??
+                                      0.0));
+                    }
+                  });
+                }
+              },
             ),
             GridView.builder(
               shrinkWrap: true,
