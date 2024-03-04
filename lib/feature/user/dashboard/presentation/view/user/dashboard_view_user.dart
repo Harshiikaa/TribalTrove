@@ -494,21 +494,37 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                     selectedFilter = newValue;
                     // Perform sorting based on selected option
                     if (selectedFilter == 'Sort by Minimum Price') {
-                      products.sort((a, b) =>
-                          (double.tryParse(a?.productPrice ?? '') ?? 0.0)
-                              .compareTo(
-                                  double.tryParse(b?.productPrice ?? '') ??
-                                      0.0));
+                      products.sort((a, b) => (a?.productPrice ?? 0)
+                          .compareTo(b?.productPrice ?? 0));
                     } else if (selectedFilter == 'Sort by Maximum Price') {
-                      products.sort((a, b) =>
-                          (double.tryParse(b?.productPrice ?? '') ?? 0.0)
-                              .compareTo(
-                                  double.tryParse(a?.productPrice ?? '') ??
-                                      0.0));
+                      products.sort((a, b) => (b?.productPrice ?? 0)
+                          .compareTo(a?.productPrice ?? 0));
                     }
                   });
                 }
               },
+
+              // onChanged: (String? newValue) {
+              //   if (newValue != null) {
+              //     setState(() {
+              //       selectedFilter = newValue;
+              //       // Perform sorting based on selected option
+              //       if (selectedFilter == 'Sort by Minimum Price') {
+              //         products.sort((a, b) =>
+              //             (double.tryParse(a?.productPrice ?? '') ?? 0.0)
+              //                 .compareTo(
+              //                     double.tryParse(b?.productPrice ?? '') ??
+              //                         0.0));
+              //       } else if (selectedFilter == 'Sort by Maximum Price') {
+              //         products.sort((a, b) =>
+              //             (double.tryParse(b?.productPrice ?? '') ?? 0.0)
+              //                 .compareTo(
+              //                     double.tryParse(a?.productPrice ?? '') ??
+              //                         0.0));
+              //       }
+              //     });
+              //   }
+              // },
             ),
             GridView.builder(
               shrinkWrap: true,
@@ -543,7 +559,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                       arguments: [
                         filteredProducts[index]?.productID,
                         filteredProducts[index]?.productName,
-                        filteredProducts[index]?.productPrice,
+                        filteredProducts[index]?.productPrice.toString(),
                         filteredProducts[index]?.productDescription,
                         filteredProducts[index]?.productCategory,
                         filteredProducts[index]?.productImageURL,

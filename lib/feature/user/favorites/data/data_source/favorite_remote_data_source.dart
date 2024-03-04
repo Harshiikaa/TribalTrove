@@ -30,7 +30,7 @@ class FavoriteRemoteDataSource {
       data.fold((l) => token = null, (r) => token = r!);
       FavoriteAPIModel favoriteAPIModel = FavoriteAPIModel.fromEntity(favorite);
       var response = await dio.post(ApiEndpoints.createFavorite,
-          data: favoriteAPIModel.toJson(),
+          data: favoriteAPIModel.toJsonForApi(),
           options: Options(headers: {'Authorization': 'Bearer $token'}));
       if (response.statusCode == 201) {
         return const Right(true);

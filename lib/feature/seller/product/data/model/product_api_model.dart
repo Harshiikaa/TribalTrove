@@ -8,7 +8,7 @@ class ProductAPIModel {
   @JsonKey(name: '_id')
   final String? productID;
   final String productName;
-  final String productPrice;
+  final int productPrice;
   final String productCategory;
   final String productDescription;
   final String? productImageURL;

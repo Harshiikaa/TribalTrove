@@ -1,9 +1,10 @@
 import 'package:equatable/equatable.dart';
 
+
 class ProductEntity extends Equatable {
   final String? productID;
   final String productName;
-  final String productPrice;
+  final int productPrice;
   final String productCategory;
   final String productDescription;
   final String? productImageURL;
@@ -20,15 +21,14 @@ class ProductEntity extends Equatable {
         sellerID
       ];
 
-  const ProductEntity({
-    this.productID,
-    required this.productName,
-    required this.productPrice,
-    required this.productCategory,
-    required this.productDescription,
-    this.productImageURL,
-    this.sellerID
-  });
+  const ProductEntity(
+      {this.productID,
+      required this.productName,
+      required this.productPrice,
+      required this.productCategory,
+      required this.productDescription,
+      this.productImageURL,
+      this.sellerID});
 
   @override
   String toString() {

@@ -7,8 +7,8 @@ class ApiEndpoints {
   // static const String baseUrl = "http://10.0.2.2:5000/api/";
 
   //home
-  // static const String baseUrl = "http://192.168.1.68:5000/api/";
-  static const String baseUrl = "http://192.168.1.66:5000/api/";
+  static const String baseUrl = "http://192.168.137.1:5000/api/";
+  // static const String baseUrl = "http://192.168.1.66:5000/api/";
 
   // college
   // static const String baseUrl = "http://192.168.137.1:5000/api/";

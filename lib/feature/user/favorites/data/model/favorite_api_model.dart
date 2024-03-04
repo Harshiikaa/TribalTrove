@@ -1,5 +1,10 @@
+import 'dart:developer';
+
+import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.dart';
 import 'package:TribalTrove/feature/user/favorites/domain/entity/favorites_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../../../seller/product/data/model/product_api_model.dart';
 
 part 'favorite_api_model.g.dart';
 
@@ -8,8 +13,8 @@ class FavoriteAPIModel {
   @JsonKey(name: '_id')
   final String? favoriteID;
   final String? userID;
-  final String? productID;
-  final String createdAt;
+  final ProductAPIModel? productID;
+  final DateTime createdAt;
 
   FavoriteAPIModel({
     this.favoriteID,
@@ -23,8 +28,8 @@ class FavoriteAPIModel {
     return FavoriteAPIModel(
       favoriteID: json['_id'],
       userID: json['userID'],
-      productID: json['productID']['productName'],
-      createdAt: json['createdAt'],
+      productID: ProductAPIModel.fromJson(json['productID']),
+      createdAt: DateTime.parse(json['createdAt']),
     );
   }
 
@@ -32,8 +37,17 @@ class FavoriteAPIModel {
     return {
       'favoriteID': favoriteID,
       'userID': userID,
-      'productID': productID,
-      'createdAt': createdAt,
+      'productID': productID?.toJson(),
+      'createdAt': createdAt.toIso8601String(),
+    };
+  }
+
+  Map<String, dynamic> toJsonForApi() {
+    return {
+      'favoriteID': favoriteID,
+      'userID': userID,
+      'productID': productID?.productID,
+      'createdAt': createdAt.toIso8601String(),
     };
   }
 
@@ -43,7 +57,7 @@ class FavoriteAPIModel {
       favoriteID: entity.favoriteID,
       userID: entity.userID,
       productID: entity.productID,
-      createdAt: entity.createdAt.toIso8601String(),
+      createdAt: entity.createdAt,
     );
   }
   // From model to entity
@@ -52,7 +66,7 @@ class FavoriteAPIModel {
       productID: model.productID,
       favoriteID: model.favoriteID,
       userID: model.userID,
-      createdAt: DateTime.parse(model.createdAt),
+      createdAt: model.createdAt,
     );
   }
 }

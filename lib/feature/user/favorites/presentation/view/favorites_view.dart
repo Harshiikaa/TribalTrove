@@ -72,11 +72,23 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
                       ),
                       child: ListTile(
                         contentPadding: const EdgeInsets.all(15),
+                        leading: Image.network(
+                          favorite.productID?.productImageURL ?? '',
+                          width: 80,
+                          height: 80,
+                          fit: BoxFit.cover,
+                        ),
                         title: Text(
-                          favorite.productID!,
+                          favorite.productID?.productName ?? '',
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Text(
+                          'Price: NPR.${favorite.productID?.productPrice ?? ''}', // Assuming productPrice is available in FavoriteEntity
+                          style: const TextStyle(
+                            fontSize: 16,
                           ),
                         ),
                         trailing: IconButton(

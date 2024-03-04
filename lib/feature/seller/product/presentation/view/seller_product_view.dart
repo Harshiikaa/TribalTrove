@@ -210,7 +210,9 @@ class _SellerProductViewState extends ConsumerState<SellerProductView> {
                   onPressed: () {
                     ProductEntity product = ProductEntity(
                       productName: _productNameController.text,
-                      productPrice: _productPriceController.text,
+                      productPrice:
+                          int.tryParse(_productPriceController.text) ?? 0,
+
                       productCategory: _productCategoryController.text,
                       productDescription: _productDescriptionController.text,
                     );
