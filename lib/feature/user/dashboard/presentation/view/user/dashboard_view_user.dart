@@ -163,6 +163,7 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.shopping_cart_outlined),
+                      color: Colors.black,
                       onPressed: () {
                         Navigator.push(
                           context,
