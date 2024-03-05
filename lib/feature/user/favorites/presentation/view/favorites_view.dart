@@ -160,6 +160,9 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
     final favoriteState = ref.watch(favoriteViewModelProvider);
     final favoritesState = ref.watch(getFavoriteViewModelProvider);
     favoriteList = favoritesState.favorites;
+    print('FavoritesViewState - Building widget');
+    print('FavoritesViewState - Initial Favorite List: $favoriteList');
+
     // List<FavoriteEntity?>? favorites = favoriteState.favorites;
     return Scaffold(
       appBar: AppBar(
@@ -197,8 +200,9 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
                 },
                 child: ListView.builder(
                   controller: scrollController,
-                  itemCount: favoriteState.favorites.length,
+                  itemCount: favoriteList.length,
                   itemBuilder: (context, index) {
+                     print('Building item $index');
                     final favorite = favoriteList[index];
                     final productID = favorite.productID;
                     final favoriteID = favorite.favoriteID;

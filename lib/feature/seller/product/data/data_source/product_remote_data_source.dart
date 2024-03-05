@@ -14,6 +14,7 @@ final productRemoteDatasourceProvider =
     dio: ref.read(httpServiceProvider),
   ),
 );
+
 class ProductRemoteDataSource {
   final Dio dio;
 
@@ -31,7 +32,8 @@ class ProductRemoteDataSource {
         print("Product created successfully");
         return const Right(true);
       } else {
-        print("Failed to create product. Status Code: ${response.statusCode}, Message: ${response.statusMessage}");
+        print(
+            "Failed to create product. Status Code: ${response.statusCode}, Message: ${response.statusMessage}");
         return Left(
           Failure(
             error: response.statusMessage.toString(),
@@ -53,13 +55,15 @@ class ProductRemoteDataSource {
         print("Received data successfully");
         GetAllProductsDTO getAllProductsDTO =
             GetAllProductsDTO.fromJson(response.data);
+        print("DTO converted successfully");
         // Convert ProductsAPIModel to ProductsEntity
         List<ProductEntity> productList = getAllProductsDTO.products
             .map((products) => ProductAPIModel.toEntity(products))
             .toList();
         return Right(productList);
       } else {
-        print("Failed to get all products. Status Code: ${response.statusCode}, Message: ${response.statusMessage}");
+        print(
+            "Failed to get all products. Status Code: ${response.statusCode}, Message: ${response.statusMessage}");
         return Left(
           Failure(
             error: response.statusMessage.toString(),

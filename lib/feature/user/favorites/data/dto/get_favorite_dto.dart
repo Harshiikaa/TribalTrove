@@ -17,8 +17,11 @@ class GetFavoriteDTO {
     required this.favorites,
   });
 
-  factory GetFavoriteDTO.fromJson(Map<String, dynamic> json) =>
-      _$GetFavoriteDTOFromJson(json);
+  factory GetFavoriteDTO.fromJson(Map<String, dynamic> json) {
+    print('Parsing JSON data for GetFavoriteDTO: $json');
+
+    return _$GetFavoriteDTOFromJson(json);
+  }
 
   Map<String, dynamic> toJson() => _$GetFavoriteDTOToJson(this);
 

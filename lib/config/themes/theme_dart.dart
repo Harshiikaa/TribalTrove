@@ -15,7 +15,7 @@ class AppTheme {
               primary: Color.fromARGB(255, 141, 139, 137),
             )
           : const ColorScheme.light(
-              primary: Color.fromARGB(255, 17, 119, 20),
+              primary: Colors.white,
             ),
       brightness: isDark ? Brightness.dark : Brightness.light,
       // fontFamily: 'Montserrat',
@@ -43,8 +43,8 @@ class AppTheme {
             : Colors.white,
         centerTitle: true,
         titleTextStyle: const TextStyle(
-            color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-        iconTheme: IconThemeData(color: isDark ? Colors.white : Colors.black),
+            color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+        iconTheme: IconThemeData(color: isDark ? Colors.white : Colors.white),
       ),
 
       // theme for elevatedButton
@@ -53,7 +53,7 @@ class AppTheme {
           foregroundColor: Colors.white,
           backgroundColor: isDark
               ? Colors.grey // Adjusted color for dark mode
-              : Color.fromARGB(255, 123, 212, 123),
+              : GlobalVariables.blueButtonLinear1,
           textStyle: const TextStyle(
               fontSize: 18,
               color: Colors.white,

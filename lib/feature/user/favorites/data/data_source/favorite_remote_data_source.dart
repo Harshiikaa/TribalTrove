@@ -77,45 +77,97 @@ class FavoriteRemoteDataSource {
     }
   }
 
+  // Future<Either<Failure, List<FavoritesEntity>>> getFavorite(int page) async {
+  //   try {
+  //     final userData = await userSharedPrefs.getUser();
+  //     if (userData == null || userData['_id'] == null) {
+  //       print('User data or user ID is null');
+  //       return Left(Failure(error: 'User data or user ID is null'));
+  //     }
+
+  //     String id = userData['_id'].toString();
+  //     final url = 'favorite/getFavorite/$id';
+  //     print('Requesting data from: $url');
+
+  //     final response = await dio.get(url, queryParameters: {
+  //       '_page': page,
+  //       '_limit': ApiEndpoints.limitPage,
+  //     });
+
+  //     if (response.statusCode == 200) {
+  //       print('Data received successfully');
+
+  //       GetFavoriteDTO getFavoriteDTO = GetFavoriteDTO.fromJson(response.data);
+  //       List<FavoritesEntity> favoriteList = getFavoriteDTO.favorites
+  //           .map((data) => FavoritesAPIModel.toEntity(data))
+  //           .toList();
+
+  //       return Right(favoriteList);
+  //     } else {
+  //       // print('Failed to get data. Status Code: ${response.statusCode}');
+
+  //       return Left(Failure(
+  //         error: response.statusMessage?.toString() ?? 'Unknown Error',
+  //         statusCode: response.statusCode.toString(),
+  //       ));
+  //     }
+  //   } on DioException catch (e) {
+  //     // print('DioException: ${e.message}');
+  //     return Left(Failure(error: e.message.toString()));
+  //   }
+  // }
+
   Future<Either<Failure, List<FavoritesEntity>>> getFavorite(int page) async {
-    try {
-      final userData = await userSharedPrefs.getUser();
-      if (userData == null || userData['_id'] == null) {
-        print('User data or user ID is null');
-        return Left(Failure(error: 'User data or user ID is null'));
-      }
-
-      String id = userData['_id'].toString();
-      final url = 'favorite/getFavorite/$id';
-      print('Requesting data from: $url');
-
-      final response = await dio.get(url, queryParameters: {
-        '_page': page,
-        '_limit': ApiEndpoints.limitPage,
-      });
-
-      if (response.statusCode == 200) {
-        // print('Data received successfully');
-
-        GetFavoriteDTO getFavoriteDTO = GetFavoriteDTO.fromJson(response.data);
-        List<FavoritesEntity> favoriteList = getFavoriteDTO.favorites
-            .map((data) => FavoritesAPIModel.toEntity(data))
-            .toList();
-
-        return Right(favoriteList);
-      } else {
-        // print('Failed to get data. Status Code: ${response.statusCode}');
-
-        return Left(Failure(
-          error: response.statusMessage?.toString() ?? 'Unknown Error',
-          statusCode: response.statusCode.toString(),
-        ));
-      }
-    } on DioException catch (e) {
-      // print('DioException: ${e.message}');
-      return Left(Failure(error: e.message.toString()));
+  try {
+    final userData = await userSharedPrefs.getUser();
+    if (userData == null || userData['_id'] == null) {
+      print('User data or user ID is null');
+      return Left(Failure(error: 'User data or user ID is null'));
     }
+    String id = userData['_id'].toString();
+    final url = 'favorite/getFavorite/$id';
+    print('Requesting data from: $url');
+    final response = await dio.get(url, queryParameters: {
+      '_page': page,
+      '_limit': ApiEndpoints.limitPage,
+    });
+
+    if (response.statusCode == 200) {
+      print('Data received successfully');
+
+      // Print the raw response data
+      print('Raw response data: ${response.data}');
+
+      GetFavoriteDTO getFavoriteDTO = GetFavoriteDTO.fromJson(response.data);
+      print('DTO converted successfully');
+
+      // Print the converted DTO
+      print('Converted DTO: $getFavoriteDTO');
+
+      List<FavoritesEntity> favoriteList = getFavoriteDTO.favorites
+          .map((data) => FavoritesAPIModel.toEntity(data))
+          .toList();
+
+      // Print the list of entities
+      print('List of entities: $favoriteList');
+
+      return Right(favoriteList);
+    } else {
+      // Print the error message if status code is not 200
+      print('Failed to get data. Status Code: ${response.statusCode}, Message: ${response.statusMessage}');
+
+      return Left(Failure(
+        error: response.statusMessage?.toString() ?? 'Unknown Error',
+        statusCode: response.statusCode.toString(),
+      ));
+    }
+  } on DioException catch (e) {
+    // Print the DioException message
+    print('DioException: ${e.message}');
+    return Left(Failure(error: e.message.toString()));
   }
+}
+
 
   // delete favorite
   Future<Either<Failure, String>> removeFavorite(

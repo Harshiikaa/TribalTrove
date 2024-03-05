@@ -33,16 +33,16 @@ class DashboardViewUser extends ConsumerStatefulWidget {
 class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
   late bool isDark = false;
 
-  late StreamSubscription<ProximityEvent> _proximityEvent;
+  // late StreamSubscription<ProximityEvent> _proximityEvent;
   @override
   void initState() {
     isDark = ref.read(isDarkThemeProvider);
     super.initState();
-    _proximityEvent = proximityEvents!.listen((ProximityEvent event) async {
-      if (event.proximity < 2) {
-        showLogoutConfirmationDialog(context);
-      }
-    });
+    // _proximityEvent = proximityEvents!.listen((ProximityEvent event) async {
+    //   if (event.proximity < 2) {
+    //     showLogoutConfirmationDialog(context);
+    //   }
+    // });
   }
 
   static const TextStyle optionStyle =
@@ -75,45 +75,45 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
       TextEditingController();
   void navigateToSearchScreen(String query) {}
 
-  Future<void> showLogoutConfirmationDialog(BuildContext context) async {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Do you want to logout?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context, false); // No
-              },
-              child: Text('No'),
-            ),
-            TextButton(
-              onPressed: () async {
-                // Remove the token when user clicks Yes
-                final userSharedPrefs = UserSharedPrefs();
-                final result = await userSharedPrefs.deleteUserToken();
+  // Future<void> showLogoutConfirmationDialog(BuildContext context) async {
+  //   return showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: Text('Do you want to logout?'),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.pop(context, false); // No
+  //             },
+  //             child: Text('No'),
+  //           ),
+  //           TextButton(
+  //             onPressed: () async {
+  //               // Remove the token when user clicks Yes
+  //               final userSharedPrefs = UserSharedPrefs();
+  //               final result = await userSharedPrefs.deleteUserToken();
 
-                result.fold(
-                  (failure) {
-                    // Handle failure
-                    print("Failed to remove token: ${failure.error}");
-                  },
-                  (success) {
-                    // Token removed successfully
-                    print("Token removed successfully");
-                    // Navigate to the login page
-                    Navigator.pushReplacementNamed(context, '/loginPage');
-                  },
-                );
-              },
-              child: Text('Yes'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  //               result.fold(
+  //                 (failure) {
+  //                   // Handle failure
+  //                   print("Failed to remove token: ${failure.error}");
+  //                 },
+  //                 (success) {
+  //                   // Token removed successfully
+  //                   print("Token removed successfully");
+  //                   // Navigate to the login page
+  //                   Navigator.pushReplacementNamed(context, '/loginPage');
+  //                 },
+  //               );
+  //             },
+  //             child: Text('Yes'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   String selectedFilter = 'Sort by Minimum Price';
   List<String> filterOptions = [
@@ -181,13 +181,13 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                                 .updateTheme(value);
                           });
                         }),
-                    IconButton(
-                      icon: const Icon(Icons.logout_outlined),
-                      onPressed: () {
-                        showLogoutConfirmationDialog(context);
-                      },
-                      iconSize: 30, // Increased icon size for the person icon
-                    ),
+                    // IconButton(
+                    //   icon: const Icon(Icons.logout_outlined),
+                    //   onPressed: () {
+                    //     showLogoutConfirmationDialog(context);
+                    //   },
+                    //   iconSize: 30, // Increased icon size for the person icon
+                    // ),
                   ],
                 ),
               ),

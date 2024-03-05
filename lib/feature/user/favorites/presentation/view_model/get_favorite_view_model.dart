@@ -41,6 +41,8 @@ class GetFavoriteViewModel extends StateNotifier<FavoritesState> {
           if (data.isEmpty) {
             state = state.copyWith(hasReachedMax: true);
           } else {
+            print('Data received successfully. Updating state.');
+
             state = state.copyWith(
               favorites: [...favorites, ...data],
               page: page,
