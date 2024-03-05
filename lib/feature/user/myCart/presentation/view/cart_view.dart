@@ -417,7 +417,7 @@ class _CheckoutSectionState extends State<CheckoutSection> {
               ),
             ),
             Text(
-              'NPR${totalPrice.toStringAsFixed(2)}',
+              'NPR 0',
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -425,7 +425,7 @@ class _CheckoutSectionState extends State<CheckoutSection> {
             ),
           ],
         ),
-        const SizedBox(height: 10),
+        // const SizedBox(height: 10),
         ElevatedButton(
           onPressed: () {
             // Add your logic for checkout here

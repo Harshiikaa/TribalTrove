@@ -53,21 +53,21 @@ class _RegisterPageViewState extends ConsumerState<RegisterPageView> {
   Widget build(BuildContext context) {
     final isConnected = ref.watch(connectivityStatusProvider);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (isConnected == ConnectivityStatus.isDisconnected) {
-        showSnackBar(
-            message: 'No Internet Connection',
-            context: context,
-            color: Colors.red);
-      } else if (isConnected == ConnectivityStatus.isConnected) {
-        showSnackBar(message: 'You are online', context: context);
-      }
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   if (isConnected == ConnectivityStatus.isDisconnected) {
+    //     showSnackBar(
+    //         message: 'No Internet Connection',
+    //         context: context,
+    //         color: Colors.red);
+    //   } else if (isConnected == ConnectivityStatus.isConnected) {
+    //     showSnackBar(message: 'You are online', context: context);
+    //   }
 
-      if (ref.watch(authViewModelProvider).showMessage!) {
-        showSnackBar(message: 'User Registerd Successfully', context: context);
-        ref.read(authViewModelProvider.notifier).resetMessage();
-      }
-    });
+    //   if (ref.watch(authViewModelProvider).showMessage!) {
+    //     showSnackBar(message: 'User Registerd Successfully', context: context);
+    //     ref.read(authViewModelProvider.notifier).resetMessage();
+    //   }
+    // });
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
