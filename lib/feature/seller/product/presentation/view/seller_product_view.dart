@@ -208,15 +208,15 @@ class _SellerProductViewState extends ConsumerState<SellerProductView> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    ProductEntity product = ProductEntity(
-                      productName: _productNameController.text,
-                      productPrice: _productPriceController.text,
-                      productCategory: _productCategoryController.text,
-                      productDescription: _productDescriptionController.text,
-                    );
-                    ref
-                        .read(productViewModelProvider.notifier)
-                        .createProduct(product);
+                    // ProductEntity product = ProductEntity(
+                    //   productName: _productNameController.text,
+                    //   productPrice: _productPriceController.to,
+                    //   productCategory: _productCategoryController.text,
+                    //   productDescription: _productDescriptionController.text,
+                    // );
+                    // ref
+                    //     .read(productViewModelProvider.notifier)
+                    //     .createProduct(product);
                   },
                   child: const Text('Add Product'),
                 ),

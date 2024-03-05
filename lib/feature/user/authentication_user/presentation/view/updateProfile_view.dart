@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:TribalTrove/core/common/provider/internet_connectivity.dart';
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view/loginPage_view.dart';
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view_model/auth_viewmodel.dart';
+import 'package:TribalTrove/feature/user/dashboard/presentation/view/dashboard_view.dart';
+import 'package:TribalTrove/feature/user/setting/presentation/view/user_setting_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -59,6 +61,17 @@ class _updateProfileViewState extends ConsumerState<UpdateProfile> {
     final isTablet = screenSize.width > 600;
     final isConnected = ref.watch(connectivityStatusProvider);
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Update Profile"),
+        leading: IconButton(
+          color: Colors.black,
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => DashboardView()));
+          },
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

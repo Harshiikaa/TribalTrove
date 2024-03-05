@@ -28,7 +28,7 @@ class UserSettingView extends ConsumerStatefulWidget {
 class _UserProfileViewState extends ConsumerState<UserSettingView> {
   late bool isDark = false;
 
-late StreamSubscription<ProximityEvent> _proximityEvent;
+  late StreamSubscription<ProximityEvent> _proximityEvent;
   @override
   void initState() {
     super.initState();
@@ -38,19 +38,45 @@ late StreamSubscription<ProximityEvent> _proximityEvent;
       }
     });
   }
-    Future<void> showLogoutConfirmationDialog(BuildContext context) async {
+
+  //  double _proximityValue = 0;
+  // final List<StreamSubscription<dynamic>> _streamSubscription = [];
+
+  // @override
+  // void initState() {
+  //   bool initialEventProcessed = false;
+
+  //   _streamSubscription.add(proximityEvents!.listen((event) {
+  //     print('Proximity Event: ${event.proximity}');
+  //     if (!initialEventProcessed) {
+  //       initialEventProcessed = true;
+  //       return;
+  //     }
+
+  //     setState(() {
+  //       _proximityValue = event.proximity;
+  //       if (_proximityValue >= 4) {
+  //         showLogoutConfirmationDialog(context);
+  //       }
+  //     });
+  //   }));
+  Future<void> showLogoutConfirmationDialog(BuildContext context) async {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Do you want to logout?', ),
+          title: Text(
+            'Do you want to logout?',
+          ),
           actions: [
             TextButton(
               onPressed: () {
-                
                 Navigator.pop(context, false); // No
               },
-              child: Text('No',style: TextStyle(color: Colors.grey),),
+              child: Text(
+                'No',
+                style: TextStyle(color: Colors.grey),
+              ),
             ),
             TextButton(
               onPressed: () async {
@@ -71,7 +97,10 @@ late StreamSubscription<ProximityEvent> _proximityEvent;
                   },
                 );
               },
-              child: Text('Yes',style: TextStyle(color: Colors.grey),),
+              child: Text(
+                'Yes',
+                style: TextStyle(color: Colors.grey),
+              ),
             ),
           ],
         );
@@ -83,7 +112,7 @@ late StreamSubscription<ProximityEvent> _proximityEvent;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text('Setting'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -145,32 +174,32 @@ late StreamSubscription<ProximityEvent> _proximityEvent;
               ),
             ),
             const SizedBox(height: 20),
-            const Row(
-              children: [
-                Icon(Icons.phone),
-                SizedBox(width: 8),
-                Center(
-                  child: Center(
-                    child: Text(
-                      '9800000000',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                ),
-                SizedBox(width: 8),
-                Text(
-                  '|',
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(width: 8),
-                Center(
-                  child: Text(
-                    'Hello',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-              ],
-            ),
+            //   const Row(
+            //     children: [
+            //       Icon(Icons.phone),
+            //       SizedBox(width: 8),
+            //       Center(
+            //         child: Center(
+            //           child: Text(
+            //             '9800000000',
+            //             style: TextStyle(fontSize: 18),
+            //           ),
+            //         ),
+            //       ),
+            //       SizedBox(width: 8),
+            //       Text(
+            //         '|',
+            //         style: TextStyle(fontSize: 18),
+            //       ),
+            //       SizedBox(width: 8),
+            //       Center(
+            //         child: Text(
+            //           'Hello',
+            //           style: TextStyle(fontSize: 18),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
           ],
         ),
       ),

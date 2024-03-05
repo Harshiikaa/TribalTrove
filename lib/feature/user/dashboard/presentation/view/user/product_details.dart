@@ -5,6 +5,7 @@ import 'package:TribalTrove/core/shared_pref/user_shared_prefs.dart';
 import 'package:TribalTrove/feature/seller/product/data/model/product_api_model.dart';
 import 'package:TribalTrove/feature/seller/product/domain/entity/product_entity.dart';
 import 'package:TribalTrove/feature/seller/product/presentation/view_model/product_view_model.dart';
+import 'package:TribalTrove/feature/user/dashboard/presentation/view/dashboard_view.dart';
 import 'package:TribalTrove/feature/user/favorites/domain/entity/favorite_entity.dart';
 import 'package:TribalTrove/feature/user/favorites/presentation/view_model/favorite_view_model.dart';
 import 'package:TribalTrove/feature/user/myCart/domain/entity/cart_entity.dart';
@@ -57,21 +58,28 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
     final productImageURL = args[5];
     'productImage';
 
-    final ProductAPIModel productEntity = ProductAPIModel(
-      productID: productID,
-      productName: productName,
-      productPrice: productPrice,
-      productDescription: productDescription,
-      productCategory: productCategory,
-      productImageURL: productImageURL,
-    );
+    // final ProductAPIModel productEntity = ProductAPIModel(
+    //   productID: productID,
+    //   productName: productName,
+    //   productPrice: productPrice,
+    //   productDescription: productDescription,
+    //   productCategory: productCategory,
+    //   productImageURL: productImageURL,
+    // );
 
-        final favoriteState = ref.watch(favoriteViewModelProvider);
+    final favoriteState = ref.watch(favoriteViewModelProvider);
     final cartState = ref.watch(cartViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Product Details'),
+        leading: IconButton(
+          color: Colors.black,
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -132,7 +140,7 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
 
                     ref
                         .read(favoriteViewModelProvider.notifier)
-                        .createFavorite(entity,context);
+                        .createFavorite(entity, context);
                   },
                 ),
                 Text(
@@ -159,7 +167,7 @@ class _ProductDetailsViewState extends ConsumerState<ProductDetailsView> {
                     );
                     ref
                         .read(cartViewModelProvider.notifier)
-                        .addToCart(entity,context);
+                        .addToCart(entity, context);
                   },
                 ),
                 Text(

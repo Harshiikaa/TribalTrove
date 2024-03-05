@@ -128,6 +128,8 @@
 //     );
 //   }
 // }
+import 'package:TribalTrove/feature/user/dashboard/presentation/view/dashboard_view.dart';
+import 'package:TribalTrove/feature/user/dashboard/presentation/view/user/dashboard_view_user.dart';
 import 'package:TribalTrove/feature/user/myCart/domain/entity/cart_entity.dart';
 import 'package:TribalTrove/feature/user/myCart/domain/entity/carts_entity.dart';
 import 'package:TribalTrove/feature/user/myCart/presentation/view_model/get_cart_view_model.dart';
@@ -166,6 +168,24 @@ class _CartViewState extends ConsumerState<CartView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cart List'),
+        leading: IconButton(
+          color: Colors.black,
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardView()));
+          },
+        ),
+          centerTitle: true,
+        actions: [
+          // Add a refresh button to the app bar
+          IconButton(
+            icon: Icon(Icons.refresh),
+            color: Colors.black,
+            onPressed: () {
+              ref.read(getCartViewModelProvider.notifier).getCart();
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -304,21 +324,85 @@ class _CartItemWidgetState extends ConsumerState<CartItemWidget> {
   }
 }
 
-class CheckoutSection extends StatelessWidget {
+// class CheckoutSection extends StatelessWidget {
+//   const CheckoutSection({Key? key, required this.cartList}) : super(key: key);
+
+//   final List<CartsEntity> cartList;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     double totalPrice = 0;
+
+//     for (final cart in cartList) {
+//       // Placeholder prices; replace with actual product price from your data
+//       double productPrice = 25.99;
+//       totalPrice += productPrice * cart.quantity;
+//     }
+
+//     return Column(
+//       children: [
+//         const Divider(),
+//         Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: [
+//             const Text(
+//               'Total:',
+//               style: TextStyle(
+//                 fontSize: 18,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//             ),
+//             Text(
+//               '\$${totalPrice.toStringAsFixed(2)}',
+//               style: const TextStyle(
+//                 fontSize: 18,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//             ),
+//           ],
+//         ),
+//         const SizedBox(height: 10),
+//         ElevatedButton(
+//           onPressed: () {
+//             // Add your logic for checkout here
+//             print('Checkout button pressed!');
+//           },
+//           child: const Text('Checkout'),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
+class CheckoutSection extends StatefulWidget {
   const CheckoutSection({Key? key, required this.cartList}) : super(key: key);
 
   final List<CartsEntity> cartList;
 
   @override
-  Widget build(BuildContext context) {
-    double totalPrice = 0;
+  _CheckoutSectionState createState() => _CheckoutSectionState();
+}
 
-    for (final cart in cartList) {
+class _CheckoutSectionState extends State<CheckoutSection> {
+  late double totalPrice;
+
+  @override
+  void initState() {
+    super.initState();
+    calculateTotalPrice();
+  }
+
+  void calculateTotalPrice() {
+    totalPrice = 0;
+    for (final cart in widget.cartList) {
       // Placeholder prices; replace with actual product price from your data
-      double productPrice = 25.99;
+      double productPrice = double.parse(cart.productID?['productPrice']);
       totalPrice += productPrice * cart.quantity;
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         const Divider(),
@@ -333,7 +417,7 @@ class CheckoutSection extends StatelessWidget {
               ),
             ),
             Text(
-              '\$${totalPrice.toStringAsFixed(2)}',
+              'NPR${totalPrice.toStringAsFixed(2)}',
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -351,5 +435,11 @@ class CheckoutSection extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  @override
+  void didUpdateWidget(covariant CheckoutSection oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    calculateTotalPrice();
   }
 }

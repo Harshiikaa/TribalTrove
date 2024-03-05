@@ -128,12 +128,9 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
 
   @override
   Widget build(BuildContext context) {
-    // final List<bool> isFavoriteList = List.generate(5, (index) => false);
-
     final productState = ref.watch(productViewModelProvider);
     List<ProductEntity?>? products = productState.products;
 
-    // final dashboardState = ref.watch(dashboardViewModelProvider);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
@@ -270,6 +267,38 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                 fontSize: MediaQuery.of(context).size.width > 600 ? 24 : 20,
               ),
             ),
+
+            //     DropdownButton<String>(
+            //   value: selectedFilter,
+            //   items: filterOptions.map((String option) {
+            //     return DropdownMenuItem<String>(
+            //       value: option,
+            //       child: Text(option),
+            //     );
+            //   }).toList(),
+            //   onChanged: (String? newValue) {
+            //     if (newValue != null) {
+            //       setState(() {
+            //         selectedFilter = newValue;
+            //         // Perform sorting based on selected option
+            //         if (selectedFilter == 'Sort by Minimum Price') {
+            //           products.sort((a, b) =>
+            //               (double.tryParse(a?.productPrice ?? '') ?? 0.0)
+            //                   .compareTo(
+            //                       double.tryParse(b?.productPrice ?? '') ??
+            //                           0.0));
+            //         } else if (selectedFilter == 'Sort by Maximum Price') {
+            //           products.sort((a, b) =>
+            //               (double.tryParse(b?.productPrice ?? '') ?? 0.0)
+            //                   .compareTo(
+            //                       double.tryParse(a?.productPrice ?? '') ??
+            //                           0.0));
+            //         }
+            //       });
+            //     }
+            //   },
+            // ),
+
             DropdownButton<String>(
               value: selectedFilter,
               items: filterOptions.map((String option) {
@@ -284,106 +313,107 @@ class _DashboardPageUserState extends ConsumerState<DashboardViewUser> {
                     selectedFilter = newValue;
                     // Perform sorting based on selected option
                     if (selectedFilter == 'Sort by Minimum Price') {
-                      products.sort((a, b) =>
-                          (double.tryParse(a?.productPrice ?? '') ?? 0.0)
-                              .compareTo(
-                                  double.tryParse(b?.productPrice ?? '') ??
-                                      0.0));
+                      products.sort((a, b) => (a?.productPrice ?? 0)
+                          .compareTo(b?.productPrice ?? 0));
                     } else if (selectedFilter == 'Sort by Maximum Price') {
-                      products.sort((a, b) =>
-                          (double.tryParse(b?.productPrice ?? '') ?? 0.0)
-                              .compareTo(
-                                  double.tryParse(a?.productPrice ?? '') ??
-                                      0.0));
+                      products.sort((a, b) => (b?.productPrice ?? 0)
+                          .compareTo(a?.productPrice ?? 0));
                     }
                   });
                 }
               },
             ),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
-                crossAxisSpacing: 8.0, // Spacing between columns
-                mainAxisSpacing: 8.0, // Spacing between rows
-              ),
-              itemCount: products
-                  .where((product) =>
-                      _searchController.text.isEmpty ||
-                      product!.productName
-                          .toLowerCase()
-                          .contains(_searchController.text.toLowerCase()))
-                  .length,
-              itemBuilder: (context, index) {
-                final filteredProducts = products
-                    .where((product) =>
-                        _searchController.text.isEmpty ||
-                        product!.productName
-                            .toLowerCase()
-                            .contains(_searchController.text.toLowerCase()))
-                    .toList();
 
-                return GestureDetector(
-                  onTap: () {
-                    // Navigate to the product details page with arguments
-                    Navigator.pushNamed(
-                      context,
-                      "/productDetails",
-                      arguments: [
-                        filteredProducts[index]?.productID,
-                        filteredProducts[index]?.productName,
-                        filteredProducts[index]?.productPrice.toString(),
-                        filteredProducts[index]?.productDescription,
-                        filteredProducts[index]?.productCategory,
-                        filteredProducts[index]?.productImageURL,
-                      ],
-                    );
-                  },
-                  child: Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+            productState.isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount:
+                          MediaQuery.of(context).size.width > 600 ? 3 : 2,
+                      crossAxisSpacing: 8.0, // Spacing between columns
+                      mainAxisSpacing: 8.0, // Spacing between rows
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.width > 600
-                                ? 120
-                                : 80,
-                            child: Image.network(
-                              filteredProducts[index]?.productImageURL ?? '',
-                              fit: BoxFit.cover,
+                    itemCount: products
+                        .where((product) =>
+                            _searchController.text.isEmpty ||
+                            product!.productName
+                                .toLowerCase()
+                                .contains(_searchController.text.toLowerCase()))
+                        .length,
+                    itemBuilder: (context, index) {
+                      final filteredProducts = products
+                          .where((product) =>
+                              _searchController.text.isEmpty ||
+                              product!.productName.toLowerCase().contains(
+                                  _searchController.text.toLowerCase()))
+                          .toList();
+
+                      return GestureDetector(
+                        onTap: () {
+                          // Navigate to the product details page with arguments
+                          Navigator.pushNamed(
+                            context,
+                            "/productDetails",
+                            arguments: [
+                              filteredProducts[index]?.productID,
+                              filteredProducts[index]?.productName,
+                              filteredProducts[index]?.productPrice.toString(),
+                              filteredProducts[index]?.productDescription,
+                              filteredProducts[index]?.productCategory,
+                              filteredProducts[index]?.productImageURL,
+                            ],
+                          );
+                        },
+                        child: Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.width > 600
+                                          ? 120
+                                          : 80,
+                                  child: Image.network(
+                                    filteredProducts[index]?.productImageURL ??
+                                        '',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  '${filteredProducts[index]?.productName}',
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width > 600
+                                            ? 18
+                                            : 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  'NPR.${filteredProducts[index]?.productPrice}',
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width > 600
+                                            ? 18
+                                            : 16,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(height: 8),
-                          Text(
-                            '${filteredProducts[index]?.productName}',
-                            style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.width > 600
-                                  ? 18
-                                  : 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'NPR.${filteredProducts[index]?.productPrice}',
-                            style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.width > 600
-                                  ? 18
-                                  : 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
 
             // : ListView.builder(
             //     shrinkWrap: true,

@@ -37,6 +37,7 @@ class ProductViewModel extends StateNotifier<ProductState> {
   }
 
   void getAllProducts() {
+    print('Start fetching all products...');
     state = state.copyWith(isLoading: true);
     getAllProductsUsecase.getAllProducts().then((value) {
       value.fold(

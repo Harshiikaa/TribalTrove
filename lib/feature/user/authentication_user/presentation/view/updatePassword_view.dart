@@ -1,4 +1,6 @@
 import 'package:TribalTrove/feature/user/authentication_user/presentation/view_model/auth_viewmodel.dart';
+import 'package:TribalTrove/feature/user/dashboard/presentation/view/dashboard_view.dart';
+import 'package:TribalTrove/feature/user/setting/presentation/view/user_setting_.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -22,8 +24,16 @@ class _UpdatePasswordViewState extends ConsumerState<UpdatePasswordView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Update Password'),
+        title: Text("Change Password"),
+           leading: IconButton(
+          color: Colors.black,
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardView()));
+          },
+        ),
       ),
+      
       body: Padding(
         padding: const EdgeInsets.all(25.0),
         child: Form(

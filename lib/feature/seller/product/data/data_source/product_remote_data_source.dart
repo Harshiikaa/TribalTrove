@@ -76,4 +76,41 @@ class ProductRemoteDataSource {
       return Left(Failure(error: e.response?.data['message']));
     }
   }
+
+//   Future<Either<Failure, List<ProductEntity>>> getAllProducts() async {
+//   try {
+//     var response = await dio.get(ApiEndpoints.getAllProducts);
+//     if (response.statusCode == 200) {
+//       print("Received data successfully");
+//       GetAllProductsDTO getAllProductsDTO =
+//           GetAllProductsDTO.fromJson(response.data);
+//       print("DTO converted successfully");
+//       // Convert ProductsAPIModel to ProductsEntity
+//       List<ProductEntity> productList = getAllProductsDTO.products
+//           .map((products) => ProductAPIModel.toEntity(products))
+//           .toList();
+//       return Right(productList);
+//     } else {
+//       print(
+//           "Failed to get all products. Status Code: ${response.statusCode}, Message: ${response.statusMessage}");
+//       return Left(
+//         Failure(
+//           error: response.statusMessage.toString(),
+//           statusCode: response.statusCode.toString(),
+//         ),
+//       );
+//     }
+//   } on DioError catch (e) {
+//     print("DioError during getAllProducts: ${e.message}");
+//     // Handle DioError as needed
+//     return Left(Failure(error: e.response?.data['message']));
+//   } on DioException catch (e) {
+//     print("DioException during getAllProducts: ${e.message}");
+//     // Handle DioException as needed
+//     return Left(Failure(error: "Gehieh"));
+//   }
+// }
+
+
+
 }
